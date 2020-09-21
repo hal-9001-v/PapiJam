@@ -6,23 +6,45 @@ using UnityEngine.Events;
 
 public class TextBox : MonoBehaviour
 {
-    private TextMeshProUGUI myText;
-    public string message;
+    public TextMeshProUGUI myText;
+    [TextArea(0, 4)]
+    public string[] message;
     public float delay;
 
     public UnityEvent startTextEvent;
     public UnityEvent endTextEvent;
 
+    public TextBox nextTextBox;
+
+    public bool pressToContinue;
+
+    public KeyCode interactionKey;
+
+    public bool atStart;
+
     private void Awake()
     {
-        myText = GetComponent<TMPro.TextMeshProUGUI>();
-
         if (myText == null)
         {
-            Debug.LogWarning("No TextMeshProUGUI attached to object");
+            myText = GetComponent<TMPro.TextMeshProUGUI>();
+
+            if (myText == null)
+            {
+                Debug.LogWarning("No TextMeshProUGUI attached to object");
+            }
+
         }
 
-        startTyping();
+        if (atStart)
+        {
+            showText();
+            startTyping();
+        }
+        else
+        {
+            hideText();
+        }
+
     }
 
     public void startTyping()
@@ -30,20 +52,82 @@ public class TextBox : MonoBehaviour
         StartCoroutine(Type());
     }
 
+    public void showText()
+    {
+        GetComponent<CanvasRenderer>().SetAlpha(1);
+
+        foreach (Transform child in transform)
+        {
+            child.gameObject.SetActive(true);
+
+        }
+
+        gameObject.SetActive(true);
+
+    }
+    public void hideText()
+    {
+        GetComponent<CanvasRenderer>().SetAlpha(0);
+
+        foreach (Transform child in transform)
+        {
+            child.gameObject.SetActive(false);
+        }
+
+        enabled = false;
+
+    }
+
     IEnumerator Type()
     {
+        showText();
         startTextEvent.Invoke();
-        myText.text = "";
-        foreach (char c in message.ToCharArray())
+
+
+        foreach (string line in message)
         {
 
-            myText.text += c;
+            myText.text = "";
+            foreach (char c in line.ToCharArray())
+            {
 
-            yield return new WaitForSeconds(delay);
+                myText.text += c;
+
+                //Sounds
+
+                if (Input.GetKeyDown(interactionKey))
+                {
+                    myText.text = line;
+
+                    yield return null;
+
+                    goto EndOfTyping;
+                }
+
+                yield return new WaitForSeconds(delay);
+
+            }
+            
+        EndOfTyping:
+
+            if (pressToContinue)
+            {
+                while (!Input.GetKeyDown(interactionKey))
+                {
+                    yield return null;
+                }
+
+                yield return null;
+            }
+
         }
 
         endTextEvent.Invoke();
 
-        yield return null;
+        hideText();
+
+        if (nextTextBox != null)
+            nextTextBox.startTyping();
     }
+
 }
