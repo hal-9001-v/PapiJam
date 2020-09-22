@@ -24,6 +24,9 @@ public class GameAssets : MonoBehaviour
     public SwordScript[] meleeAttack;
     public BulletScript bullet;
     public Material[] mArray;
+    public Mesh[] meshArray;
+    public Material[] mOArray;
+    public Mesh[] meshOArray;
     //public Sprite[] hpArray;
 
     //public ParticleSystem[] ps;
