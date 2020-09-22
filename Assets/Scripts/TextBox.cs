@@ -6,6 +6,7 @@ using UnityEngine.Events;
 
 public class TextBox : MonoBehaviour
 {
+    
     public TextMeshProUGUI myText;
     [TextArea(0, 4)]
     public string[] message;
@@ -24,6 +25,7 @@ public class TextBox : MonoBehaviour
 
     private void Awake()
     {
+        
         if (myText == null)
         {
             myText = GetComponent<TMPro.TextMeshProUGUI>();
