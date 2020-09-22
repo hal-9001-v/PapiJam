@@ -8,25 +8,49 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerController : MonoBehaviour
 {
+
+    Collider cl;
     private Rigidbody rb;
-    
-    private Vector2 wasdInput;
-    private Vector3 walkVelocity;
-    private Vector3 lastPos;    
+    Quaternion playerRotation = Quaternion.Euler(0,0,180) ;
+    public Vector2 wasdInput;
+    public Vector3 walkVelocity;
+    public Vector3 lasWalkVel;
+    private enum FacingDirection {North,South,East,West};
+    FacingDirection facing = FacingDirection.South;
+    public Vector3 prevWalkVelocity;
+    public int id;
+    public OrbitalScript os;
+    PlayerController playerHit;
+    //Control Booleans
+
     public bool canSwing = true;
     public bool canDash = true;
     public bool canMove = true;
+    public bool canShoot = true;
+    public bool isHit = true;
+    //Player Stats
+    public float  DashCD;
+    public float  ShootCD;
+    public float walkSpeed ;
+    public float rotateSpeed;
 
-    public float  DashCD = 0.7f;
-    public float walkSpeed = 6f;
-        GameObject sword; 
+    //GOs
+    SwordScript sword; 
 
     private void Awake()
     {
+        cl = GetComponent<Collider>();
+        id = cl.GetInstanceID();
         rb = GetComponent<Rigidbody>();
-
+        os = GetComponentInChildren<OrbitalScript>();
     }
+    private void Start() {
 
+      DashCD = 0.7f;
+      ShootCD = 0.2f;
+     walkSpeed = 6f;
+     rotateSpeed = 8f;
+    }
     private void Update() {
     }
     private void OnMovement(InputValue value)
@@ -37,8 +61,66 @@ public class PlayerController : MonoBehaviour
         } else {
             wasdInput = Vector2.zero;
         }
+        
     }
-    
+
+   
+    private void OnShoot(){
+        
+        if(canShoot){
+        canShoot = false;
+        os.Shoot();
+        }
+        
+    }
+
+    //id 1 = bullet, id 2 = sword
+    public void Hit (float force, int id, Vector3 dir,float time){
+        isHit = true;
+        canDash = false;
+        canMove = false;
+        canShoot = false;
+        canSwing = false;
+
+        Debug.Log("FUUUUUUUCK");
+
+        if(id == 1) {
+            rb.AddForce(dir*force);
+            Debug.Log("BulletHit");
+            StartCoroutine(HitStun(time));
+        }
+        else if (id == 2){
+            rb.AddForce(dir*force);
+            Debug.Log("SwordHit");
+            StartCoroutine(HitStun(time));
+        }
+
+    }
+
+    IEnumerator HitStun(float hitstun){
+        yield return new WaitForSeconds(hitstun);
+            rb.velocity = Vector3.zero;
+            canDash = true;
+            canMove = true;
+            canSwing = true;
+            canShoot = true;
+            isHit = false;
+    }
+
+    private void OnCollisionEnter(Collision col) {
+        if((col.gameObject.tag.Equals("Wall")|| col.gameObject.tag.Equals("Player")) && isHit == true){
+            Debug.Log("HitWall");
+            rb.velocity = Vector3.zero;
+            canDash = true;
+            canMove = true;
+            canSwing = true;
+            canShoot = true;
+            isHit = false;
+        }
+    }
+
+   
+
     private void OnMelee(){
         
         if((sword != null || true)&& canSwing) { 
@@ -46,6 +128,7 @@ public class PlayerController : MonoBehaviour
         canSwing = false;
         canMove = false;
         sword = Instantiate(GameAssets.i.meleeAttack[0], new Vector3(transform.position.x, transform.position.y, transform.localPosition.z), transform.rotation);
+        sword.player = this.gameObject.GetComponent<PlayerController>();
         sword.transform.parent = gameObject.transform;
         StartCoroutine(Slicing());}
     }
@@ -57,7 +140,6 @@ public class PlayerController : MonoBehaviour
         sword.transform.Rotate(0,15,0);
         }
         yield return new WaitForSeconds(0.45f);
-        Destroy(sword);        
         yield return new WaitForSeconds(0.1f);
         canMove = true;
         canSwing = true;
@@ -90,6 +172,7 @@ public class PlayerController : MonoBehaviour
 
     private void ProcessInput()
     {
+        if(walkVelocity != Vector3.zero) lasWalkVel = walkVelocity;
         walkVelocity = Vector3.zero;
 
         float vval = 0f;
@@ -101,24 +184,60 @@ public class PlayerController : MonoBehaviour
         else if (wasdInput.x < 0f) { hval -= 1f; }
 
         if (vval != 0) { walkVelocity += Vector3.forward * vval * walkSpeed;
-            lastPos = walkVelocity;
  }
         if (hval != 0) { walkVelocity += Vector3.right * hval * walkSpeed; 
-            lastPos = walkVelocity;
         }
     }
 
+    private void CheckForFacingDirectionChange(){
+        if (walkVelocity == Vector3.zero) {return;}
+        if(walkVelocity.x == 0 || walkVelocity.y == 0) {
+            ChangeFacingDirection(walkVelocity);
+        }
+        else{
+            if(prevWalkVelocity.x == 0){
+            ChangeFacingDirection(new Vector3(walkVelocity.x,0,0));
+            } else if(prevWalkVelocity.z == 0){
+                ChangeFacingDirection(new Vector3(0,0,walkVelocity.z));
+            } else {
+                Debug.LogWarning("Unexpected walkVelocity value.");
+                ChangeFacingDirection(walkVelocity);
+                            }
+        } 
+    }
+
+    private void ChangeFacingDirection(Vector3 dir){
+
+        if(dir.z != 0){
+            facing = (dir.z >0) ? FacingDirection.North : FacingDirection.South;
+        }
+        if(dir.x != 0){
+            facing = (dir.x > 0)? FacingDirection.East:FacingDirection.West;
+        }
+
+        transform.localRotation = Quaternion.Slerp(transform.rotation,Quaternion.LookRotation(-walkVelocity), rotateSpeed * Time.deltaTime);
+
+    }
+
     private void LateUpdate()
-    {
-        if(canMove){
-        if (wasdInput == Vector2.zero) { walkVelocity = Vector3.zero;
- 
-}
+    { 
+        if (wasdInput == Vector2.zero ) { 
+            walkVelocity = Vector3.zero;
+        } 
 
-        rb.velocity = new Vector3(walkVelocity.x, rb.velocity.y, walkVelocity.z);
+        if(prevWalkVelocity != walkVelocity) {CheckForFacingDirectionChange();}
     
-    }
-                    transform.rotation = Quaternion.LookRotation(-lastPos);     
+    if(canMove){
+        rb.velocity = new Vector3(walkVelocity.x, rb.velocity.y, walkVelocity.z);
+    } 
+
+    
 
     }
+
+
+
+            
+
+
 }

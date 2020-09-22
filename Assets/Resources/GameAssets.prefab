@@ -89,6 +89,7 @@ MonoBehaviour:
   - sound: 21
     audioClip: {fileID: 8300000, guid: b2f722818b3cdf440bf4c49c3b427cf6, type: 3}
   meleeAttack:
-  - {fileID: 6355458438687519628, guid: a33a0700a2ab4b74683199531dca79ab, type: 3}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 8937639319041034885, guid: a33a0700a2ab4b74683199531dca79ab, type: 3}
+  - {fileID: 8937639319041034885, guid: a33a0700a2ab4b74683199531dca79ab, type: 3}
+  - {fileID: 8937639319041034885, guid: a33a0700a2ab4b74683199531dca79ab, type: 3}
+  bullet: {fileID: 5559611078294924979, guid: 76fde1cfc73dd954daeadf4ba35ee308, type: 3}
