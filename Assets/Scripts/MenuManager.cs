@@ -68,10 +68,10 @@ public class MenuManager : MonoBehaviour
     private void playerNumSelect()
     {
 
-        iTween.MoveTo(playersNumSelector, iTween.Hash("y", 300, "time", 1.5f, "easetype", "easeOutQuint"));
-        iTween.MoveTo(botonesMain[0], iTween.Hash("x", 2500, "time", 1.5f, "easetype", "easeOutQuint"));
-        iTween.MoveTo(botonesMain[1], iTween.Hash("x", -300, "time", 1.5f, "easetype", "easeOutQuint"));
-        iTween.MoveTo(botonesMain[2], iTween.Hash("x", 2500, "time", 1.5f, "easetype", "easeOutQuint"));
+        iTween.MoveTo(playersNumSelector, iTween.Hash("y",  -7.2, "time", 1.5f, "easetype", "easeOutQuint"));
+        iTween.MoveTo(botonesMain[0], iTween.Hash("x", 45, "time", 1.5f, "easetype", "easeOutQuint"));
+        iTween.MoveTo(botonesMain[1], iTween.Hash("x", -45, "time", 1.5f, "easetype", "easeOutQuint"));
+        iTween.MoveTo(botonesMain[2], iTween.Hash("x", 45, "time", 1.5f, "easetype", "easeOutQuint"));
 
         //setNumber();
         playerNumTx.text = playersNum.ToString();
@@ -150,8 +150,8 @@ public class MenuManager : MonoBehaviour
 
     void SubirPersonajes()
     {
-        iTween.MoveTo(fondo, iTween.Hash("y", 200, "time", 1.5f, "easetype", "easeOutQuint"));
-        iTween.MoveTo(casillasPersonajes, iTween.Hash("y", 50, "time", 1.5f, "easetype", "easeOutQuint"));
+        iTween.MoveTo(fondo, iTween.Hash("y", -46f, "time", 1.5f, "easetype", "easeOutQuint"));
+        iTween.MoveTo(casillasPersonajes, iTween.Hash("y", -15.7f, "time", 1.5f, "easetype", "easeOutQuint"));
         columnasArray[0].SetActive(true);
         columnasArray[1].SetActive(true);
         if (playersNum > 2)
@@ -170,7 +170,7 @@ public class MenuManager : MonoBehaviour
                 columnasArray[2].SetActive(false);
             }
         }
-        iTween.MoveTo(columnas, iTween.Hash("y", 250, "time", 3f, "easetype", "easeOutQuint"));
+        iTween.MoveTo(columnas, iTween.Hash("y", -35, "time", 3f, "easetype", "easeOutQuint"));
 
         MenuPersonajes();
     }
@@ -257,7 +257,7 @@ public class MenuManager : MonoBehaviour
             isNumSelected = true;
             audioPlay.clip = sonidos[0];
             audioPlay.Play();
-            iTween.MoveTo(playersNumSelector, iTween.Hash("y", -300, "time", 1.5f, "easetype", "easeOutQuint"));
+            iTween.MoveTo(playersNumSelector, iTween.Hash("y", -26, "time", 1.5f, "easetype", "easeOutQuint"));
         }
     }
 
@@ -266,20 +266,20 @@ public class MenuManager : MonoBehaviour
         if (play && !isNumSelected)
         {
             play = !play;
-            iTween.MoveTo(playersNumSelector, iTween.Hash("y", -300, "time", 1.5f, "easetype", "easeOutQuint"));
+            iTween.MoveTo(playersNumSelector, iTween.Hash("y", -26, "time", 1.5f, "easetype", "easeOutQuint"));
             for (int i = 0; i < botonesMain.Length; i++)
             {
-                iTween.MoveTo(botonesMain[i], iTween.Hash("x", 950, "time", 1.5f, "easetype", "easeOutQuint"));
+                iTween.MoveTo(botonesMain[i], iTween.Hash("x", 0, "time", 1.5f, "easetype", "easeOutQuint"));
             }
         }
 
         if (isNumSelected)
         {
             isNumSelected = !isNumSelected;
-            iTween.MoveTo(fondo, iTween.Hash("y", -1500, "time", 1.5f, "easetype", "easeOutQuint"));
-            iTween.MoveTo(casillasPersonajes, iTween.Hash("y", -500, "time", 1.5f, "easetype", "easeOutQuint"));
-            iTween.MoveTo(columnas, iTween.Hash("y", -500, "time", 3f, "easetype", "easeOutQuint"));
-            iTween.MoveTo(playersNumSelector, iTween.Hash("y", 300, "time", 1.5f, "easetype", "easeOutQuint"));
+            iTween.MoveTo(fondo, iTween.Hash("y", -205, "time", 1.5f, "easetype", "easeOutQuint"));
+            iTween.MoveTo(casillasPersonajes, iTween.Hash("y", -34, "time", 1.5f, "easetype", "easeOutQuint"));
+            iTween.MoveTo(columnas, iTween.Hash("y", -70, "time", 3f, "easetype", "easeOutQuint"));
+            iTween.MoveTo(playersNumSelector, iTween.Hash("y", -7.2, "time", 1.5f, "easetype", "easeOutQuint"));
 
         }
 
