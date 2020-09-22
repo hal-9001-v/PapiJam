@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour
 {
 
     Collider cl;
-    private Rigidbody rb;
+    public Rigidbody rb;
     Quaternion playerRotation = Quaternion.Euler(0,0,180) ;
     public Vector2 wasdInput;
     public Vector3 walkVelocity;

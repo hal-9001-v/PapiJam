@@ -1,6 +1,10 @@
 ﻿using System.Collections;
+using UnityEngine.InputSystem;
 using System.Collections.Generic;
 using UnityEngine;
+
+
+
 
 public class OrbitalScript : MonoBehaviour
 {
@@ -11,13 +15,24 @@ public class OrbitalScript : MonoBehaviour
     BulletScript bullet;
     PlayerController player;
     public float bulletSpeed = 5f;
+
+    public Vector3 walkVelocity;
+    public Vector3 lastWalkVelocity;
+
+    private Vector2 arrowInput;
+    Rigidbody rb;
+
+    bool firstTime;
     // Start is called before the first frame update
     private void Awake() {
+        firstTime = true;
         player = GetComponentInParent<PlayerController>();
+        rb = GetComponent<Rigidbody>();
+        
     }
+    
     void Start()
     {   
-        
         pos = transform.localPosition.y;
         restart = false;
     }
@@ -26,7 +41,8 @@ public class OrbitalScript : MonoBehaviour
 
     // Update is called once per frame
     void FixedUpdate()
-    {   
+    {       
+       gameObject.transform.position = transform.position = player.transform.position + (transform.position - player.transform.position).normalized * 0.2f;;
        OrbitalAnimation();
     }
 
@@ -37,8 +53,7 @@ public class OrbitalScript : MonoBehaviour
         bullet = Instantiate(GameAssets.i.bullet,new Vector3(transform.position.x , transform.position.y ,transform.position.z), transform.rotation);
         bullet.player = player;
         bullet.parentId = player.id;
-        if(player.walkVelocity != Vector3.zero) bullet.rb.AddForce(player.walkVelocity * 100);
-        else bullet.rb.AddForce(player.lasWalkVel * 100);
+        bullet.rb.AddForce(lastWalkVelocity*100);
         StartCoroutine(ShootCDing());
     }
 
@@ -70,5 +85,47 @@ public class OrbitalScript : MonoBehaviour
         }
 
     }
+
+        private void OnAim(InputValue value)
+    {
+        arrowInput = value.Get<Vector2>();
+        Debug.Log(arrowInput);
+        ProcessInput();
+        
+    }
+
+      float OrbitSpeed = 500.0f;
+
+    void ProcessInput(){
+      
+
+       if(walkVelocity != Vector3.zero) lastWalkVelocity = walkVelocity;
+        gameObject.transform.parent.LookAt(transform.position  - lastWalkVelocity);
+        walkVelocity = Vector3.zero;
+
+        float vval = 0f;
+        if (arrowInput.y > 0f) { vval += 1f; }
+        else if (arrowInput.y < 0f) { vval -= 1f; }
+
+        float hval = 0f;
+        if (arrowInput.x > 0f) { hval += 1f; }
+        else if (arrowInput.x < 0f) { hval -= 1f; }
+
+        if (vval != 0) { walkVelocity += Vector3.forward * vval * 6f;
+}
+        if (hval != 0) { walkVelocity += Vector3.right * hval * 6f; 
+}
+            }
+
+
+    private void LateUpdate()
+    { 
+        if (arrowInput == Vector2.zero ) { 
+            walkVelocity = Vector3.zero;
+            
+            } 
+
+    }
+
 
 }
