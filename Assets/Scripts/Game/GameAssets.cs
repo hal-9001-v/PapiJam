@@ -23,6 +23,7 @@ public class GameAssets : MonoBehaviour
     public SoundAudioClip[] soundAudioClipArryay;
     public SwordScript[] meleeAttack;
     public BulletScript bullet;
+    public Material[] mArray;
     //public Sprite[] hpArray;
 
     //public ParticleSystem[] ps;

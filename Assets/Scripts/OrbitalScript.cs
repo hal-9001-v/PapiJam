@@ -89,7 +89,6 @@ public class OrbitalScript : MonoBehaviour
         private void OnAim(InputValue value)
     {
         arrowInput = value.Get<Vector2>();
-        Debug.Log(arrowInput);
         ProcessInput();
         
     }
