@@ -45,11 +45,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pis: {fileID: 0}
-  meshRenderers: []
   meshP1: {fileID: 0}
   meshP2: {fileID: 0}
   meshP3: {fileID: 0}
   meshP4: {fileID: 0}
+  meshFP1: {fileID: 0}
+  meshFP2: {fileID: 0}
+  meshFP3: {fileID: 0}
+  meshFP4: {fileID: 0}
+  meshO1: {fileID: 0}
+  meshO2: {fileID: 0}
+  meshO3: {fileID: 0}
+  meshO4: {fileID: 0}
+  meshFO1: {fileID: 0}
+  meshFO2: {fileID: 0}
+  meshFO3: {fileID: 0}
+  meshFO4: {fileID: 0}
 --- !u!1 &3189982434283658152
 GameObject:
   m_ObjectHideFlags: 0
@@ -148,7 +159,7 @@ MonoBehaviour:
       m_Interactions: 
       m_SingletonActionBindings: []
     m_Reference: {fileID: 0}
-  m_PlayerPrefab: {fileID: 988563371761283702, guid: 0aa13e247f08e4e42a5b889fbdf7a4a8,
+  m_PlayerPrefab: {fileID: 7321148875232545910, guid: 0aa13e247f08e4e42a5b889fbdf7a4a8,
     type: 3}
   m_SplitScreen: 0
   m_MaintainAspectRatioInSplitScreen: 0
