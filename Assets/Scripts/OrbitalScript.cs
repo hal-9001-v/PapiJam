@@ -3,9 +3,6 @@ using UnityEngine.InputSystem;
 using System.Collections.Generic;
 using UnityEngine;
 
-
-
-
 public class OrbitalScript : MonoBehaviour
 {
     const int TOP = 50;
@@ -42,15 +39,14 @@ public class OrbitalScript : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {       
-       gameObject.transform.position = transform.position = player.transform.position + (transform.position - player.transform.position).normalized * 0.2f;;
-       OrbitalAnimation();
+       //OrbitalAnimation();
     }
 
     public void Shoot(){
 
         Debug.Log("FIIIRE A LAZER PRUUUUU");
         
-        bullet = Instantiate(GameAssets.i.bullet,new Vector3(transform.position.x , transform.position.y ,transform.position.z), transform.rotation);
+        bullet = Instantiate(GameAssets.i.bullet,transform.position);
         bullet.player = player;
         bullet.parentId = player.id;
         bullet.rb.AddForce(lastWalkVelocity*100);
