@@ -7,8 +7,6 @@ public class SwordScript : MonoBehaviour
     public Rigidbody rb;
     public PlayerController player;
 
-    PlayerController playerHit;
-
     public float swordForce = 150;
     public float hitStunTime = 1;
 
@@ -16,7 +14,8 @@ public class SwordScript : MonoBehaviour
 
     public float rotation = 15;
 
-    public void attack() {
+    public void attack()
+    {
         gameObject.SetActive(true);
 
         StartCoroutine(Attack());
@@ -37,7 +36,7 @@ public class SwordScript : MonoBehaviour
         player.rb.velocity = Vector3.zero;
         player.canMove = false;
         player.canSwing = false;
-        
+
         for (int i = 0; i < 5; i++)
         {
             yield return new WaitForSeconds(0.1f);
@@ -54,18 +53,25 @@ public class SwordScript : MonoBehaviour
 
     }
 
-    private void OnTriggerEnter(Collider col) {            
-        Debug.Log("PlayerHit");
-      if( (col.gameObject.tag.Equals("Player") )){
-            if(player.walkVelocity != Vector3.zero) dir = player.walkVelocity;
-             else dir = player.lastWalkVel;
-            if(col.gameObject != null)
-            playerHit = col.gameObject.GetComponent<PlayerController>();
-            playerHit.Hit(swordForce,2,dir,hitStunTime);
+    private void OnTriggerEnter(Collider col)
+    {
+
+        if ((col.gameObject.tag.Equals("Player")))
+        {
+            PlayerController hitPlayer = col.GetComponent<PlayerController>();
+
+            if (hitPlayer != null)
+            {
+                dir = Vector3.Normalize(hitPlayer.transform.position - transform.position);
+
+                hitPlayer.Hit(swordForce, dir, hitStunTime);
+
             }
-         
+
+        }
+
     }
-         
-        
-  
+
+
+
 }

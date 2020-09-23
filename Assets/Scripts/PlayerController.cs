@@ -10,9 +10,7 @@ public class PlayerController : MonoBehaviour
 {
 
     public Rigidbody rb;
-    public Vector2 wasdInput;
     public Vector3 walkVelocity;
-    public Vector3 lastWalkVel;
 
     public Vector3 prevWalkVelocity;
 
@@ -32,9 +30,22 @@ public class PlayerController : MonoBehaviour
     public float rotateSpeed;
     public int PlayerID;
     public int dashCount;
+
+
     //GOs
-    SwordScript sword;
+    public SwordScript sword;
     public OrbitalScript orbital;
+
+    public float carForce = 100;
+
+    enum playerState
+    {
+        normal = 0,
+        car = 1,
+
+    }
+
+    private int currentState;
 
     private void Awake()
     {
@@ -47,10 +58,16 @@ public class PlayerController : MonoBehaviour
         dashCount = 1;
         //GO inicialization
         rb = GetComponent<Rigidbody>();
-        orbital = GetComponentInChildren<OrbitalScript>();
-        sword = GetComponentInChildren<SwordScript>();
+
+        if (orbital == null)
+            orbital = GetComponentInChildren<OrbitalScript>();
+
+        if (sword == null)
+            sword = GetComponentInChildren<SwordScript>();
 
         sword.player = this;
+
+        currentState = 1;
     }
     private void Start()
     {
@@ -58,18 +75,68 @@ public class PlayerController : MonoBehaviour
     }
     private void OnMovement(InputValue value)
     {
+        Vector2 movementInput = value.Get<Vector2>();
+
+        switch (currentState)
+        {
+            //NORMAL
+            case (int)playerState.normal:
+
+                normalMovement(movementInput);
+
+                break;
+
+            //CAR
+            case (int)playerState.car:
+                {
+                    carMovement(movementInput);
+                    break;
+
+                }
+
+        }
+    }
+
+    private void normalMovement(Vector2 movementInput)
+    {
         if (canMove)
         {
-            wasdInput = value.Get<Vector2>();
-            ProcessInput();
-        }
-        else
-        {
-            wasdInput = Vector2.zero;
+            if (movementInput != Vector2.zero)
+            {
+
+                float vval = 0f;
+                if (movementInput.y > 0f)
+                    vval = 1f;
+                else if (movementInput.y < 0f)
+                    vval = -1f;
+
+                float hval = 0;
+                if (movementInput.x > 0f)
+                    hval = 1f;
+                else if (movementInput.x < 0f)
+                    hval = -1f;
+
+                walkVelocity = new Vector3(walkSpeed * hval, 0, walkSpeed * vval);
+
+            }
+            else
+            {
+                walkVelocity = Vector3.zero;
+            }
         }
 
     }
 
+    private void carMovement(Vector2 movementInput)
+    {
+        Vector3 carMovement = new Vector3(movementInput.x, 0, movementInput.y);
+
+        rb.AddForce(transform.forward * carForce);
+
+        Debug.Log("HI");
+
+
+    }
 
     private void OnShoot()
     {
@@ -81,8 +148,8 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    //id 1 = bullet, id 2 = sword
-    public void Hit(float force, int id, Vector3 dir, float time)
+
+    public void Hit(float force, Vector3 dir, float time)
     {
         isHit = true;
         canDash = false;
@@ -90,20 +157,10 @@ public class PlayerController : MonoBehaviour
         canShoot = false;
         canSwing = false;
 
-        Debug.Log("HOI");
+        rb.AddForce(dir * force);
 
-        if (id == 1)
-        {
-            rb.AddForce(dir * force);
-            Debug.Log("BulletHit");
-            StartCoroutine(HitStun(time));
-        }
-        else if (id == 2)
-        {
-            rb.AddForce(dir * force);
-            Debug.Log("SwordHit");
-            StartCoroutine(HitStun(time));
-        }
+        StartCoroutine(HitStun(time));
+
 
     }
 
@@ -122,7 +179,6 @@ public class PlayerController : MonoBehaviour
     {
         if ((col.gameObject.tag.Equals("Wall") || col.gameObject.tag.Equals("Player")) && isHit == true)
         {
-            Debug.Log("HitWall");
             rb.velocity = Vector3.zero;
             canDash = true;
             canMove = true;
@@ -175,7 +231,6 @@ public class PlayerController : MonoBehaviour
         if (canDash)
         {
             canDash = false;
-            Debug.Log("IsDashing!");
             StartCoroutine(SlowDashing());
             StartCoroutine(DashCDIng());
         }
@@ -199,81 +254,36 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    private void ProcessInput()
+    private void rotateToDirection()
     {
-        if (walkVelocity != Vector3.zero) lastWalkVel = walkVelocity;
-        walkVelocity = Vector3.zero;
-
-        float vval = 0f;
-        if (wasdInput.y > 0f) { vval += 1f; }
-        else if (wasdInput.y < 0f) { vval -= 1f; }
-
-        float hval = 0f;
-        if (wasdInput.x > 0f) { hval += 1f; }
-        else if (wasdInput.x < 0f) { hval -= 1f; }
-
-        if (vval != 0)
+        if (walkVelocity != Vector3.zero)
         {
-            walkVelocity += Vector3.forward * vval * walkSpeed;
-        }
-        if (hval != 0)
-        {
-            walkVelocity += Vector3.right * hval * walkSpeed;
+            transform.localRotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(-walkVelocity), rotateSpeed * Time.deltaTime);
         }
     }
 
-    private void CheckForFacingDirectionChange()
+    private void FixedUpdate()
     {
-        if (walkVelocity == Vector3.zero) { return; }
-        if (walkVelocity.x == 0 || walkVelocity.y == 0)
+
+        switch (currentState)
         {
-            ChangeFacingDirection(walkVelocity);
-        }
-        else
-        {
-            if (prevWalkVelocity.x == 0)
-            {
-                ChangeFacingDirection(new Vector3(walkVelocity.x, 0, 0));
-            }
-            else if (prevWalkVelocity.z == 0)
-            {
-                ChangeFacingDirection(new Vector3(0, 0, walkVelocity.z));
-            }
-            else
-            {
-                Debug.LogWarning("Unexpected walkVelocity value.");
-                ChangeFacingDirection(walkVelocity);
-            }
-        }
-    }
+            case (int)playerState.normal:
+                if (canMove)
+                {
+                    rb.velocity = new Vector3(walkVelocity.x, rb.velocity.y, walkVelocity.z);
 
-    private void ChangeFacingDirection(Vector3 dir)
-    {
-        transform.localRotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(-walkVelocity), rotateSpeed * Time.deltaTime);
+                    rotateToDirection();
 
-    }
+                }
+                break;
 
-    private void LateUpdate()
-    {
-        if (wasdInput == Vector2.zero)
-        {
-            walkVelocity = Vector3.zero;
-        }
-
-        if (prevWalkVelocity != walkVelocity) { CheckForFacingDirectionChange(); }
-
-        if (canMove)
-        {
-            rb.velocity = new Vector3(walkVelocity.x, rb.velocity.y, walkVelocity.z);
+            case (int)playerState.car:
+                
+                
+                break;
         }
 
 
 
     }
-
-
-
-
-
-
 }
