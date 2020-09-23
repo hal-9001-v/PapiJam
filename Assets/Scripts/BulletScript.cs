@@ -4,51 +4,62 @@ using UnityEngine;
 
 public class BulletScript : MonoBehaviour
 {
-   public Rigidbody rb; 
-   public int parentId;
-   public PlayerController player;
-   PlayerController playerHit;
-   float bulletlife = 15;
-   public float bulletForce;
-   public float hitStunTime;
-   public Vector3 dir;
-    private void Awake() {
-        bulletForce = 50;
-        hitStunTime = 0.25f;
-        rb = GetComponent<Rigidbody>();
-        StartCoroutine(BulletKill());
-    }
+    public Rigidbody rb;
+    public int playerID;
+   
+    public float bulletForce = 50;
+    public float hitStunTime = 0.25f;
 
-    IEnumerator BulletKill(){
-
-        yield return new WaitForSeconds(bulletlife);
+    public float bulletTime = 5;
     
-        Destroy(gameObject);
-    }
+    public Vector3 dir;
 
-    private void FixedUpdate() {
-        dir = rb.velocity;
-    }
-
-    private void OnTriggerEnter(Collider col) {
-      if( (col.gameObject.tag.Equals("Player") && parentId != col.GetInstanceID()) || col.gameObject.tag.Equals("Wall")){
-            if(col.gameObject.tag.Equals("Player")) {
-                playerHit = col.gameObject.GetComponent<PlayerController>();
-                playerHit.Hit(bulletForce,1,dir,hitStunTime);}
-            Destroy(this.gameObject);
-         }  
-    }
-         
-        
-    // Start is called before the first frame update
-    void Start()
+    public bool readyToShoot;
+    
+    private void Awake()
     {
-        
+   
+        rb = GetComponent<Rigidbody>();
+
+        readyToShoot = true;
+
+        gameObject.SetActive(false);
     }
 
-    // Update is called once per frame
-    void Update()
+    IEnumerator BulletTime()
     {
-        
+        yield return new WaitForSeconds(bulletTime);
+
+        gameObject.SetActive(false);
+        readyToShoot = true;
     }
+
+    public void shoot(Vector3 pos, Vector3 dir) {
+        gameObject.SetActive(true);
+        readyToShoot = false;
+
+        gameObject.transform.position = pos;
+        rb.velocity = Vector3.zero;
+        rb.AddForce(dir);
+
+        StartCoroutine(BulletTime());
+    }
+
+    private void OnTriggerEnter(Collider col)
+    {
+        if (col.gameObject.GetInstanceID() != playerID)
+        {
+            if (col.gameObject.tag.Equals("Player"))
+            {
+                Vector3 dir = rb.velocity;
+                col.gameObject.GetComponent<PlayerController>().Hit(bulletForce, 1, dir, hitStunTime);
+               
+            }
+
+            readyToShoot = true;
+            gameObject.SetActive(false);
+
+        }
+    }
+
 }
