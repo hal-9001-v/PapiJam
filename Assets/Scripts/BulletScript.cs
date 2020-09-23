@@ -13,29 +13,30 @@ public class BulletScript : MonoBehaviour
     public float bulletTime = 5;
     
     public Vector3 dir;
-
+    public bool gunReady;
     public bool readyToShoot;
     
     private void Awake()
     {
-   
+        
         rb = GetComponent<Rigidbody>();
 
         readyToShoot = true;
-
+        gunReady = true;
         gameObject.SetActive(false);
     }
 
     IEnumerator BulletTime()
     {
         yield return new WaitForSeconds(bulletTime);
-
         gameObject.SetActive(false);
+        gunReady = true;
         readyToShoot = true;
     }
 
     public void shoot(Vector3 pos, Vector3 dir) {
         gameObject.SetActive(true);
+        gunReady = false;
         readyToShoot = false;
 
         gameObject.transform.position = pos;
@@ -47,19 +48,27 @@ public class BulletScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider col)
     {
-        if (col.gameObject.GetInstanceID() != playerID)
-        {
-            if (col.gameObject.tag.Equals("Player"))
+        if (col.gameObject.tag.Equals("Player"))
+        {   
+                GameObject go;
+                PlayerController pl;
+                go = col.gameObject;
+                pl = go.GetComponent<PlayerController>();
+                if (pl.PlayerID != playerID)
             {
                 Vector3 dir = rb.velocity;
-                col.gameObject.GetComponent<PlayerController>().Hit(bulletForce, 1, dir, hitStunTime);
-               
-            }
+                col.gameObject.GetComponent<PlayerController>().Hit(bulletForce, 1, dir, hitStunTime);     
+                readyToShoot = true;
+                gameObject.SetActive(false);  
 
+            } 
+        } else if (col.gameObject.tag.Equals("Wall")){
             readyToShoot = true;
-            gameObject.SetActive(false);
-
+            gameObject.SetActive(false);  
         }
+
     }
+
+  
 
 }

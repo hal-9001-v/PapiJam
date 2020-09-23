@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour
 
     public Vector3 prevWalkVelocity;
 
-    public int numberOfBullets = 3;
+    public int numberOfBullets;
 
     //Control Booleans
     public bool canSwing = true;
@@ -30,13 +30,22 @@ public class PlayerController : MonoBehaviour
     public float ShootCD;
     public float walkSpeed;
     public float rotateSpeed;
-
+    public int PlayerID;
+    public int dashCount;
     //GOs
     SwordScript sword;
     public OrbitalScript orbital;
 
     private void Awake()
     {
+        //Stat inicialization
+        DashCD = 0.7f;
+        ShootCD = 50f;
+        walkSpeed = 6f;
+        rotateSpeed = 8f;
+        numberOfBullets = 3;
+        dashCount = 1;
+        //GO inicialization
         rb = GetComponent<Rigidbody>();
         orbital = GetComponentInChildren<OrbitalScript>();
         sword = GetComponentInChildren<SwordScript>();
@@ -45,11 +54,7 @@ public class PlayerController : MonoBehaviour
     }
     private void Start()
     {
-
-        DashCD = 0.7f;
-        ShootCD = 0.2f;
-        walkSpeed = 6f;
-        rotateSpeed = 8f;
+        
     }
     private void OnMovement(InputValue value)
     {
@@ -70,6 +75,7 @@ public class PlayerController : MonoBehaviour
     {
         if (canShoot)
         {
+            
             orbital.Shoot();
         }
 
@@ -126,11 +132,37 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter(Collider col) {
 
+        if(col.gameObject.tag.Equals("BFG")){
+            orbital.BulletsUpgrade(true);
+            col.gameObject.SetActive(false);
+        } else if(col.gameObject.tag.Equals("Rambo")){
+            orbital.BulletsUpgrade(false);
+            col.gameObject.SetActive(false);
+        }
+
+    }
+
+    //Abilidades
+    public void DashIncrease(){
+        dashCount++;
+    }
+
+    public void SpeedBoost(){
+        
+    }
+
+    public void changeSword(){
+
+    }
+
+    public void Shield(){
+
+    }
 
     private void OnMelee()
     {
-
         if ((sword != null || true) && canSwing)
         {
             sword.attack();

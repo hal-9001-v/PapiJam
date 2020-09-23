@@ -5,18 +5,18 @@ using UnityEngine.InputSystem;
 public class MenuPrefs : MonoBehaviour
 {
    
+    public int p0;
     public int p1;
     public int p2;
     public int p3;
-    public int p4;
 
     private void Awake() {
         
         DontDestroyOnLoad(gameObject);
-        p1=0;
-        p2=1;
-        p3=2;
-        p4=3;
+        p0=0;
+        p1=1;
+        p2=2;
+        p3=3;
     }
 
     private void Start() {

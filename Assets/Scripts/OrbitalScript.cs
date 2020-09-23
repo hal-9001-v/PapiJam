@@ -26,10 +26,22 @@ public class OrbitalScript : MonoBehaviour
 
     public GameObject bulletPrefab;
 
-
+    //Control bools
+    bool BFGmode;
+    bool gatlingMode;
+    bool BFGReady;
+    bool gunReady;
+    int j ;
+    int k ;
+    int ammo;
+    BulletScript[] bfgArray ;
     // Start is called before the first frame update
     private void Awake()
-    {
+    {   
+         bfgArray = new BulletScript[3];
+        
+        //Initialize control bools;
+        BFGReady = true;
         player = GetComponentInParent<PlayerController>();
 
         myBullets = new BulletScript[player.numberOfBullets];
@@ -44,6 +56,46 @@ public class OrbitalScript : MonoBehaviour
             myBullets[i].playerID = player.GetInstanceID();
         }
 
+        k = 0;
+        j = 0;
+
+
+    }
+
+
+    public void BulletsUpgrade(bool BFG){
+        GameObject go;
+        
+        for (int i = 0; i < myBullets.Length; i++)
+            {
+                Destroy(myBullets[i].gameObject);
+            }
+        
+        if(BFG){
+
+            BFGmode = true;
+            gatlingMode = false;
+            //Escopeta: 9 balas, ráfagas de 3 en 3 Más CD
+            if(myBullets.Length != 9){
+                myBullets = new BulletScript[9];
+            } 
+        }
+        else {
+            gatlingMode = true;
+            BFGmode =false;
+            //Metralleta: 5 balas en fila, menos CD
+            if(myBullets.Length != 5){
+                
+                myBullets = new BulletScript[5];
+            }
+        }
+
+        for (int i = 0; i < myBullets.Length; i++)
+            {
+                go = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
+                myBullets[i] = go.GetComponent<BulletScript>();
+                myBullets[i].playerID = player.PlayerID;                
+            }
 
     }
 
@@ -67,21 +119,76 @@ public class OrbitalScript : MonoBehaviour
 
     public void Shoot()
     {
+
+        if(!BFGmode){
+
         foreach (BulletScript b in myBullets) {
-            if (b.readyToShoot) {
+            if (b.readyToShoot && b.gunReady) {
                 b.shoot(transform.position, transform.parent.forward*1000);
+                StartCoroutine(GCD(b));
+                break;
+                } 
+                
+            }
+        } else {
+            Vector3 b1;
+            Vector3 b2;
+            switch(j){
+                case 0: k = 0;//012
+                j++;
+                break;
+                case 1: k = 3; //345
+                j++;
+                break;
+                case 2: k = 6; //678
+                j = 0;
                 break;
             }
+
+            
+             bfgArray[0] = myBullets[k];
+             bfgArray[1] = myBullets[k+1];
+             bfgArray[2] = myBullets[k+2];
+
+                Debug.Log(BFGReady);
+                if(BFGReady && bfgArray[0].readyToShoot && bfgArray[1].readyToShoot && bfgArray[2].readyToShoot){
+                
+                 BFGReady = false;
+                    b1 = transform.parent.forward;
+                    b1 = Quaternion.Euler(0,15,0) * b1; 
+                    bfgArray[0].shoot(transform.position, b1*1000);
+                    
+                    bfgArray[1].shoot(transform.position, transform.parent.forward*1000);
+                   
+                    b2= transform.parent.forward;
+                    b2 = Quaternion.Euler(0,-15,0) * b2; 
+                    bfgArray[2].shoot(transform.position, b2*1000);
+
+                    
+                   
+                    StartCoroutine(BFGCD());
+                }
+             
+            
+            
+
         }
     }
-
-    IEnumerator ShootCDing()
-    {
-
-        yield return new WaitForSeconds(player.ShootCD);
-        player.canShoot = true;
-
+  
+    IEnumerator GCD(BulletScript b){
+        yield return new  WaitForSeconds(1f);
+        
+        b.gunReady = true;
     }
+
+    IEnumerator BFGCD(){
+        yield return new  WaitForSeconds(1.5f);
+        
+        BFGReady = true;
+    }
+    
+    
+
 
     private void OrbitalAnimation()
     {
@@ -123,7 +230,6 @@ public class OrbitalScript : MonoBehaviour
 
         }
 
-        Debug.Log(arrowInput);
     }
 
 }

@@ -40,10 +40,10 @@ public class MenuManager : MonoBehaviour
         int monja = 2;
         int naruto = 3;
         //Así es como tendría que verse
-        menuPrefs.p1 = furro;
-        menuPrefs.p2 = darsay;
-        menuPrefs.p3 = monja;
-        menuPrefs.p4 = naruto;
+        menuPrefs.p0 = furro;
+        menuPrefs.p1 = darsay;
+        menuPrefs.p2 = monja;
+        menuPrefs.p3 = naruto;
 
         // (evidentemente p4 debería poder elegir al furro por ejemplo etc...);
         // Con que asignes los numeros bien, cuando cargues la escena "Sample", se pondrán bien los modelos
@@ -58,7 +58,7 @@ public class MenuManager : MonoBehaviour
             columnasArray[i].SetActive(false);
         }
 }
-
+    
     // Update is called once per frame
     void Update()
     {

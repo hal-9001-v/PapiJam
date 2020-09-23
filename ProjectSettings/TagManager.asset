@@ -7,6 +7,8 @@ TagManager:
   - Bullet
   - Wall
   - Orbital
+  - BFG
+  - Rambo
   layers:
   - Default
   - TransparentFX
