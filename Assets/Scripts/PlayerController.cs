@@ -29,7 +29,6 @@ public class PlayerController : MonoBehaviour
     public float walkSpeed;
     public float rotateSpeed;
 
-    public bool carMode;
 
     //GOs
     public SwordScript sword;
@@ -58,7 +57,7 @@ public class PlayerController : MonoBehaviour
 
         sword.player = this;
 
-        currentState = 0;
+        currentState = 1;
     }
     private void Start()
     {
@@ -76,7 +75,7 @@ public class PlayerController : MonoBehaviour
         {
             //NORMAL
             case (int)playerState.normal:
-                
+
                 normalMovement(movementInput);
 
                 break;
@@ -84,10 +83,7 @@ public class PlayerController : MonoBehaviour
             //CAR
             case (int)playerState.car:
                 {
-                    Vector3 carMovement = new Vector3(movementInput.x, 0, movementInput.y);
-
-                    rb.AddForce(carMovement * carForce);
-
+                    carMovement(movementInput);
                     break;
 
                 }
@@ -114,7 +110,7 @@ public class PlayerController : MonoBehaviour
                 else if (movementInput.x < 0f)
                     hval = -1f;
 
-                walkVelocity = new Vector3(walkSpeed*hval, 0 , walkSpeed*vval);
+                walkVelocity = new Vector3(walkSpeed * hval, 0, walkSpeed * vval);
 
             }
             else
@@ -122,6 +118,17 @@ public class PlayerController : MonoBehaviour
                 walkVelocity = Vector3.zero;
             }
         }
+
+    }
+
+    private void carMovement(Vector2 movementInput)
+    {
+        Vector3 carMovement = new Vector3(movementInput.x, 0, movementInput.y);
+
+        rb.AddForce(transform.forward * carForce);
+
+        Debug.Log("HI");
+
 
     }
 
@@ -225,19 +232,24 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
 
-        if (canMove)
+        switch (currentState)
         {
-            rb.velocity = new Vector3(walkVelocity.x, rb.velocity.y, walkVelocity.z);
+            case (int)playerState.normal:
+                if (canMove)
+                {
+                    rb.velocity = new Vector3(walkVelocity.x, rb.velocity.y, walkVelocity.z);
 
-            rotateToDirection();
+                    rotateToDirection();
 
+                }
+                break;
+
+            case (int)playerState.car:
+                
+                
+                break;
         }
 
-    }
-
-    public void startCarMode()
-    {
-        carMode = true;
 
 
     }
