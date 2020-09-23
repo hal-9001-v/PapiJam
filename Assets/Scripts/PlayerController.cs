@@ -9,18 +9,14 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
 
-    Collider cl;
     public Rigidbody rb;
-    Quaternion playerRotation = Quaternion.Euler(0, 0, 180);
     public Vector2 wasdInput;
     public Vector3 walkVelocity;
-    public Vector3 lasWalkVel;
-    private enum FacingDirection { North, South, East, West };
-    FacingDirection facing = FacingDirection.South;
+    public Vector3 lastWalkVel;
+
     public Vector3 prevWalkVelocity;
-    public int id;
-    public OrbitalScript os;
-    PlayerController playerHit;
+
+    public int numberOfBullets = 3;
 
     //Control Booleans
     public bool canSwing = true;
@@ -37,13 +33,15 @@ public class PlayerController : MonoBehaviour
 
     //GOs
     SwordScript sword;
+    OrbitalScript orbital;
 
     private void Awake()
     {
-        cl = GetComponent<Collider>();
-        id = cl.GetInstanceID();
         rb = GetComponent<Rigidbody>();
-        os = GetComponentInChildren<OrbitalScript>();
+        orbital = GetComponentInChildren<OrbitalScript>();
+        sword = GetComponentInChildren<SwordScript>();
+
+        sword.player = this;
     }
     private void Start()
     {
@@ -52,9 +50,6 @@ public class PlayerController : MonoBehaviour
         ShootCD = 0.2f;
         walkSpeed = 6f;
         rotateSpeed = 8f;
-    }
-    private void Update()
-    {
     }
     private void OnMovement(InputValue value)
     {
@@ -73,11 +68,9 @@ public class PlayerController : MonoBehaviour
 
     private void OnShoot()
     {
-
         if (canShoot)
         {
-            canShoot = false;
-            os.Shoot();
+            orbital.Shoot();
         }
 
     }
@@ -90,6 +83,8 @@ public class PlayerController : MonoBehaviour
         canMove = false;
         canShoot = false;
         canSwing = false;
+
+        Debug.Log("HOI");
 
         if (id == 1)
         {
@@ -138,30 +133,10 @@ public class PlayerController : MonoBehaviour
 
         if ((sword != null || true) && canSwing)
         {
-            Debug.Log("IsFuckinguUP");
-            canSwing = false;
-            canMove = false;
-            sword = Instantiate(GameAssets.i.meleeAttack[0], new Vector3(transform.position.x, transform.position.y, transform.localPosition.z), transform.rotation);
-            sword.player = this.gameObject.GetComponent<PlayerController>();
-            sword.transform.parent = gameObject.transform;
-            StartCoroutine(Slicing());
+            sword.attack();
         }
     }
 
-    IEnumerator Slicing()
-    {
-        rb.velocity = Vector3.zero;
-        for (int i = 0; i < 5; i++)
-        {
-            yield return new WaitForSeconds(0.1f);
-            sword.transform.Rotate(0, 15, 0);
-        }
-        yield return new WaitForSeconds(0.45f);
-        yield return new WaitForSeconds(0.1f);
-        canMove = true;
-        canSwing = true;
-
-    }
 
     private void OnDash()
     {
@@ -194,7 +169,7 @@ public class PlayerController : MonoBehaviour
 
     private void ProcessInput()
     {
-        if (walkVelocity != Vector3.zero) lasWalkVel = walkVelocity;
+        if (walkVelocity != Vector3.zero) lastWalkVel = walkVelocity;
         walkVelocity = Vector3.zero;
 
         float vval = 0f;
@@ -242,16 +217,6 @@ public class PlayerController : MonoBehaviour
 
     private void ChangeFacingDirection(Vector3 dir)
     {
-
-        if (dir.z != 0)
-        {
-            facing = (dir.z > 0) ? FacingDirection.North : FacingDirection.South;
-        }
-        if (dir.x != 0)
-        {
-            facing = (dir.x > 0) ? FacingDirection.East : FacingDirection.West;
-        }
-
         transform.localRotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(-walkVelocity), rotateSpeed * Time.deltaTime);
 
     }

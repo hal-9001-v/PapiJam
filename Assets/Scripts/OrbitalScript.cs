@@ -9,28 +9,41 @@ public class OrbitalScript : MonoBehaviour
     public int timer = TOP;
     public float pos;
     bool restart;
-    BulletScript bullet;
+
     PlayerController player;
     public float bulletSpeed = 5f;
 
     public Vector3 lasWalkVelocity;
 
     private Vector2 arrowInput;
-    Rigidbody rb;
-
-    bool firstTime;
 
     Vector3 shootDirection;
 
     float timeToRotate = 0.2f;
     float rotationTImer = 0;
 
+    BulletScript[] myBullets;
+
+    public GameObject bulletPrefab;
+
+
     // Start is called before the first frame update
     private void Awake()
     {
-        firstTime = true;
         player = GetComponentInParent<PlayerController>();
-        rb = GetComponent<Rigidbody>();
+
+        myBullets = new BulletScript[player.numberOfBullets];
+
+        GameObject go;
+
+        for (int i = 0; i < myBullets.Length; i++)
+        {
+            go = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
+
+            myBullets[i] = go.GetComponent<BulletScript>();
+            myBullets[i].playerID = player.GetInstanceID();
+        }
+
 
     }
 
@@ -44,21 +57,22 @@ public class OrbitalScript : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-            rotationTImer += Time.deltaTime;
+        rotationTImer += Time.deltaTime;
 
-            transform.parent.rotation = Quaternion.Slerp(transform.parent.rotation, Quaternion.LookRotation(Vector3.Normalize(shootDirection)), rotationTImer / timeToRotate);
+        transform.parent.rotation = Quaternion.Slerp(transform.parent.rotation, Quaternion.LookRotation(Vector3.Normalize(shootDirection)), rotationTImer / timeToRotate);
 
-            OrbitalAnimation();
+        OrbitalAnimation();
 
     }
 
     public void Shoot()
     {
-        bullet = Instantiate(GameAssets.i.bullet, transform.position, Quaternion.identity);
-        bullet.player = player;
-        bullet.parentId = player.id;
-        bullet.rb.AddForce(transform.forward * 1000);
-        StartCoroutine(ShootCDing());
+        foreach (BulletScript b in myBullets) {
+            if (b.readyToShoot) {
+                b.shoot(transform.position, transform.parent.forward*1000);
+                break;
+            }
+        }
     }
 
     IEnumerator ShootCDing()
@@ -102,7 +116,8 @@ public class OrbitalScript : MonoBehaviour
     {
         arrowInput = value.Get<Vector2>();
 
-        if (arrowInput != Vector2.zero) {
+        if (arrowInput != Vector2.zero)
+        {
             shootDirection = new Vector3(arrowInput.x, 0, arrowInput.y);
             rotationTImer = 0;
 
