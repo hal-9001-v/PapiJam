@@ -79,9 +79,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 0}
-  wasdInput: {x: 0, y: 0}
   walkVelocity: {x: 0, y: 0, z: 0}
-  lastWalkVel: {x: 0, y: 0, z: 0}
   prevWalkVelocity: {x: 0, y: 0, z: 0}
   numberOfBullets: 3
   canSwing: 1
@@ -93,6 +91,10 @@ MonoBehaviour:
   ShootCD: 5
   walkSpeed: 6
   rotateSpeed: 8
+  carMode: 0
+  sword: {fileID: 1425631355563487171}
+  orbital: {fileID: 3107006982099270330}
+  carForce: 100
 --- !u!114 &454220025032678349
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -182,7 +184,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 82c65eafdae670f4992f26032216eb17, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -547,6 +549,16 @@ PrefabInstance:
       propertyPath: rotation
       value: 15
       objectReference: {fileID: 0}
+    - target: {fileID: 8937639319041034885, guid: a33a0700a2ab4b74683199531dca79ab,
+        type: 3}
+      propertyPath: swordForce
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 8937639319041034885, guid: a33a0700a2ab4b74683199531dca79ab,
+        type: 3}
+      propertyPath: hitStunTime
+      value: 0.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a33a0700a2ab4b74683199531dca79ab, type: 3}
 --- !u!4 &4031597391969654475 stripped
@@ -555,3 +567,15 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 8052440193674011974}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1425631355563487171 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8937639319041034885, guid: a33a0700a2ab4b74683199531dca79ab,
+    type: 3}
+  m_PrefabInstance: {fileID: 8052440193674011974}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48ba0ee20e5286d4e9431284a18a3f06, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

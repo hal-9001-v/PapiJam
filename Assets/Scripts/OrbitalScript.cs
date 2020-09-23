@@ -20,7 +20,7 @@ public class OrbitalScript : MonoBehaviour
     Vector3 shootDirection;
 
     float timeToRotate = 0.2f;
-    float rotationTImer = 0;
+    float rotationTimer = 0;
 
     BulletScript[] myBullets;
 
@@ -53,13 +53,13 @@ public class OrbitalScript : MonoBehaviour
         restart = false;
     }
 
-
     // Update is called once per frame
     void FixedUpdate()
     {
-        rotationTImer += Time.deltaTime;
+        rotationTimer += Time.deltaTime;
 
-        transform.parent.rotation = Quaternion.Slerp(transform.parent.rotation, Quaternion.LookRotation(Vector3.Normalize(shootDirection)), rotationTImer / timeToRotate);
+        if (shootDirection != Vector3.zero)
+            transform.parent.rotation = Quaternion.Slerp(transform.parent.rotation, Quaternion.LookRotation(Vector3.Normalize(shootDirection)), rotationTimer / timeToRotate);
 
         OrbitalAnimation();
 
@@ -67,9 +67,11 @@ public class OrbitalScript : MonoBehaviour
 
     public void Shoot()
     {
-        foreach (BulletScript b in myBullets) {
-            if (b.readyToShoot) {
-                b.shoot(transform.position, transform.parent.forward*1000);
+        foreach (BulletScript b in myBullets)
+        {
+            if (b.readyToShoot)
+            {
+                b.shoot(transform.position, transform.parent.forward * 1000);
                 break;
             }
         }
@@ -114,16 +116,16 @@ public class OrbitalScript : MonoBehaviour
 
     private void OnAim(InputValue value)
     {
+ 
         arrowInput = value.Get<Vector2>();
 
         if (arrowInput != Vector2.zero)
         {
             shootDirection = new Vector3(arrowInput.x, 0, arrowInput.y);
-            rotationTImer = 0;
+            rotationTimer = 0;
 
         }
 
-        Debug.Log(arrowInput);
     }
 
 }

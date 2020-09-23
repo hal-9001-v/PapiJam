@@ -6,19 +6,19 @@ public class BulletScript : MonoBehaviour
 {
     public Rigidbody rb;
     public int playerID;
-   
+
     public float bulletForce = 50;
     public float hitStunTime = 0.25f;
 
     public float bulletTime = 5;
-    
+
     public Vector3 dir;
 
     public bool readyToShoot;
-    
+
     private void Awake()
     {
-   
+
         rb = GetComponent<Rigidbody>();
 
         readyToShoot = true;
@@ -34,7 +34,8 @@ public class BulletScript : MonoBehaviour
         readyToShoot = true;
     }
 
-    public void shoot(Vector3 pos, Vector3 dir) {
+    public void shoot(Vector3 pos, Vector3 dir)
+    {
         gameObject.SetActive(true);
         readyToShoot = false;
 
@@ -52,8 +53,8 @@ public class BulletScript : MonoBehaviour
             if (col.gameObject.tag.Equals("Player"))
             {
                 Vector3 dir = rb.velocity;
-                col.gameObject.GetComponent<PlayerController>().Hit(bulletForce, 1, dir, hitStunTime);
-               
+                col.gameObject.GetComponent<PlayerController>().Hit(bulletForce, dir, hitStunTime);
+
             }
 
             readyToShoot = true;
