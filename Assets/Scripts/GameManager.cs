@@ -15,8 +15,6 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.D))
         {
             GameObject.Find("Camera Switcher").GetComponent<CameraSwitcher>().enableMainCamera(2, 2);
-            GameObject.Find("Camera Switcher").GetComponent<CameraSwitcher>().atEndEvent.
-                AddListener(() => GameObject.Find("Main Virtual Camera").GetComponent<VirtualCameraController>().setPos(20f, 40f, 1, 0));
         }
 
         if (Input.GetKeyDown(KeyCode.S))

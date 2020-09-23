@@ -7,6 +7,7 @@ TagManager:
   - CameraSwitcher
   - CinematicCamera
   - VirtualCamera
+  - CameraTransitioner
   layers:
   - Default
   - TransparentFX
