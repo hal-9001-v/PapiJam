@@ -41,5 +41,16 @@ public class GameManager : MonoBehaviour
         {
             GameObject.Find("Cinematic Camera").GetComponent<CinematicCameraController>().goToNextNode();
         }
+        if (Input.GetKeyDown(KeyCode.Y))
+        {
+            GameObject.FindWithTag("CameraTransitioner").GetComponent<CameraTransitioner>().endTransition.AddListener(() =>
+            GameObject.FindWithTag("CameraTransitioner").GetComponent<CameraTransitioner>().transitionToColor(1, 0, Color.white));
+            GameObject.FindWithTag("CameraTransitioner").GetComponent<CameraTransitioner>().transitionToColor(2, 1, Color.black);
+        }
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            GameObject.FindWithTag("VirtualCamera").GetComponent<VirtualCamShake>().Shake(2);
+            GameObject.FindWithTag("CinematicCamera").GetComponent<CamShake>().Shake(2);
+        }
     }
 }

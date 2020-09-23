@@ -27,20 +27,23 @@ public class VirtualCameraController : MonoBehaviour
 
     public void setPos(float d, float r, float timeToGet, float delay)
     {
-        StopAllCoroutines();
-        if (timeToGet <= 0)
+        if (CameraSwitcher.canMove())
         {
-            transposer.m_FollowOffset.y = d * Mathf.Sin(Mathf.Deg2Rad * r);
-            transposer.m_FollowOffset.z = d * Mathf.Cos(Mathf.Deg2Rad * r);
-        }
-        else
-        {
-            isMoving = true;
-            startTime = Time.realtimeSinceStartup;
-            auxPos = transposer.m_FollowOffset;
-            atStartEvent.Invoke();
-            StartCoroutine(DoSetPos(new Vector3(transposer.m_FollowOffset.x, d * Mathf.Sin(Mathf.Deg2Rad * r),
-                d * Mathf.Cos(Mathf.Deg2Rad * r)), timeToGet, delay));
+            StopAllCoroutines();
+            if (timeToGet <= 0)
+            {
+                transposer.m_FollowOffset.y = d * Mathf.Sin(Mathf.Deg2Rad * r);
+                transposer.m_FollowOffset.z = d * Mathf.Cos(Mathf.Deg2Rad * r);
+            }
+            else
+            {
+                isMoving = true;
+                startTime = Time.realtimeSinceStartup;
+                auxPos = transposer.m_FollowOffset;
+                atStartEvent.Invoke();
+                StartCoroutine(DoSetPos(new Vector3(transposer.m_FollowOffset.x, d * Mathf.Sin(Mathf.Deg2Rad * r),
+                    d * Mathf.Cos(Mathf.Deg2Rad * r)), timeToGet, delay));
+            }
         }
     }
 

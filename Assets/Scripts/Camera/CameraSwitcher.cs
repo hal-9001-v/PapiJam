@@ -148,5 +148,11 @@ public class CameraSwitcher : MonoBehaviour
         return !(GameObject.FindWithTag("VirtualCamera").GetComponent<VirtualCameraController>().getMovingState() ||
             GameObject.FindWithTag("CinematicCamera").GetComponent<CinematicCameraController>().getMovingState());
     }
-   
+
+    public static bool canMove()
+    {
+        return !(GameObject.FindWithTag("VirtualCamera").GetComponent<VirtualCameraController>().getMovingState() &&
+            GameObject.FindWithTag("CinematicCamera").GetComponent<CinematicCameraController>().getMovingState());
+    }
+
 }

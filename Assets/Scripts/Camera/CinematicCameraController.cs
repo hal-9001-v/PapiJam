@@ -41,7 +41,7 @@ public class CinematicCameraController : MonoBehaviour
     //Acciones
     public void goToNextNode()
     {
-        if (nodeQueue.Count > 0) 
+        if (nodeQueue.Count > 0 && CameraSwitcher.canMove()) 
         {
             StopAllCoroutines();
             isMoving = true;
@@ -80,13 +80,16 @@ public class CinematicCameraController : MonoBehaviour
 
     public void moveCamera(Vector3 endPos, Quaternion endRot, float timeToGet, float delay)
     {
-        StopAllCoroutines();
-        isMoving = true;
-        Vector3 startPos = camera.transform.position;
-        Quaternion startRot = camera.transform.rotation;
-        startTime = Time.realtimeSinceStartup;
-        atStartEvent.Invoke();
-        StartCoroutine(DoMoveCamera(startPos, startRot, endPos, endRot, timeToGet, delay));
+        if (CameraSwitcher.canMove())
+        {
+            StopAllCoroutines();
+            isMoving = true;
+            Vector3 startPos = camera.transform.position;
+            Quaternion startRot = camera.transform.rotation;
+            startTime = Time.realtimeSinceStartup;
+            atStartEvent.Invoke();
+            StartCoroutine(DoMoveCamera(startPos, startRot, endPos, endRot, timeToGet, delay));
+        }
     }
 
     IEnumerator DoMoveCamera(Vector3 startPos, Quaternion startRot, Vector3 endPos, Quaternion endRot, float timeToGet, float delay)
