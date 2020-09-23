@@ -7,6 +7,7 @@ public class PlayerManager : MonoBehaviour
     //el pis contiene a los jugadores
     public PlayerInputManagerScript pis;
 
+    MenuPrefs mp ;
     //Un meshrenderer y un meshfilter por cada jugador.
     public MeshRenderer meshP1;
     public MeshRenderer meshP2;
@@ -29,6 +30,7 @@ public class PlayerManager : MonoBehaviour
     private void Awake() {
         //buscamos el pis
         pis = FindObjectOfType<PlayerInputManagerScript>();
+        mp = FindObjectOfType<MenuPrefs>();
     }
     void Start()
     {
@@ -37,7 +39,7 @@ public class PlayerManager : MonoBehaviour
     }
 
     public void PlayerManagement(){
-        
+            
         StartCoroutine(ManagePlayerWait());
      
     }
@@ -51,55 +53,55 @@ public class PlayerManager : MonoBehaviour
                 //se busca el meshrenderer de este cacharro
                 meshP1 = pis.pArray[0].GetComponentInChildren<MeshRenderer>(); 
                 //Se usa GA para meterle el material que toca
-                meshP1.material = GameAssets.i.mArray[0];
+                meshP1.material = GameAssets.i.mArray[mp.p1];
                 //Se busca el meshfilter de este cacharro
                 meshFP1 = pis.pArray[0].GetComponentInChildren<MeshFilter>();
                 //lo mismo para el modelo
-                meshFP1.mesh = GameAssets.i.meshArray[0];
+                meshFP1.mesh = GameAssets.i.meshArray[mp.p1];
                 if(pis.pArray[0].os != null ){
                         //Lo mismo para los orbitales
                         meshO1 = pis.pArray[0].os.GetComponentInChildren<MeshRenderer>(); 
-                        meshO1.material = GameAssets.i.mOArray[0];
+                        meshO1.material = GameAssets.i.mOArray[mp.p1];
                         meshFO1 = pis.pArray[0].os.GetComponentInChildren<MeshFilter>();
-                        meshFO1.mesh = GameAssets.i.meshOArray[0];
+                        meshFO1.mesh = GameAssets.i.meshOArray[mp.p1];
                     }
                     //Se comprueba para todos que el jugador (2,4,6 por que son dos players por jugador) sea nulo antes de sobreescribir.
                     //Se hace lo mismo que para el anterior para todos
                     if(pis.pArray[2] != null && pis.pArray[2].os != null) {
                         meshP2 = pis.pArray[2].GetComponentInChildren<MeshRenderer>(); 
-                        meshP2.material = GameAssets.i.mArray[1];
+                        meshP2.material = GameAssets.i.mArray[mp.p2];
                         meshFP2 = pis.pArray[2].GetComponentInChildren<MeshFilter>(); 
-                        meshFP2.mesh = GameAssets.i.meshArray[1];
+                        meshFP2.mesh = GameAssets.i.meshArray[mp.p2];
             
                         //Orbital
                         meshO2 = pis.pArray[2].os.GetComponentInChildren<MeshRenderer>(); 
-                        meshO2.material = GameAssets.i.mOArray[1];
+                        meshO2.material = GameAssets.i.mOArray[mp.p2];
                         meshFO2 = pis.pArray[2].os.GetComponentInChildren<MeshFilter>(); 
-                        meshFO2.mesh = GameAssets.i.meshOArray[1];
+                        meshFO2.mesh = GameAssets.i.meshOArray[mp.p2];
             
                         if(pis.pArray[4] != null && pis.pArray[4].os != null) {
                              meshP3 = pis.pArray[4].GetComponentInChildren<MeshRenderer>(); 
-                            meshP3.material = GameAssets.i.mArray[2];
+                            meshP3.material = GameAssets.i.mArray[mp.p3];
                             meshFP3 = pis.pArray[4].GetComponentInChildren<MeshFilter>(); 
-                            meshFP3.mesh = GameAssets.i.meshArray[2];
+                            meshFP3.mesh = GameAssets.i.meshArray[mp.p3];
 
                             //Orbital
                             meshO3 = pis.pArray[4].os.GetComponentInChildren<MeshRenderer>(); 
-                            meshO3.material = GameAssets.i.mOArray[2];
+                            meshO3.material = GameAssets.i.mOArray[mp.p3];
                             meshFO3 = pis.pArray[4].os.GetComponentInChildren<MeshFilter>(); 
-                            meshFO3.mesh = GameAssets.i.meshOArray[2];
+                            meshFO3.mesh = GameAssets.i.meshOArray[mp.p3];
                 
                             if(pis.pArray[6] != null && pis.pArray[6].os != null){
                                 meshP4 = pis.pArray[6].GetComponentInChildren<MeshRenderer>(); 
-                                meshP4.material = GameAssets.i.mArray[3];
+                                meshP4.material = GameAssets.i.mArray[mp.p4];
                                 meshFP4 = pis.pArray[6].GetComponentInChildren<MeshFilter>(); 
-                                meshFP4.mesh = GameAssets.i.meshArray[3];
+                                meshFP4.mesh = GameAssets.i.meshArray[mp.p4];
 
                                 //Orbital
                                 meshO4 = pis.pArray[6].os.GetComponentInChildren<MeshRenderer>(); 
-                                meshO4.material = GameAssets.i.mOArray[3];
+                                meshO4.material = GameAssets.i.mOArray[mp.p4];
                                 meshFO4 = pis.pArray[6].os.GetComponentInChildren<MeshFilter>(); 
-                                meshFO4.mesh = GameAssets.i.meshOArray[3];
+                                meshFO4.mesh = GameAssets.i.meshOArray[mp.p4];
                             }
                         }
                  }

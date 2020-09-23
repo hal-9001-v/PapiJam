@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class MenuManager : MonoBehaviour
 {
@@ -22,11 +23,31 @@ public class MenuManager : MonoBehaviour
     public GameObject[] columnasArray;
     public Text playerNumTx;
     public bool isNumSelected;
+    
+    //Cosa de la seleccion de personajes
+    public MenuPrefs menuPrefs;
 
     public GameObject Visor;
     //public Image
-
+    private void Awake() {
+    menuPrefs = FindObjectOfType<MenuPrefs>();
+    }
     public GameObject casillasPersonajes;
+
+    void TESTSELECCIONPERS(){
+        int furro = 0;
+        int darsay = 1;
+        int monja = 2;
+        int naruto = 3;
+        //Así es como tendría que verse
+        menuPrefs.p1 = furro;
+        menuPrefs.p2 = darsay;
+        menuPrefs.p3 = monja;
+        menuPrefs.p4 = naruto;
+
+        // (evidentemente p4 debería poder elegir al furro por ejemplo etc...);
+        // Con que asignes los numeros bien, cuando cargues la escena "Sample", se pondrán bien los modelos
+    }
     void Start()
     {
         selectedButton = 0;
@@ -249,6 +270,7 @@ public class MenuManager : MonoBehaviour
                 case 2:
                     audioPlay.clip = sonidos[0];
                     audioPlay.Play();
+                    SceneManager.LoadScene("Sample");
                     Application.Quit();
                     break;
             }
@@ -297,4 +319,5 @@ public class MenuManager : MonoBehaviour
     {
         yield return new WaitForSeconds(time);
     }
+
 }

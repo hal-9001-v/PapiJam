@@ -33,7 +33,7 @@ public class PlayerController : MonoBehaviour
     public float  ShootCD;
     public float walkSpeed ;
     public float rotateSpeed;
-
+    public int PlayerId;
     public InputActionAsset iaa;
 
 
@@ -43,8 +43,8 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
-        iaa = FindObjectOfType<InputActionAsset>();
-        pi = GetComponent<PlayerInput>();
+        //iaa = FindObjectOfType<InputActionAsset>();
+        //pi = GetComponent<PlayerInput>();
         cl = GetComponent<Collider>();
         id = cl.GetInstanceID();
         rb = GetComponent<Rigidbody>();
@@ -52,8 +52,8 @@ public class PlayerController : MonoBehaviour
     }
     private void Start() {
         
-      pi.defaultActionMap = "Player";
-      pi.actions = iaa;
+     // pi.defaultActionMap = "Player";
+     // pi.actions = iaa;
       DashCD = 0.7f;
       ShootCD = 0.2f;
      walkSpeed = 6f;

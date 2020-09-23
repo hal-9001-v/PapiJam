@@ -20,6 +20,7 @@ public class PlayerInputManagerScript : MonoBehaviour
         
     }
     
+
     public void playerAdd(){
         if(playerNum < 8){
         
