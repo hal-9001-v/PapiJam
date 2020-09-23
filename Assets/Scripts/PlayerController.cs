@@ -33,7 +33,7 @@ public class PlayerController : MonoBehaviour
 
     //GOs
     SwordScript sword;
-    OrbitalScript orbital;
+    public OrbitalScript orbital;
 
     private void Awake()
     {
