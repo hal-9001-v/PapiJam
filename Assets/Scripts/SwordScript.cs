@@ -36,7 +36,6 @@ public class SwordScript : MonoBehaviour
     IEnumerator Attack()
     { 
         transform.position = new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z);
-
         player.rb.velocity = Vector3.zero;
         player.movementDirection = Vector3.zero;
         player.canMove = false;
@@ -53,20 +52,14 @@ public class SwordScript : MonoBehaviour
 
         player.canMove = true;
         player.canSwing = true;
-        
+        player.isSword = false;
         gameObject.SetActive(false);
 
     }
 
     private void OnTriggerEnter(Collider col)
     {
-        
-        if(col.gameObject.tag.Equals("Rambo") || col.gameObject.tag.Equals("BFG")||
-         col.gameObject.tag.Equals("Shield") || col.gameObject.tag.Equals("Cloud") || col.gameObject.tag.Equals("Ultra")||
-         col.gameObject.tag.Equals("Car") || col.gameObject.tag.Equals("Sonic") ) {
-            Debug.Log("isSword") ;
-            player.isSword = true;
-        } 
+            
         if ((col.gameObject.tag.Equals("Player")))
         {
             PlayerController hitPlayer = col.GetComponent<PlayerController>();
@@ -83,6 +76,7 @@ public class SwordScript : MonoBehaviour
 
     }
 
-
+    private void LateUpdate() {
+    }
 
 }

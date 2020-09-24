@@ -84,7 +84,7 @@ public class PlayerController : MonoBehaviour
             myShield.gameObject.SetActive(false);
 
         sword.player = this;
-        isSword = false;
+    
 
     }
     private void Start()
@@ -180,6 +180,7 @@ public class PlayerController : MonoBehaviour
 
         if ((sword != null || true) && canSwing)
         {
+            isSword = true;
             sword.attack();
         }
     }
@@ -290,8 +291,8 @@ public class PlayerController : MonoBehaviour
     }
 
     private void OnTriggerEnter(Collider col) {
-
-        if(!isSword){
+        
+         if(!isSword){
         if(col.gameObject.tag.Equals("BFG") ){
 
             orbital.BulletsUpgrade(true);
@@ -321,12 +322,11 @@ public class PlayerController : MonoBehaviour
         } else if(col.gameObject.tag.Equals("Shield")){
              col.gameObject.SetActive(false);
             Shield();
-           
-
         }
-         
-        } else isSword = false;
+        }  
     }
+
+    
 
     //Abilidades
     public void DashIncrease(){
