@@ -14,13 +14,14 @@ TagManager:
   - BFG
   - Ultra
   - Sword
-<<<<<<< HEAD
   - Escudin
-=======
   - Sonic
   - Car
   - Monster
->>>>>>> LimitBar
+  - CameraSwitcher
+  - CinematicCamera
+  - VirtualCamera
+  - CameraTransitioner
   layers:
   - Default
   - TransparentFX
