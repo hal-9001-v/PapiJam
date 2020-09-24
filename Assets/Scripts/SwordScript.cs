@@ -38,7 +38,7 @@ public class SwordScript : MonoBehaviour
         transform.position = new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z);
 
         player.rb.velocity = Vector3.zero;
-        player.walkVelocity = Vector3.zero;
+        player.movementDirection = Vector3.zero;
         player.canMove = false;
         player.canSwing = false;
 
