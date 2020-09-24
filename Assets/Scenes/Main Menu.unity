@@ -280,6 +280,8 @@ MonoBehaviour:
   - {fileID: 688430341}
   playersNum: 2
   playersNumSelector: {fileID: 2096747526}
+  numsSprites: []
+  numberGO: {fileID: 0}
   columnas: {fileID: 1084016815}
   columnasArray:
   - {fileID: 1893155562}
@@ -288,7 +290,10 @@ MonoBehaviour:
   - {fileID: 1279574061}
   playerNumTx: {fileID: 875110380}
   isNumSelected: 0
+  menuPrefs: {fileID: 0}
   Visor: {fileID: 0}
+  selectors: []
+  selectorGO: {fileID: 0}
   casillasPersonajes: {fileID: 394120797}
 --- !u!1 &60644429
 GameObject:
@@ -456,7 +461,7 @@ GameObject:
   - component: {fileID: 79685811}
   - component: {fileID: 79685812}
   m_Layer: 0
-  m_Name: Casilla (1)
+  m_Name: Casilla1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1282,7 +1287,8 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: -36.564583, z: 18.339602}
   m_LocalScale: {x: 1.4930553, y: 1.4930553, z: 1.4930553}
-  m_Children: []
+  m_Children:
+  - {fileID: 1960122817}
   m_Father: {fileID: 1073602480}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1992,15 +1998,24 @@ MonoBehaviour:
   - {fileID: 832533072}
   playersNum: 2
   playersNumSelector: {fileID: 373475407}
+  numsSprites:
+  - {fileID: 21300000, guid: 028ecd518eb35ba458ba15d886c1777f, type: 3}
+  - {fileID: 21300000, guid: 6030048ec36935742976ec1c61a4611b, type: 3}
+  - {fileID: 21300000, guid: 21e015f7dfc04574f856a78664be4d15, type: 3}
+  numberGO: {fileID: 1960122815}
   columnas: {fileID: 598091770}
   columnasArray:
-  - {fileID: 1893155562}
-  - {fileID: 2036555944}
-  - {fileID: 1974773707}
-  - {fileID: 1279574061}
+  - {fileID: 684520562}
+  - {fileID: 642571251}
+  - {fileID: 972608467}
+  - {fileID: 1564823971}
   playerNumTx: {fileID: 875110380}
   isNumSelected: 0
+  menuPrefs: {fileID: 0}
   Visor: {fileID: 0}
+  selectors: []
+  selectorGO: {fileID: 8272688645385972111, guid: b2b63d03e350aad4b980f4de25dfec30,
+    type: 3}
   casillasPersonajes: {fileID: 114318020}
 --- !u!114 &796280439
 MonoBehaviour:
@@ -2564,7 +2579,7 @@ GameObject:
   - component: {fileID: 910049726}
   - component: {fileID: 910049727}
   m_Layer: 0
-  m_Name: Casilla (3)
+  m_Name: Casilla3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2961,7 +2976,7 @@ GameObject:
   - component: {fileID: 1083011585}
   - component: {fileID: 1083011586}
   m_Layer: 0
-  m_Name: Casilla (2)
+  m_Name: Casilla2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3766,7 +3781,7 @@ GameObject:
   - component: {fileID: 1558964639}
   - component: {fileID: 1558964640}
   m_Layer: 0
-  m_Name: Casilla
+  m_Name: Casilla0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4257,6 +4272,87 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1893155562}
   m_CullTransparentMesh: 0
+--- !u!1 &1960122815
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1960122817}
+  - component: {fileID: 1960122816}
+  m_Layer: 0
+  m_Name: Num
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!212 &1960122816
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1960122815}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 21300000, guid: 028ecd518eb35ba458ba15d886c1777f, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 10, y: 10}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
+--- !u!4 &1960122817
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1960122815}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 3.34, y: 0, z: -1.45}
+  m_LocalScale: {x: 0.49495, y: 0.49495, z: 0.49495}
+  m_Children: []
+  m_Father: {fileID: 373475408}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1966259371
 GameObject:
   m_ObjectHideFlags: 0

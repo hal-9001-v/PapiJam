@@ -19,6 +19,9 @@ public class MenuManager : MonoBehaviour
 
     public int playersNum;
     public GameObject playersNumSelector;
+    public Sprite[] numsSprites;
+    public GameObject numberGO;
+
     public GameObject columnas;
     public GameObject[] columnasArray;
     public Text playerNumTx;
@@ -28,6 +31,11 @@ public class MenuManager : MonoBehaviour
     public MenuPrefs menuPrefs;
 
     public GameObject Visor;
+
+    //Selectores
+    public GameObject[] selectors;
+    public GameObject selectorGO;
+
     //public Image
     private void Awake() {
     menuPrefs = FindObjectOfType<MenuPrefs>();
@@ -94,8 +102,8 @@ public class MenuManager : MonoBehaviour
         iTween.MoveTo(botonesMain[1], iTween.Hash("x", -45, "time", 1.5f, "easetype", "easeOutQuint"));
         iTween.MoveTo(botonesMain[2], iTween.Hash("x", 45, "time", 1.5f, "easetype", "easeOutQuint"));
 
+        numberGO.GetComponent<SpriteRenderer>().sprite = numsSprites[playersNum-2];
         //setNumber();
-        playerNumTx.text = playersNum.ToString();
         //botonesMain[0].transform.Translate(Vector3.right * 700 * Time.deltaTime);
         //botonesMain[1].transform.Translate(Vector3.left * 700 * Time.deltaTime);
     }
@@ -280,6 +288,13 @@ public class MenuManager : MonoBehaviour
             audioPlay.clip = sonidos[0];
             audioPlay.Play();
             iTween.MoveTo(playersNumSelector, iTween.Hash("y", -26, "time", 1.5f, "easetype", "easeOutQuint"));
+
+            selectors = new GameObject[playersNum];
+
+            for(int i=0; i<selectors.Length; i++)
+            {
+                selectors[i]=Instantiate(selectorGO);
+            }
         }
     }
 
@@ -302,6 +317,14 @@ public class MenuManager : MonoBehaviour
             iTween.MoveTo(casillasPersonajes, iTween.Hash("y", -34, "time", 1.5f, "easetype", "easeOutQuint"));
             iTween.MoveTo(columnas, iTween.Hash("y", -70, "time", 3f, "easetype", "easeOutQuint"));
             iTween.MoveTo(playersNumSelector, iTween.Hash("y", -7.2, "time", 1.5f, "easetype", "easeOutQuint"));
+
+            
+
+            for (int i = 0; i < selectors.Length; i++)
+            {
+                Destroy(selectors[i]);
+            }
+            Array.Clear(selectors, 0, selectors.Length);
 
         }
 
