@@ -72,7 +72,7 @@ public class PlayerController : MonoBehaviour
     }
     private void Start()
     {
-        enterCarState();
+        enterNormalState();
     }
 
     private void exitState()

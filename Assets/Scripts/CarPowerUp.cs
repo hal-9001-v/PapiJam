@@ -9,10 +9,12 @@ public class CarPowerUp : MonoBehaviour
 
     private void Awake()
     {
-        if (myAnimator == null) {
+        if (myAnimator == null)
+        {
             myAnimator = GetComponent<Animator>();
 
-            if (myAnimator == null) {
+            if (myAnimator == null)
+            {
                 myAnimator = GetComponentInChildren<Animator>();
 
             }
@@ -20,22 +22,26 @@ public class CarPowerUp : MonoBehaviour
 
     }
 
-    public void setDrift() {
+    public void setDrift()
+    {
         myAnimator.SetBool("IsDrifting", true);
-//        myAnimator.SetTrigger("Drift");
+        //myAnimator.SetTrigger("Drift");
 
     }
 
-    public void setNormal() {
+    public void setNormal()
+    {
         myAnimator.SetBool("IsDrifting", false);
     }
 
-    public void hide() {
+    public void hide()
+    {
         gameObject.SetActive(false);
 
     }
 
-    public void show() {
+    public void show()
+    {
         gameObject.SetActive(true);
     }
 

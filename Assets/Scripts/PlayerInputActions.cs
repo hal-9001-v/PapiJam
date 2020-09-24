@@ -60,7 +60,7 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": ""Gas"",
-                    ""type"": ""Value"",
+                    ""type"": ""PassThrough"",
                     ""id"": ""1d2d945e-e31f-46fe-813c-59fc3a66bc32"",
                     ""expectedControlType"": """",
                     ""processors"": """",
@@ -358,7 +358,7 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
                     ""name"": """",
                     ""id"": ""1caac4a1-dac7-4443-b47a-d4df6ac68493"",
                     ""path"": ""<Keyboard>/space"",
-                    ""interactions"": ""Press"",
+                    ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Gas"",
