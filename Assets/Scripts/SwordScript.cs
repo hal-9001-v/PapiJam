@@ -61,7 +61,6 @@ public class SwordScript : MonoBehaviour
     private void OnTriggerEnter(Collider col)
     {
         
-        if(col.gameObject.tag.Equals("BFG"))return;
         if ((col.gameObject.tag.Equals("Player")))
         {
             PlayerController hitPlayer = col.GetComponent<PlayerController>();

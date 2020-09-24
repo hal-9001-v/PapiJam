@@ -28,7 +28,6 @@ public class OrbitalScript : MonoBehaviour
 
     //Control bools
     bool BFGmode;
-    bool gatlingMode;
     bool BFGReady;
     bool gunReady;
     int j ;
@@ -74,14 +73,12 @@ public class OrbitalScript : MonoBehaviour
         if(BFG){
 
             BFGmode = true;
-            gatlingMode = false;
             //Escopeta: 9 balas, ráfagas de 3 en 3 Más CD
             if(myBullets.Length != 9){
                 myBullets = new BulletScript[9];
             } 
         }
         else {
-            gatlingMode = true;
             BFGmode =false;
             //Metralleta: 5 balas en fila, menos CD
             if(myBullets.Length != 5){

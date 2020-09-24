@@ -79,12 +79,12 @@ public class PlayerController : MonoBehaviour
             myCar = GetComponentInChildren<CarPowerUp>();
 
         sword.player = this;
-
+    
 
     }
     private void Start()
     {
-        enterNormalState();
+        enterCarState();
     }
 
     private void exitState()
@@ -109,7 +109,7 @@ public class PlayerController : MonoBehaviour
         canDash = false;
         canMove = true;
         canShoot = false;
-        isShielded = false;
+        isShielded = true;
 
         carIsDrifting = false;
 
@@ -124,7 +124,7 @@ public class PlayerController : MonoBehaviour
         canDash = true;
         canMove = true;
         canShoot = true;
-        isShielded = true;
+        isShielded = false;
 
         currentState = (int)playerState.normal;
     }
