@@ -39,13 +39,16 @@ public class PlayerController : MonoBehaviour
     public SwordScript sword;
     public OrbitalScript orbital;
     public CarPowerUp myCar;
+    public LimitBar myLimitBar;
 
     float driftDirection = 0;
     private bool carIsDrifting;
 
-
     public float extraSpeed;
     private float extraSpeedCounter = 0;
+
+    public float limit = 0;
+    public float maxLimit = 10;
 
 
     enum playerState
@@ -78,13 +81,45 @@ public class PlayerController : MonoBehaviour
         if (myCar == null)
             myCar = GetComponentInChildren<CarPowerUp>();
 
-        sword.player = this;
+        sword.setPlayer(this);
+
+        myLimitBar = LimitBar.getFreeLimitBar();
+
+        if (myLimitBar != null)
+        {
+            myLimitBar.assingLimitBar(this);
+            myLimitBar.show();
+        }
+        else
+        {
+            Debug.LogWarning("No free Limit Bar in Scene");
+        }
+
+
 
 
     }
     private void Start()
     {
-        enterCarState();
+
+        enterNormalState();
+    }
+
+    public void changeLimit(float n)
+    {
+        limit += n;
+
+        if (limit > maxLimit)
+        {
+            limit = maxLimit;
+        }
+        else if (limit < 0)
+        {
+            limit = 0;
+        }
+
+        myLimitBar.setLimit(limit);
+
     }
 
     private void exitState()
@@ -298,8 +333,6 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter(Collider col)
     {
-
-
         if (col.gameObject.tag.Equals("BFG"))
         {
 
@@ -374,10 +407,8 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-
     IEnumerator ShieldNumerator()
     {
-        Debug.Log("pipo");
         while (shieldTime > 0)
         {
             isShielded = true;
@@ -393,8 +424,6 @@ public class PlayerController : MonoBehaviour
         if (!isShielded) StartCoroutine(ShieldNumerator());
     }
 
-
-
     IEnumerator SlowDashing()
     {
         for (int i = 0; i < 5; i++)
@@ -408,10 +437,6 @@ public class PlayerController : MonoBehaviour
     }
     IEnumerator DashCDIng()
     {
-
-
-
-
         if (hasUltraInstinted)
         {
 
@@ -441,11 +466,7 @@ public class PlayerController : MonoBehaviour
         {
             yield return new WaitForSeconds(DashCD);
             canDash = true;
-
         }
-
-
-
     }
 
     private void rotateToDirection()
@@ -456,9 +477,9 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-
     private void FixedUpdate()
     {
+
 
         switch (currentState)
         {
@@ -466,6 +487,7 @@ public class PlayerController : MonoBehaviour
                 if (canMove)
                 {
                     rb.velocity = movementDirection * walkSpeed;
+
 
                     rotateToDirection();
 
@@ -486,8 +508,6 @@ public class PlayerController : MonoBehaviour
                     }
 
                     rotateToDirection();
-
-                    if (carIsDrifting) Debug.Log("GAS");
 
                     //Drift
                     if (carIsDrifting && movementDirection != Vector3.zero)
