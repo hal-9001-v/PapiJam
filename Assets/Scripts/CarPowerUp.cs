@@ -3,29 +3,41 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-[RequireComponent(typeof(Rigidbody))]
-[RequireComponent(typeof(PlayerInputActions))]
 public class CarPowerUp : MonoBehaviour
 {
-    private Rigidbody myRB;
+    Animator myAnimator;
 
-    public float force = 1000;
-    
     private void Awake()
-    { 
-
-        myRB = GetComponent<Rigidbody>();
-    }
-
-    private void OnCarMovement(InputAction.CallbackContext value)
     {
-        Vector2 direction = value.ReadValue<Vector2>();
+        if (myAnimator == null) {
+            myAnimator = GetComponent<Animator>();
 
-        myRB.AddForce(new Vector3(direction.x*force, 0, direction.y*force));
-       
+            if (myAnimator == null) {
+                myAnimator = GetComponentInChildren<Animator>();
+
+            }
+        }
+
     }
 
+    public void setDrift() {
+        myAnimator.SetBool("IsDrifting", true);
+//        myAnimator.SetTrigger("Drift");
 
+    }
+
+    public void setNormal() {
+        myAnimator.SetBool("IsDrifting", false);
+    }
+
+    public void hide() {
+        gameObject.SetActive(false);
+
+    }
+
+    public void show() {
+        gameObject.SetActive(true);
+    }
 
 
 }

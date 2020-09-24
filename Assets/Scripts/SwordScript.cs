@@ -28,9 +28,7 @@ public class SwordScript : MonoBehaviour
     }
 
     IEnumerator Attack()
-    {
-
-
+    { 
         transform.position = new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z);
 
         player.rb.velocity = Vector3.zero;

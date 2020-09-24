@@ -57,6 +57,14 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Gas"",
+                    ""type"": ""Value"",
+                    ""id"": ""1d2d945e-e31f-46fe-813c-59fc3a66bc32"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -194,28 +202,6 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""1f1aae9f-b7a7-4a30-8874-a937eddb51d2"",
-                    ""path"": ""<Keyboard>/space"",
-                    ""interactions"": ""Press"",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Dash"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""9550fffa-3d1d-4826-a623-c5c8d2c53660"",
-                    ""path"": ""<Gamepad>/buttonSouth"",
-                    ""interactions"": ""Press"",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Dash"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""0853cc91-128f-4157-837b-3ebf53a21370"",
                     ""path"": ""<Gamepad>/leftShoulder"",
                     ""interactions"": ""Press"",
@@ -345,6 +331,50 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
                     ""action"": ""Aim"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1f1aae9f-b7a7-4a30-8874-a937eddb51d2"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Dash"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9550fffa-3d1d-4826-a623-c5c8d2c53660"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Dash"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1caac4a1-dac7-4443-b47a-d4df6ac68493"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Gas"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""64956d90-df17-4edd-93f5-ff86ee10dff5"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Gas"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -678,6 +708,7 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
         m_Player_Melee = m_Player.FindAction("Melee", throwIfNotFound: true);
         m_Player_Dash = m_Player.FindAction("Dash", throwIfNotFound: true);
         m_Player_Shoot = m_Player.FindAction("Shoot", throwIfNotFound: true);
+        m_Player_Gas = m_Player.FindAction("Gas", throwIfNotFound: true);
         // Menu
         m_Menu = asset.FindActionMap("Menu", throwIfNotFound: true);
         m_Menu_Up = m_Menu.FindAction("Up", throwIfNotFound: true);
@@ -740,6 +771,7 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
     private readonly InputAction m_Player_Melee;
     private readonly InputAction m_Player_Dash;
     private readonly InputAction m_Player_Shoot;
+    private readonly InputAction m_Player_Gas;
     public struct PlayerActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -749,6 +781,7 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
         public InputAction @Melee => m_Wrapper.m_Player_Melee;
         public InputAction @Dash => m_Wrapper.m_Player_Dash;
         public InputAction @Shoot => m_Wrapper.m_Player_Shoot;
+        public InputAction @Gas => m_Wrapper.m_Player_Gas;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -773,6 +806,9 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
                 @Shoot.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnShoot;
                 @Shoot.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnShoot;
                 @Shoot.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnShoot;
+                @Gas.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnGas;
+                @Gas.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnGas;
+                @Gas.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnGas;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -792,6 +828,9 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
                 @Shoot.started += instance.OnShoot;
                 @Shoot.performed += instance.OnShoot;
                 @Shoot.canceled += instance.OnShoot;
+                @Gas.started += instance.OnGas;
+                @Gas.performed += instance.OnGas;
+                @Gas.canceled += instance.OnGas;
             }
         }
     }
@@ -876,6 +915,7 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
         void OnMelee(InputAction.CallbackContext context);
         void OnDash(InputAction.CallbackContext context);
         void OnShoot(InputAction.CallbackContext context);
+        void OnGas(InputAction.CallbackContext context);
     }
     public interface IMenuActions
     {
