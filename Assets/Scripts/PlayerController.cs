@@ -24,6 +24,8 @@ public class PlayerController : MonoBehaviour
     public bool hasUltraInstinted = false;
     public bool hasChangedSword = false;
     public bool isShielded = false;
+    public bool canDoLimit = false;
+
     //Player Stats
     public float DashCD;
     public float ShootCD;
@@ -49,7 +51,9 @@ public class PlayerController : MonoBehaviour
     private float extraSpeedCounter = 0;
 
     public float limit = 0;
-    public float maxLimit = 10;
+    public float MAXLIMIT = 10;
+
+    public float monsterCharge;
 
     public int currentState;
 
@@ -107,13 +111,13 @@ public class PlayerController : MonoBehaviour
         enterNormalState();
     }
 
-    public void changeLimit(float n)
+    public void chargeLimit(float n)
     {
         limit += n;
 
-        if (limit > maxLimit)
+        if (limit > MAXLIMIT)
         {
-            limit = maxLimit;
+            limit = MAXLIMIT;
         }
         else if (limit < 0)
         {
@@ -152,12 +156,32 @@ public class PlayerController : MonoBehaviour
         hasUltraInstinted = false;
         hasChangedSword = false;
         isShielded = true;
+        canDoLimit = false;
 
         carIsDrifting = true;
 
         myCar.show();
 
         currentState = (int)playerState.car;
+    }
+    public void enterNormalState()
+    {
+        exitState();
+
+        canSwing = true;
+        canDash = true;
+        canMove = true;
+        canShoot = true;
+        isHit = false;
+        hasSpeeded = false;
+        hasUltraInstinted = false;
+        hasChangedSword = false;
+        isShielded = false;
+        canDoLimit = true;
+
+        carIsDrifting = false;
+
+        currentState = (int)playerState.normal;
     }
 
     public void changeStateTimer(int nextState, float time)
@@ -194,23 +218,19 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    public void enterNormalState()
+    private void OnLimit()
     {
-        exitState();
 
-        canSwing = true;
-        canDash = true;
-        canMove = true;
-        canShoot = true;
-        isHit = false;
-        hasSpeeded = false;
-        hasUltraInstinted = false;
-        hasChangedSword = false;
-        isShielded = false;
+        if (canDoLimit)
+        {
 
-        carIsDrifting = false;
-
-        currentState = (int)playerState.normal;
+            if (limit >= MAXLIMIT)
+            {
+                chargeLimit(-MAXLIMIT);
+                //DO LIMIT
+                Debug.Log("LIMIT");
+            }
+        }
     }
 
     private void OnGas()
@@ -265,7 +285,6 @@ public class PlayerController : MonoBehaviour
             sword.attack();
         }
     }
-
 
     private void OnDash()
     {
@@ -369,52 +388,58 @@ public class PlayerController : MonoBehaviour
 
     private void takePowerUp(Collider col)
     {
-
-        if (col.gameObject.tag.Equals("BFG"))
+        switch (col.gameObject.tag)
         {
+            case "BFG":
+                orbital.BulletsUpgrade(true);
+                col.gameObject.SetActive(false);
 
-            orbital.BulletsUpgrade(true);
-            col.gameObject.SetActive(false);
+                break;
 
-        }
-        else if (col.gameObject.tag.Equals("Rambo"))
-        {
+            case "Rambo":
+                orbital.BulletsUpgrade(false);
+                col.gameObject.SetActive(false);
+                break;
 
-            orbital.BulletsUpgrade(false);
-            col.gameObject.SetActive(false);
+            case "Sonic":
 
-        }
-        else if (col.gameObject.tag.Equals("Sonic"))
-        {
-            if (!hasSpeeded) col.gameObject.SetActive(false);
-            SpeedBoost();
+                if (!hasSpeeded) col.gameObject.SetActive(false);
+                SpeedBoost();
 
+                break;
 
-        }
-        else if (col.gameObject.tag.Equals("Ultra"))
-        {
-            if (!hasUltraInstinted) col.gameObject.SetActive(false);
-            DashIncrease();
+            case "Ultra":
 
+                if (!hasUltraInstinted) col.gameObject.SetActive(false);
+                DashIncrease();
 
-        }
-        else if (col.gameObject.tag.Equals("Cloud"))
-        {
-            if (!hasChangedSword) col.gameObject.SetActive(false);
-            changeSword();
+                break;
 
+            case "Cloud":
 
-        }
-        else if (col.gameObject.tag.Equals("Shield"))
-        {
-            col.gameObject.SetActive(false);
-            Shield();
-        }
-        else if (col.gameObject.tag.Equals("Car"))
-        {
-            col.gameObject.SetActive(false);
-            enterCarState();
-            changeStateTimer((int)playerState.normal, carTime);
+                if (!hasChangedSword) col.gameObject.SetActive(false);
+                changeSword();
+
+                break;
+            case "Shield":
+
+                col.gameObject.SetActive(false);
+                Shield();
+                break;
+
+            case "Car":
+
+                col.gameObject.SetActive(false);
+                enterCarState();
+                changeStateTimer((int)playerState.normal, carTime);
+
+                break;
+
+            case "Monster":
+                col.gameObject.SetActive(false);
+                chargeLimit(monsterCharge);
+
+                break;
 
         }
     }

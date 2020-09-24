@@ -69,7 +69,7 @@ public class BulletScript : MonoBehaviour
                 readyToShoot = true;
                 gameObject.SetActive(false);
 
-                myPlayer.changeLimit(limitCharge);
+                myPlayer.chargeLimit(limitCharge);
             }
 
 

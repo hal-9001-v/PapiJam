@@ -57,7 +57,7 @@ public class LimitBar : MonoBehaviour
     public void assingLimitBar(PlayerController player)
     {
         myPlayer = player;
-        limitMax = player.maxLimit;
+        limitMax = player.MAXLIMIT;
 
         setLimit(0);
     }

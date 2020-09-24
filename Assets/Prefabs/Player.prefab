@@ -219,6 +219,7 @@ MonoBehaviour:
   hasUltraInstinted: 0
   hasChangedSword: 0
   isShielded: 0
+  canDoLimit: 0
   DashCD: 0.5
   ShootCD: 5
   walkSpeed: 6
@@ -234,7 +235,8 @@ MonoBehaviour:
   myLimitBar: {fileID: 0}
   extraSpeed: 0
   limit: 0
-  maxLimit: 10
+  MAXLIMIT: 10
+  monsterCharge: 3
   currentState: 0
 --- !u!114 &454220025032678349
 MonoBehaviour:

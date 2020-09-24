@@ -79,7 +79,7 @@ public class SwordScript : MonoBehaviour
 
                 if (myPlayer != null)
                 {
-                    myPlayer.changeLimit(limitCharge);
+                    myPlayer.chargeLimit(limitCharge);
                 }
 
             }
