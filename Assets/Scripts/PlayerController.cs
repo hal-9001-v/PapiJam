@@ -21,8 +21,11 @@ public class PlayerController : MonoBehaviour
     public bool canDash = true;
     public bool canMove = true;
     public bool canShoot = true;
-    public bool isHit = true;
-
+    public bool isHit = false;
+    public bool hasSpeeded = false;
+    public bool hasUltraInstinted = false;
+    public bool hasChangedSword = false;
+    public bool isShielded = false;
     //Player Stats
     public float DashCD;
     public float ShootCD;
@@ -30,6 +33,7 @@ public class PlayerController : MonoBehaviour
     public float rotateSpeed;
     public int PlayerID;
     public int dashCount;
+    public float shieldTime;
 
 
     //GOs
@@ -67,7 +71,7 @@ public class PlayerController : MonoBehaviour
 
         sword.player = this;
 
-        currentState = 1;
+        currentState = 0;
     }
     private void Start()
     {
@@ -89,7 +93,7 @@ public class PlayerController : MonoBehaviour
             //CAR
             case (int)playerState.car:
                 {
-                    carMovement(movementInput);
+                    //carMovement(movementInput);
                     break;
 
                 }
@@ -126,7 +130,7 @@ public class PlayerController : MonoBehaviour
         }
 
     }
-
+/*
     private void carMovement(Vector2 movementInput)
     {
         Vector3 carMovement = new Vector3(movementInput.x, 0, movementInput.y);
@@ -136,7 +140,7 @@ public class PlayerController : MonoBehaviour
         Debug.Log("HI");
 
 
-    }
+    }*/
 
     private void OnShoot()
     {
@@ -151,6 +155,8 @@ public class PlayerController : MonoBehaviour
 
     public void Hit(float force, Vector3 dir, float time)
     {
+
+        if(!isShielded){
         isHit = true;
         canDash = false;
         canMove = false;
@@ -160,7 +166,7 @@ public class PlayerController : MonoBehaviour
         rb.AddForce(dir * force);
 
         StartCoroutine(HitStun(time));
-
+        }
 
     }
 
@@ -173,8 +179,8 @@ public class PlayerController : MonoBehaviour
         canSwing = true;
         canShoot = true;
         isHit = false;
-    }
-
+    }   
+    
     private void OnCollisionEnter(Collision col)
     {
         if ((col.gameObject.tag.Equals("Wall") || col.gameObject.tag.Equals("Player")) && isHit == true)
@@ -190,32 +196,81 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter(Collider col) {
 
-        if(col.gameObject.tag.Equals("BFG")){
+        
+        if(col.gameObject.tag.Equals("BFG") ){
+
             orbital.BulletsUpgrade(true);
             col.gameObject.SetActive(false);
+
         } else if(col.gameObject.tag.Equals("Rambo")){
+
             orbital.BulletsUpgrade(false);
             col.gameObject.SetActive(false);
-        }
 
+        }
+        else if(col.gameObject.tag.Equals("Sonic")){
+            if(!hasSpeeded) col.gameObject.SetActive(false);
+            SpeedBoost();
+            
+
+        } else if(col.gameObject.tag.Equals("Ultra")){
+             if(!hasUltraInstinted) col.gameObject.SetActive(false);
+            DashIncrease();
+           
+
+        } else if(col.gameObject.tag.Equals("Cloud")){
+           if(!hasChangedSword) col.gameObject.SetActive(false);
+            changeSword();
+            
+
+        } else if(col.gameObject.tag.Equals("Shield")){
+             col.gameObject.SetActive(false);
+            Shield();
+           
+
+        } 
     }
 
     //Abilidades
     public void DashIncrease(){
-        dashCount++;
+        if(!hasUltraInstinted) {dashCount++;
+        hasUltraInstinted = true;
+        }
     }
 
     public void SpeedBoost(){
-        
+        if(!hasSpeeded) {walkSpeed= walkSpeed*2;
+        hasSpeeded=true;}
     }
 
     public void changeSword(){
+        if(!hasChangedSword){
+            //TO DO IMPLEMENT SWORD
+            sword.swordModel.mesh = GameAssets.i.cloudSwordModel;
+            sword.swordMaterial.material = GameAssets.i.cloudSwordMaterial;
+            sword.swordCollider.size = new Vector3(
+                sword.swordCollider.size.x*5,sword.swordCollider.size.y,sword.swordCollider.size.z*2);
+            hasChangedSword = true;
+        }
+    }
 
+
+    IEnumerator ShieldNumerator(){
+        Debug.Log("pipo");
+        while (shieldTime > 0){
+            isShielded = true;
+            yield return new WaitForSeconds(1f);
+            shieldTime--;
+        } 
+        if(isShielded) isShielded = false;
     }
 
     public void Shield(){
-
+        shieldTime += 5f;
+        if(!isShielded) StartCoroutine(ShieldNumerator());
     }
+
+    
 
     private void OnMelee()
     {
@@ -249,8 +304,40 @@ public class PlayerController : MonoBehaviour
     }
     IEnumerator DashCDIng()
     {
+        
+        
+        
+        
+        if(hasUltraInstinted) {
+
+        if(dashCount == 1){
+
         yield return new WaitForSeconds(DashCD);
+
+        if (hasUltraInstinted && dashCount ==1) 
+        
         canDash = true;
+        
+        dashCount++;
+        
+        }
+
+        else if (dashCount == 2){
+            canDash = true;
+           dashCount --; 
+           
+        }
+
+        } 
+        
+        else {
+            yield return new WaitForSeconds(DashCD);
+            canDash = true;
+
+        }
+
+
+
     }
 
 

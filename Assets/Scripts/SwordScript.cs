@@ -10,6 +10,9 @@ public class SwordScript : MonoBehaviour
     public float swordForce = 150;
     public float hitStunTime = 1;
 
+    public BoxCollider swordCollider;
+    public MeshFilter swordModel;
+    public MeshRenderer swordMaterial;
     public Vector3 dir;
 
     public float rotation = 15;
@@ -23,6 +26,9 @@ public class SwordScript : MonoBehaviour
 
     private void Awake()
     {
+        if(swordMaterial == null) swordMaterial = GetComponentInChildren<MeshRenderer>(); 
+        if(swordCollider == null) swordCollider = GetComponent<BoxCollider>(); 
+        if (swordModel == null)  swordModel = GetComponentInChildren<MeshFilter>();
         gameObject.SetActive(false);
 
     }
@@ -34,6 +40,7 @@ public class SwordScript : MonoBehaviour
         transform.position = new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z);
 
         player.rb.velocity = Vector3.zero;
+        player.walkVelocity = Vector3.zero;
         player.canMove = false;
         player.canSwing = false;
 
@@ -48,14 +55,15 @@ public class SwordScript : MonoBehaviour
 
         player.canMove = true;
         player.canSwing = true;
-
+        
         gameObject.SetActive(false);
 
     }
 
     private void OnTriggerEnter(Collider col)
     {
-
+        
+        if(col.gameObject.tag.Equals("BFG"))return;
         if ((col.gameObject.tag.Equals("Player")))
         {
             PlayerController hitPlayer = col.GetComponent<PlayerController>();

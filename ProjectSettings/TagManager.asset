@@ -10,6 +10,11 @@ TagManager:
   - BFG
   - Rambo
   - Car
+  - Sonic
+  - Ultra
+  - Shield
+  - Cloud
+  - Sword
   layers:
   - Default
   - TransparentFX
