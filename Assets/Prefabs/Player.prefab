@@ -221,6 +221,7 @@ MonoBehaviour:
   ShootCD: 5
   walkSpeed: 6
   carSpeed: 12
+  carTime: 5
   rotateSpeed: 8
   PlayerID: 0
   dashCount: 0
@@ -228,7 +229,10 @@ MonoBehaviour:
   sword: {fileID: 1425631355563487171}
   orbital: {fileID: 3107006982099270330}
   myCar: {fileID: 8879319599854110643}
+  myLimitBar: {fileID: 0}
   extraSpeed: 0
+  limit: 0
+  maxLimit: 10
   currentState: 0
 --- !u!114 &454220025032678349
 MonoBehaviour:

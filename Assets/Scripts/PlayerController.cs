@@ -29,6 +29,7 @@ public class PlayerController : MonoBehaviour
     public float ShootCD;
     public float walkSpeed;
     public float carSpeed;
+    public float carTime;
     public float rotateSpeed;
     public int PlayerID;
     public int dashCount;
@@ -50,6 +51,9 @@ public class PlayerController : MonoBehaviour
     public float limit = 0;
     public float maxLimit = 10;
 
+    public int currentState;
+
+    Coroutine stateChanger;
 
     enum playerState
     {
@@ -57,8 +61,6 @@ public class PlayerController : MonoBehaviour
         car = 1,
 
     }
-
-    public int currentState;
 
     private void Awake()
     {
@@ -127,11 +129,12 @@ public class PlayerController : MonoBehaviour
         switch (currentState)
         {
             case (int)playerState.normal:
-
+                StopAllCoroutines();
                 break;
 
             case (int)playerState.car:
                 driftDirection = 0;
+                myCar.hide();
                 break;
         }
     }
@@ -152,7 +155,39 @@ public class PlayerController : MonoBehaviour
 
         carIsDrifting = true;
 
+        myCar.show();
+
         currentState = (int)playerState.car;
+    }
+
+    public void changeStateTimer(int nextState, float time) {
+
+        if (stateChanger != null) {
+            StopCoroutine(stateChanger);
+        }
+
+        stateChanger = StartCoroutine(ChangeStateTimer(nextState, time));
+    }
+
+    IEnumerator ChangeStateTimer(int nextState, float time) {
+        
+        yield return new WaitForSeconds(time);
+
+        switch (nextState) {
+            case (int)playerState.normal:
+                enterNormalState();
+                break;
+
+            case (int)playerState.car:
+                enterCarState();
+
+                break;
+
+            default:
+                Debug.LogWarning("State "+nextState+" does not exist");
+                break;
+        }
+
     }
 
     public void enterNormalState()
@@ -179,6 +214,7 @@ public class PlayerController : MonoBehaviour
 
         if (currentState == (int)playerState.car)
         {
+
             carIsDrifting = !carIsDrifting;
 
             if (carIsDrifting)
@@ -229,9 +265,6 @@ public class PlayerController : MonoBehaviour
 
     private void OnDash()
     {
-
-
-
         switch (currentState)
         {
 
@@ -331,8 +364,8 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider col)
-    {
+    private void takePowerUp(Collider col) {
+
         if (col.gameObject.tag.Equals("BFG"))
         {
 
@@ -373,6 +406,18 @@ public class PlayerController : MonoBehaviour
             col.gameObject.SetActive(false);
             Shield();
         }
+        else if (col.gameObject.tag.Equals("Car"))
+        {
+            col.gameObject.SetActive(false);
+            enterCarState();
+            changeStateTimer((int)playerState.normal, carTime);
+
+        }
+    }
+
+    private void OnTriggerEnter(Collider col)
+    {
+        takePowerUp(col);
     }
 
     //Abilidades

@@ -20,6 +20,13 @@ public class CarPowerUp : MonoBehaviour
             }
         }
 
+        hide();
+
+    }
+
+    private void Start()
+    {
+        
     }
 
     public void setDrift()
