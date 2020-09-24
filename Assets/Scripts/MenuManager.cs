@@ -15,6 +15,7 @@ public class MenuManager : MonoBehaviour
     public AudioSource audioPlay;
 
     public GameObject [] botonesMain;
+    public GameObject flechita;
     bool charactersMenuOn;
 
     public int playersNum;
@@ -77,16 +78,19 @@ public class MenuManager : MonoBehaviour
     {
         if (!play)
         {
+            flechita.SetActive(true);
             selectMain();
             buttonsEdit();
         }
         else {
+            flechita.SetActive(false);
             if (!isNumSelected)
             {
                 playerNumSelect();
             }
             else
             {
+  
                 SubirPersonajes();
             }
             
@@ -150,6 +154,7 @@ public class MenuManager : MonoBehaviour
             if(selectedButton == i)
             {
                 botonesMain[i].transform.localScale = new Vector2(1.2f, 1.2f);
+                flechita.transform.position = botonesMain[i].transform.position;
             }
 
             else

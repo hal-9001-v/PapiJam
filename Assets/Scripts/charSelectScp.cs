@@ -57,19 +57,19 @@ public class charSelectScp : MonoBehaviour
 
         if (name == "Selector1")
         {
-            transform.position = casillasPos[charSelected] + new Vector3(-1.3f, 1.3f, -0.7f);
+            transform.position = casillasPos[charSelected] + new Vector3(-1.7f, 1.7f, -1f);
         }
         else if (name == "Selector2")
         {
-            transform.position = casillasPos[charSelected] + new Vector3(1.3f, 1.3f, -0.7f);
+            transform.position = casillasPos[charSelected] + new Vector3(1.7f, 1.7f, -1f);
         }
         else if (name == "Selector3")
         {
-            transform.position = casillasPos[charSelected] + new Vector3(-1.3f, -1.3f, -0.7f);
+            transform.position = casillasPos[charSelected] + new Vector3(-1.7f, -1.7f, -1f);
         }
         else
         {
-            transform.position = casillasPos[charSelected] + new Vector3(1.3f, -1.3f, -0.7f);
+            transform.position = casillasPos[charSelected] + new Vector3(1.7f, -1.7f, -1f);
         }
 
         if (gamepad.dpad.up.wasPressedThisFrame || gamepad.leftStick.up.wasPressedThisFrame)

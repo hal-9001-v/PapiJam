@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 8272688645385972111}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 7.3200006, y: 1.5035746, z: -1.9022048}
-  m_LocalScale: {x: 0.2102737, y: 0.2102737, z: 0.2102737}
+  m_LocalScale: {x: 0.6046687, y: 0.6046687, z: 0.6046687}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -47,15 +47,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   charSelected: 0
   selectorSP:
-  - {fileID: 21300000, guid: f113e28ae077cac4e928b94616d0a4ca, type: 3}
-  - {fileID: 21300000, guid: 028ecd518eb35ba458ba15d886c1777f, type: 3}
-  - {fileID: 21300000, guid: 6030048ec36935742976ec1c61a4611b, type: 3}
-  - {fileID: 21300000, guid: 21e015f7dfc04574f856a78664be4d15, type: 3}
+  - {fileID: 21300000, guid: 3c808744ac0181b4cba20359431dc94c, type: 3}
+  - {fileID: 21300000, guid: b75de1af2e3673842af2545b283bc741, type: 3}
+  - {fileID: 21300000, guid: fb4785b58bbcf2845a688df94f7430df, type: 3}
+  - {fileID: 21300000, guid: e11c0517ae67bd9459fa7ce6e9d4b2a4, type: 3}
   casillasPos:
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 0}
+  isReady: 0
 --- !u!114 &8272688645385972108
 MonoBehaviour:
   m_ObjectHideFlags: 0
