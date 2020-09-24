@@ -15,10 +15,10 @@ public class PlayerController : MonoBehaviour
     public int numberOfBullets;
 
     //Control Booleans
-    public bool canSwing = true;
-    public bool canDash = true;
-    public bool canMove = true;
-    public bool canShoot = true;
+    public bool canSwing = false;
+    public bool canDash = false;
+    public bool canMove = false;
+    public bool canShoot = false;
     public bool isHit = false;
     public bool hasSpeeded = false;
     public bool hasUltraInstinted = false;
@@ -62,7 +62,7 @@ public class PlayerController : MonoBehaviour
         //Stat inicialization
         DashCD = 0.7f;
         ShootCD = 50f;
-        walkSpeed = 6f;
+
         rotateSpeed = 8f;
         numberOfBullets = 3;
         dashCount = 1;
@@ -79,7 +79,7 @@ public class PlayerController : MonoBehaviour
             myCar = GetComponentInChildren<CarPowerUp>();
 
         sword.player = this;
-    
+
 
     }
     private void Start()
@@ -109,9 +109,13 @@ public class PlayerController : MonoBehaviour
         canDash = false;
         canMove = true;
         canShoot = false;
+        isHit = false;
+        hasSpeeded = false;
+        hasUltraInstinted = false;
+        hasChangedSword = false;
         isShielded = true;
 
-        carIsDrifting = false;
+        carIsDrifting = true;
 
         currentState = (int)playerState.car;
     }
@@ -124,7 +128,13 @@ public class PlayerController : MonoBehaviour
         canDash = true;
         canMove = true;
         canShoot = true;
+        isHit = false;
+        hasSpeeded = false;
+        hasUltraInstinted = false;
+        hasChangedSword = false;
         isShielded = false;
+
+        carIsDrifting = false;
 
         currentState = (int)playerState.normal;
     }
@@ -139,8 +149,10 @@ public class PlayerController : MonoBehaviour
             if (carIsDrifting)
             {
                 extraSpeedCounter = 0;
+
             }
-            else {
+            else
+            {
                 extraSpeedCounter = extraSpeed;
             }
         }
@@ -183,7 +195,7 @@ public class PlayerController : MonoBehaviour
     private void OnDash()
     {
 
-    
+
 
         switch (currentState)
         {
@@ -211,7 +223,7 @@ public class PlayerController : MonoBehaviour
     {
         if (canShoot)
         {
-            
+
             orbital.Shoot();
         }
 
@@ -234,7 +246,6 @@ public class PlayerController : MonoBehaviour
                 driftDirection = -movementInput.x;
             else if (movementInput.y > 0)
                 driftDirection = movementInput.x;
-
         }
 
         movementDirection = new Vector3(movementInput.x, 0, movementInput.y);
@@ -244,15 +255,16 @@ public class PlayerController : MonoBehaviour
     public void Hit(float force, Vector3 dir, float time)
     {
 
-        if(!isShielded){
-        isHit = true;
-        canDash = false;
-        canMove = false;
-        canShoot = false;
-        canSwing = false;
+        if (!isShielded)
+        {
+            isHit = true;
+            canDash = false;
+            canMove = false;
+            canShoot = false;
+            canSwing = false;
 
-    
-        StartCoroutine(HitStun(time));
+
+            StartCoroutine(HitStun(time));
             rb.AddForce(dir * force);
 
             StartCoroutine(HitStun(time));
@@ -269,8 +281,8 @@ public class PlayerController : MonoBehaviour
         canSwing = true;
         canShoot = true;
         isHit = false;
-    }   
-    
+    }
+
     private void OnCollisionEnter(Collision col)
     {
         if ((col.gameObject.tag.Equals("Wall") || col.gameObject.tag.Equals("Player")) && isHit == true)
@@ -284,86 +296,104 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider col) {
+    private void OnTriggerEnter(Collider col)
+    {
 
-        
-        if(col.gameObject.tag.Equals("BFG") ){
+
+        if (col.gameObject.tag.Equals("BFG"))
+        {
 
             orbital.BulletsUpgrade(true);
             col.gameObject.SetActive(false);
 
-        } else if(col.gameObject.tag.Equals("Rambo")){
+        }
+        else if (col.gameObject.tag.Equals("Rambo"))
+        {
 
             orbital.BulletsUpgrade(false);
             col.gameObject.SetActive(false);
 
         }
-        else if(col.gameObject.tag.Equals("Sonic")){
-            if(!hasSpeeded) col.gameObject.SetActive(false);
+        else if (col.gameObject.tag.Equals("Sonic"))
+        {
+            if (!hasSpeeded) col.gameObject.SetActive(false);
             SpeedBoost();
-            
 
-        } else if(col.gameObject.tag.Equals("Ultra")){
-             if(!hasUltraInstinted) col.gameObject.SetActive(false);
+
+        }
+        else if (col.gameObject.tag.Equals("Ultra"))
+        {
+            if (!hasUltraInstinted) col.gameObject.SetActive(false);
             DashIncrease();
-           
 
-        } else if(col.gameObject.tag.Equals("Cloud")){
-           if(!hasChangedSword) col.gameObject.SetActive(false);
+
+        }
+        else if (col.gameObject.tag.Equals("Cloud"))
+        {
+            if (!hasChangedSword) col.gameObject.SetActive(false);
             changeSword();
-            
 
-        } else if(col.gameObject.tag.Equals("Shield")){
-             col.gameObject.SetActive(false);
+
+        }
+        else if (col.gameObject.tag.Equals("Shield"))
+        {
+            col.gameObject.SetActive(false);
             Shield();
-           
-
-        } 
-    }
-
-    //Abilidades
-    public void DashIncrease(){
-        if(!hasUltraInstinted) {dashCount++;
-        hasUltraInstinted = true;
         }
     }
 
-    public void SpeedBoost(){
-        if(!hasSpeeded) {walkSpeed= walkSpeed*2;
-        hasSpeeded=true;}
+    //Abilidades
+    public void DashIncrease()
+    {
+        if (!hasUltraInstinted)
+        {
+            dashCount++;
+            hasUltraInstinted = true;
+        }
     }
 
-    public void changeSword(){
-        if(!hasChangedSword){
+    public void SpeedBoost()
+    {
+        if (!hasSpeeded)
+        {
+            walkSpeed = walkSpeed * 2;
+            hasSpeeded = true;
+        }
+    }
+
+    public void changeSword()
+    {
+        if (!hasChangedSword)
+        {
             //TO DO IMPLEMENT SWORD
             sword.swordModel.mesh = GameAssets.i.cloudSwordModel;
             sword.swordMaterial.material = GameAssets.i.cloudSwordMaterial;
             sword.swordCollider.size = new Vector3(
-                sword.swordCollider.size.x*5,sword.swordCollider.size.y,sword.swordCollider.size.z*2);
+                sword.swordCollider.size.x * 5, sword.swordCollider.size.y, sword.swordCollider.size.z * 2);
             hasChangedSword = true;
         }
     }
 
 
-    IEnumerator ShieldNumerator(){
+    IEnumerator ShieldNumerator()
+    {
         Debug.Log("pipo");
-        while (shieldTime > 0){
+        while (shieldTime > 0)
+        {
             isShielded = true;
             yield return new WaitForSeconds(1f);
             shieldTime--;
-        } 
-        if(isShielded) isShielded = false;
+        }
+        if (isShielded) isShielded = false;
     }
 
-    public void Shield(){
+    public void Shield()
+    {
         shieldTime += 5f;
-        if(!isShielded) StartCoroutine(ShieldNumerator());
+        if (!isShielded) StartCoroutine(ShieldNumerator());
     }
 
-    
 
-
-   
 
     IEnumerator SlowDashing()
     {
@@ -378,33 +408,37 @@ public class PlayerController : MonoBehaviour
     }
     IEnumerator DashCDIng()
     {
-        
-        
-        
-        
-        if(hasUltraInstinted) {
 
-        if(dashCount == 1){
 
-        yield return new WaitForSeconds(DashCD);
 
-        if (hasUltraInstinted && dashCount ==1) 
-        
-        canDash = true;
-        
-        dashCount++;
-        
+
+        if (hasUltraInstinted)
+        {
+
+            if (dashCount == 1)
+            {
+
+                yield return new WaitForSeconds(DashCD);
+
+                if (hasUltraInstinted && dashCount == 1)
+
+                    canDash = true;
+
+                dashCount++;
+
+            }
+
+            else if (dashCount == 2)
+            {
+                canDash = true;
+                dashCount--;
+
+            }
+
         }
 
-        else if (dashCount == 2){
-            canDash = true;
-           dashCount --; 
-           
-        }
-
-        } 
-        
-        else {
+        else
+        {
             yield return new WaitForSeconds(DashCD);
             canDash = true;
 
@@ -453,14 +487,17 @@ public class PlayerController : MonoBehaviour
 
                     rotateToDirection();
 
+                    if (carIsDrifting) Debug.Log("GAS");
+
                     //Drift
                     if (carIsDrifting && movementDirection != Vector3.zero)
                     {
-                        rb.velocity += transform.right * driftDirection * carSpeed * 1.5f;
+                        rb.velocity += transform.right * driftDirection * carSpeed * 2f;
                         myCar.setDrift();
 
                     }
-                    else {
+                    else
+                    {
                         myCar.setNormal();
                     }
                 }

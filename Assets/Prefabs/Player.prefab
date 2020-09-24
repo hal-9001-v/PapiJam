@@ -220,7 +220,7 @@ MonoBehaviour:
   DashCD: 0.5
   ShootCD: 5
   walkSpeed: 6
-  carSpeed: 0
+  carSpeed: 12
   rotateSpeed: 8
   PlayerID: 0
   dashCount: 0
