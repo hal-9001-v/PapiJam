@@ -10,9 +10,7 @@ public class PlayerController : MonoBehaviour
 {
 
     public Rigidbody rb;
-    public Vector3 walkVelocity;
-
-    public Vector3 prevWalkVelocity;
+    public Vector3 movementDirection;
 
     public int numberOfBullets;
 
@@ -30,6 +28,7 @@ public class PlayerController : MonoBehaviour
     public float DashCD;
     public float ShootCD;
     public float walkSpeed;
+    public float carSpeed;
     public float rotateSpeed;
     public int PlayerID;
     public int dashCount;
@@ -39,8 +38,15 @@ public class PlayerController : MonoBehaviour
     //GOs
     public SwordScript sword;
     public OrbitalScript orbital;
+    public CarPowerUp myCar;
 
-    public float carForce = 100;
+    float driftDirection = 0;
+    private bool carIsDrifting;
+
+
+    public float extraSpeed;
+    private float extraSpeedCounter = 0;
+
 
     enum playerState
     {
@@ -49,7 +55,7 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    private int currentState;
+    public int currentState;
 
     private void Awake()
     {
@@ -69,13 +75,76 @@ public class PlayerController : MonoBehaviour
         if (sword == null)
             sword = GetComponentInChildren<SwordScript>();
 
+        if (myCar == null)
+            myCar = GetComponentInChildren<CarPowerUp>();
+
         sword.player = this;
 
-        currentState = 0;
+
     }
     private void Start()
     {
-        
+        enterNormalState();
+    }
+
+    private void exitState()
+    {
+        switch (currentState)
+        {
+            case (int)playerState.normal:
+
+                break;
+
+            case (int)playerState.car:
+                driftDirection = 0;
+                break;
+        }
+    }
+
+    public void enterCarState()
+    {
+        exitState();
+
+        canSwing = false;
+        canDash = false;
+        canMove = true;
+        canShoot = false;
+        isShielded = false;
+
+        carIsDrifting = false;
+
+        currentState = (int)playerState.car;
+    }
+
+    public void enterNormalState()
+    {
+        exitState();
+
+        canSwing = true;
+        canDash = true;
+        canMove = true;
+        canShoot = true;
+        isShielded = true;
+
+        currentState = (int)playerState.normal;
+    }
+
+    private void OnGas()
+    {
+
+        if (currentState == (int)playerState.car)
+        {
+            carIsDrifting = !carIsDrifting;
+
+            if (carIsDrifting)
+            {
+                extraSpeedCounter = 0;
+            }
+            else {
+                extraSpeedCounter = extraSpeed;
+            }
+        }
+
     }
     private void OnMovement(InputValue value)
     {
@@ -92,55 +161,51 @@ public class PlayerController : MonoBehaviour
 
             //CAR
             case (int)playerState.car:
-                {
-                    //carMovement(movementInput);
-                    break;
 
-                }
+                carMovement(movementInput);
+                break;
+
+
 
         }
     }
 
-    private void normalMovement(Vector2 movementInput)
+    private void OnMelee()
     {
-        if (canMove)
+
+        if ((sword != null || true) && canSwing)
         {
-            if (movementInput != Vector2.zero)
-            {
+            sword.attack();
+        }
+    }
 
-                float vval = 0f;
-                if (movementInput.y > 0f)
-                    vval = 1f;
-                else if (movementInput.y < 0f)
-                    vval = -1f;
 
-                float hval = 0;
-                if (movementInput.x > 0f)
-                    hval = 1f;
-                else if (movementInput.x < 0f)
-                    hval = -1f;
+    private void OnDash()
+    {
 
-                walkVelocity = new Vector3(walkSpeed * hval, 0, walkSpeed * vval);
+    
 
-            }
-            else
-            {
-                walkVelocity = Vector3.zero;
-            }
+        switch (currentState)
+        {
+
+            //Normal
+            case (int)playerState.normal:
+                if (canDash)
+                {
+                    canDash = false;
+                    StartCoroutine(SlowDashing());
+                    StartCoroutine(DashCDIng());
+                }
+                break;
+
+            //Car
+            case (int)playerState.car:
+                break;
+
+
         }
 
     }
-/*
-    private void carMovement(Vector2 movementInput)
-    {
-        Vector3 carMovement = new Vector3(movementInput.x, 0, movementInput.y);
-
-        rb.AddForce(transform.forward * carForce);
-
-        Debug.Log("HI");
-
-
-    }*/
 
     private void OnShoot()
     {
@@ -152,6 +217,29 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    private void normalMovement(Vector2 movementInput)
+    {
+        if (canMove)
+        {
+            movementDirection = new Vector3(movementInput.x, 0, movementInput.y);
+        }
+
+    }
+
+    private void carMovement(Vector2 movementInput)
+    {
+        if (!carIsDrifting)
+        {
+            if (movementInput.y < 0)
+                driftDirection = -movementInput.x;
+            else if (movementInput.y > 0)
+                driftDirection = movementInput.x;
+
+        }
+
+        movementDirection = new Vector3(movementInput.x, 0, movementInput.y);
+
+    }
 
     public void Hit(float force, Vector3 dir, float time)
     {
@@ -163,9 +251,11 @@ public class PlayerController : MonoBehaviour
         canShoot = false;
         canSwing = false;
 
-        rb.AddForce(dir * force);
-
+    
         StartCoroutine(HitStun(time));
+            rb.AddForce(dir * force);
+
+            StartCoroutine(HitStun(time));
         }
 
     }
@@ -272,24 +362,8 @@ public class PlayerController : MonoBehaviour
 
     
 
-    private void OnMelee()
-    {
-        if ((sword != null || true) && canSwing)
-        {
-            sword.attack();
-        }
-    }
 
-
-    private void OnDash()
-    {
-        if (canDash)
-        {
-            canDash = false;
-            StartCoroutine(SlowDashing());
-            StartCoroutine(DashCDIng());
-        }
-    }
+   
 
     IEnumerator SlowDashing()
     {
@@ -340,14 +414,14 @@ public class PlayerController : MonoBehaviour
 
     }
 
-
     private void rotateToDirection()
     {
-        if (walkVelocity != Vector3.zero)
+        if (movementDirection != Vector3.zero)
         {
-            transform.localRotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(-walkVelocity), rotateSpeed * Time.deltaTime);
+            transform.localRotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(-movementDirection), rotateSpeed * Time.deltaTime);
         }
     }
+
 
     private void FixedUpdate()
     {
@@ -357,7 +431,7 @@ public class PlayerController : MonoBehaviour
             case (int)playerState.normal:
                 if (canMove)
                 {
-                    rb.velocity = new Vector3(walkVelocity.x, rb.velocity.y, walkVelocity.z);
+                    rb.velocity = movementDirection * walkSpeed;
 
                     rotateToDirection();
 
@@ -365,8 +439,33 @@ public class PlayerController : MonoBehaviour
                 break;
 
             case (int)playerState.car:
-                
-                
+                if (canMove)
+                {
+                    if (extraSpeedCounter > 0)
+                    {
+                        rb.velocity = movementDirection * (carSpeed + extraSpeedCounter);
+                        extraSpeedCounter -= extraSpeed * 0.05f;
+                    }
+                    else
+                    {
+                        rb.velocity = movementDirection * carSpeed;
+                    }
+
+                    rotateToDirection();
+
+                    //Drift
+                    if (carIsDrifting && movementDirection != Vector3.zero)
+                    {
+                        rb.velocity += transform.right * driftDirection * carSpeed * 1.5f;
+                        myCar.setDrift();
+
+                    }
+                    else {
+                        myCar.setNormal();
+                    }
+                }
+
+
                 break;
         }
 
