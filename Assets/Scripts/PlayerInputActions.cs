@@ -65,14 +65,6 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """"
-                },
-                {
-                    ""name"": ""Limit"",
-                    ""type"": ""Button"",
-                    ""id"": ""4e4c73d5-92f6-4990-815d-1e6522d7dfad"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -200,7 +192,7 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""75ed6901-da85-485f-9731-2686850f727a"",
-                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""path"": ""<Gamepad>/buttonEast"",
                     ""interactions"": ""Press"",
                     ""processors"": """",
                     ""groups"": """",
@@ -381,28 +373,6 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Gas"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""05f8d2f7-7dde-4b87-8319-6d8c5d4f464b"",
-                    ""path"": ""<Keyboard>/r"",
-                    ""interactions"": ""Press"",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Limit"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""df0df821-d444-46a5-8b7a-ff5b578554de"",
-                    ""path"": ""<Gamepad>/buttonNorth"",
-                    ""interactions"": ""Press"",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Limit"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -739,7 +709,6 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
         m_Player_Dash = m_Player.FindAction("Dash", throwIfNotFound: true);
         m_Player_Shoot = m_Player.FindAction("Shoot", throwIfNotFound: true);
         m_Player_Gas = m_Player.FindAction("Gas", throwIfNotFound: true);
-        m_Player_Limit = m_Player.FindAction("Limit", throwIfNotFound: true);
         // Menu
         m_Menu = asset.FindActionMap("Menu", throwIfNotFound: true);
         m_Menu_Up = m_Menu.FindAction("Up", throwIfNotFound: true);
@@ -803,7 +772,6 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
     private readonly InputAction m_Player_Dash;
     private readonly InputAction m_Player_Shoot;
     private readonly InputAction m_Player_Gas;
-    private readonly InputAction m_Player_Limit;
     public struct PlayerActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -814,7 +782,6 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
         public InputAction @Dash => m_Wrapper.m_Player_Dash;
         public InputAction @Shoot => m_Wrapper.m_Player_Shoot;
         public InputAction @Gas => m_Wrapper.m_Player_Gas;
-        public InputAction @Limit => m_Wrapper.m_Player_Limit;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -842,9 +809,6 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
                 @Gas.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnGas;
                 @Gas.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnGas;
                 @Gas.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnGas;
-                @Limit.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLimit;
-                @Limit.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLimit;
-                @Limit.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLimit;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -867,9 +831,6 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
                 @Gas.started += instance.OnGas;
                 @Gas.performed += instance.OnGas;
                 @Gas.canceled += instance.OnGas;
-                @Limit.started += instance.OnLimit;
-                @Limit.performed += instance.OnLimit;
-                @Limit.canceled += instance.OnLimit;
             }
         }
     }
@@ -955,7 +916,6 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
         void OnDash(InputAction.CallbackContext context);
         void OnShoot(InputAction.CallbackContext context);
         void OnGas(InputAction.CallbackContext context);
-        void OnLimit(InputAction.CallbackContext context);
     }
     public interface IMenuActions
     {

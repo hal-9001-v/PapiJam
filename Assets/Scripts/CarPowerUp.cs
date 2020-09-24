@@ -6,9 +6,6 @@ using UnityEngine.InputSystem;
 public class CarPowerUp : MonoBehaviour
 {
     Animator myAnimator;
-    public PlayerController myPlayer;
-
-    public float hitForce;
 
     private void Awake()
     {
@@ -23,28 +20,6 @@ public class CarPowerUp : MonoBehaviour
             }
         }
 
-        hide();
-
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject != myPlayer.gameObject) {
-
-            if (other.tag == "Player") {
-                other.GetComponent<PlayerController>().Hit(hitForce, other.transform.position - transform.position, 1);
-
-                myPlayer.chargeLimit(2);
-            }
-
-
-        
-        }
-    }
-
-    private void Start()
-    {
-        
     }
 
     public void setDrift()

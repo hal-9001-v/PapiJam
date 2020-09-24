@@ -5,11 +5,7 @@ using UnityEngine;
 public class BulletScript : MonoBehaviour
 {
     public Rigidbody rb;
-
-    //ANGEL USA setPlayer
-    PlayerController myPlayer;
-
-    public float limitCharge = 1;
+    public int playerID;
 
     public float bulletForce = 50;
     public float hitStunTime = 0.25f;
@@ -54,41 +50,30 @@ public class BulletScript : MonoBehaviour
     private void OnTriggerEnter(Collider col)
     {
         if (col.gameObject.tag.Equals("Player"))
-        {
-            GameObject go;
-            PlayerController pl;
-
-            go = col.gameObject;
-            pl = go.GetComponent<PlayerController>();
-
-            if (pl.PlayerID != myPlayer.PlayerID)
+        {   
+                GameObject go;
+                PlayerController pl;
+                go = col.gameObject;
+                pl = go.GetComponent<PlayerController>();
+                if (pl.PlayerID != playerID)
             {
                 Vector3 dir = rb.velocity;
-
+                
                 col.gameObject.GetComponent<PlayerController>().Hit(bulletForce, dir, hitStunTime);
                 readyToShoot = true;
-                gameObject.SetActive(false);
+                gameObject.SetActive(false);  
 
-                myPlayer.chargeLimit(limitCharge);
 
             }
 
 
-
-        }
-        else if (col.gameObject.tag.Equals("Wall"))
-        {
+            
+        } else if (col.gameObject.tag.Equals("Wall")){
             readyToShoot = true;
-            gameObject.SetActive(false);
+            gameObject.SetActive(false);  
         }
 
     }
-
-
-    public void setPlayer(PlayerController player)
-    {
-        myPlayer = player;
-    }
-
+  
 
 }

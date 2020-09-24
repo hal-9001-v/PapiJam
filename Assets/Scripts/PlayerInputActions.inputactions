@@ -52,14 +52,6 @@
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": ""
-                },
-                {
-                    "name": "Limit",
-                    "type": "Button",
-                    "id": "4e4c73d5-92f6-4990-815d-1e6522d7dfad",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -187,7 +179,7 @@
                 {
                     "name": "",
                     "id": "75ed6901-da85-485f-9731-2686850f727a",
-                    "path": "<Gamepad>/buttonWest",
+                    "path": "<Gamepad>/buttonEast",
                     "interactions": "Press",
                     "processors": "",
                     "groups": "",
@@ -368,28 +360,6 @@
                     "processors": "",
                     "groups": "",
                     "action": "Gas",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "05f8d2f7-7dde-4b87-8319-6d8c5d4f464b",
-                    "path": "<Keyboard>/r",
-                    "interactions": "Press",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Limit",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "df0df821-d444-46a5-8b7a-ff5b578554de",
-                    "path": "<Gamepad>/buttonNorth",
-                    "interactions": "Press",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Limit",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
