@@ -93,6 +93,7 @@ public class PlayerController : MonoBehaviour
             myCar = GetComponentInChildren<CarPowerUp>();
         if (myShield == null)
             myShield = GetComponentInChildren<ShieldScript>();
+
         myShield.gameObject.SetActive(false);
 
         sword.setPlayer(this);
