@@ -24,6 +24,7 @@ public class PlayerController : MonoBehaviour
     public bool hasUltraInstinted = false;
     public bool hasChangedSword = false;
     public bool isShielded = false;
+    public bool isSword = false; 
     //Player Stats
     public float DashCD;
     public float ShootCD;
@@ -39,7 +40,7 @@ public class PlayerController : MonoBehaviour
     public SwordScript sword;
     public OrbitalScript orbital;
     public CarPowerUp myCar;
-
+    public ShieldScript myShield;
     float driftDirection = 0;
     private bool carIsDrifting;
 
@@ -66,6 +67,7 @@ public class PlayerController : MonoBehaviour
         rotateSpeed = 8f;
         numberOfBullets = 3;
         dashCount = 1;
+
         //GO inicialization
         rb = GetComponent<Rigidbody>();
 
@@ -77,14 +79,17 @@ public class PlayerController : MonoBehaviour
 
         if (myCar == null)
             myCar = GetComponentInChildren<CarPowerUp>();
+        if (myShield == null)
+            myShield= GetComponentInChildren<ShieldScript>();
+            myShield.gameObject.SetActive(false);
 
         sword.player = this;
-    
+        isSword = false;
 
     }
     private void Start()
     {
-        enterCarState();
+        enterNormalState();
     }
 
     private void exitState()
@@ -104,7 +109,7 @@ public class PlayerController : MonoBehaviour
     public void enterCarState()
     {
         exitState();
-
+        myCar.gameObject.SetActive(true);
         canSwing = false;
         canDash = false;
         canMove = true;
@@ -119,7 +124,7 @@ public class PlayerController : MonoBehaviour
     public void enterNormalState()
     {
         exitState();
-
+        myCar.gameObject.SetActive(false);
         canSwing = true;
         canDash = true;
         canMove = true;
@@ -286,7 +291,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter(Collider col) {
 
-        
+        if(!isSword){
         if(col.gameObject.tag.Equals("BFG") ){
 
             orbital.BulletsUpgrade(true);
@@ -318,7 +323,9 @@ public class PlayerController : MonoBehaviour
             Shield();
            
 
-        } 
+        }
+         
+        } else isSword = false;
     }
 
     //Abilidades
@@ -352,10 +359,13 @@ public class PlayerController : MonoBehaviour
             yield return new WaitForSeconds(1f);
             shieldTime--;
         } 
-        if(isShielded) isShielded = false;
+        if(isShielded) {isShielded = false;
+            myShield.gameObject.SetActive(false);
+        };
     }
 
     public void Shield(){
+        myShield.gameObject.SetActive(true);
         shieldTime += 5f;
         if(!isShielded) StartCoroutine(ShieldNumerator());
     }

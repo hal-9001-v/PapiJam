@@ -15,6 +15,7 @@ TagManager:
   - Shield
   - Cloud
   - Sword
+  - Escudin
   layers:
   - Default
   - TransparentFX

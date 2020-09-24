@@ -149,7 +149,6 @@ public class OrbitalScript : MonoBehaviour
              bfgArray[1] = myBullets[k+1];
              bfgArray[2] = myBullets[k+2];
 
-                Debug.Log(BFGReady);
                 if(BFGReady && bfgArray[0].readyToShoot && bfgArray[1].readyToShoot && bfgArray[2].readyToShoot){
                 
                  BFGReady = false;

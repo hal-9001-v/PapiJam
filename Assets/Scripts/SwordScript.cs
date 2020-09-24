@@ -61,6 +61,12 @@ public class SwordScript : MonoBehaviour
     private void OnTriggerEnter(Collider col)
     {
         
+        if(col.gameObject.tag.Equals("Rambo") || col.gameObject.tag.Equals("BFG")||
+         col.gameObject.tag.Equals("Shield") || col.gameObject.tag.Equals("Cloud") || col.gameObject.tag.Equals("Ultra")||
+         col.gameObject.tag.Equals("Car") || col.gameObject.tag.Equals("Sonic") ) {
+            Debug.Log("isSword") ;
+            player.isSword = true;
+        } 
         if ((col.gameObject.tag.Equals("Player")))
         {
             PlayerController hitPlayer = col.GetComponent<PlayerController>();
