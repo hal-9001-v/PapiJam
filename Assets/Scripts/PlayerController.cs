@@ -160,20 +160,24 @@ public class PlayerController : MonoBehaviour
         currentState = (int)playerState.car;
     }
 
-    public void changeStateTimer(int nextState, float time) {
+    public void changeStateTimer(int nextState, float time)
+    {
 
-        if (stateChanger != null) {
+        if (stateChanger != null)
+        {
             StopCoroutine(stateChanger);
         }
 
         stateChanger = StartCoroutine(ChangeStateTimer(nextState, time));
     }
 
-    IEnumerator ChangeStateTimer(int nextState, float time) {
-        
+    IEnumerator ChangeStateTimer(int nextState, float time)
+    {
+
         yield return new WaitForSeconds(time);
 
-        switch (nextState) {
+        switch (nextState)
+        {
             case (int)playerState.normal:
                 enterNormalState();
                 break;
@@ -184,7 +188,7 @@ public class PlayerController : MonoBehaviour
                 break;
 
             default:
-                Debug.LogWarning("State "+nextState+" does not exist");
+                Debug.LogWarning("State " + nextState + " does not exist");
                 break;
         }
 
@@ -322,7 +326,6 @@ public class PlayerController : MonoBehaviour
 
     public void Hit(float force, Vector3 dir, float time)
     {
-
         if (!isShielded)
         {
             isHit = true;
@@ -333,7 +336,7 @@ public class PlayerController : MonoBehaviour
 
 
             StartCoroutine(HitStun(time));
-            rb.AddForce(dir * force);
+            rb.AddForce(Vector3.Normalize(dir) * force);
 
             StartCoroutine(HitStun(time));
         }
@@ -364,7 +367,8 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void takePowerUp(Collider col) {
+    private void takePowerUp(Collider col)
+    {
 
         if (col.gameObject.tag.Equals("BFG"))
         {
