@@ -7,15 +7,20 @@ TagManager:
   - Bullet
   - Wall
   - Orbital
-  - BFG
-  - Rambo
-  - Car
-  - Sonic
-  - Ultra
-  - Shield
+  - Selector
   - Cloud
+  - Shield
+  - Rambo
+  - BFG
+  - Ultra
   - Sword
+<<<<<<< HEAD
   - Escudin
+=======
+  - Sonic
+  - Car
+  - Monster
+>>>>>>> LimitBar
   layers:
   - Default
   - TransparentFX
