@@ -279,7 +279,7 @@ public class PlayerController : MonoBehaviour
     
     private void OnCollisionEnter(Collision col)
     {
-        if ((col.gameObject.tag.Equals("Wall") || col.gameObject.tag.Equals("Player")) && isHit == true)
+        if ((col.gameObject.tag.Equals("Wall") || col.gameObject.tag.Equals("Player")) && isHit == true && !col.gameObject.tag.Equals("Escudin"))
         {
             rb.velocity = Vector3.zero;
             canDash = true;
@@ -353,7 +353,6 @@ public class PlayerController : MonoBehaviour
 
 
     IEnumerator ShieldNumerator(){
-        Debug.Log("pipo");
         while (shieldTime > 0){
             isShielded = true;
             yield return new WaitForSeconds(1f);
