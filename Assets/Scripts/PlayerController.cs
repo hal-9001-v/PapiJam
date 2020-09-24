@@ -427,7 +427,7 @@ public class PlayerController : MonoBehaviour
     {
         if (movementDirection != Vector3.zero)
         {
-            transform.localRotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(-movementDirection), rotateSpeed * Time.deltaTime);
+            transform.localRotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(movementDirection), rotateSpeed * Time.deltaTime);
         }
     }
 

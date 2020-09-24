@@ -68,7 +68,7 @@ public class BulletScript : MonoBehaviour
 
 
             
-        } else if (col.gameObject.tag.Equals("Wall") ||col.gameObject.tag.Equals("Escudin")){
+        } else if (col.gameObject.tag.Equals("Wall")){
             readyToShoot = true;
             gameObject.SetActive(false);  
         }
