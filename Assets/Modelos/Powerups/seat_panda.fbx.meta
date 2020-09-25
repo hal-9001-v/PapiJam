@@ -66,22 +66,22 @@ ModelImporter:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: Damaged Metal Texturefun.com 1k 4_baseColor
-    second: {fileID: 2800000, guid: f2a075afe6f774040bd8f11e659786da, type: 3}
+    second: {fileID: 2800000, guid: 70ecd8b2509228d428543666b8300560, type: 3}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: Damaged Metal Texturefun.com 1k 4_normal
-    second: {fileID: 2800000, guid: cf32a7d85f8d0ec4282b78dd6b2b36c8, type: 3}
+    second: {fileID: 2800000, guid: e6c3d07cf1e22bf408ce0a936addc1d1, type: 3}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: pink
-    second: {fileID: 2800000, guid: 6523a303cdf2aec4d8287db1cf4c949b, type: 3}
+    second: {fileID: 2800000, guid: 218f81acf227c7545ade37170f1ca4ae, type: 3}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: rueda
-    second: {fileID: 2800000, guid: b9c3149d90ae40d48a05cd08103a66b1, type: 3}
+    second: {fileID: 2800000, guid: 7aebcafde491d294fa41314167e76069, type: 3}
   materials:
     materialImportMode: 1
     materialName: 0

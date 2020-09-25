@@ -107,6 +107,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f5af6fdbb020904fb26f89fa9752a9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myPlayer: {fileID: 0}
+  hitForce: 0
 --- !u!95 &7218579488278988969
 Animator:
   serializedVersion: 3
@@ -261,8 +263,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 988563371761283702}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.5, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 3, z: 0}
+  m_LocalScale: {x: 2.5, y: 2.5, z: 2.5}
   m_Children:
   - {fileID: 988563373216668071}
   - {fileID: 6621669572012160940}
@@ -326,10 +328,12 @@ MonoBehaviour:
   hasChangedSword: 0
   isShielded: 0
   isSword: 0
+  canDoLimit: 0
   DashCD: 0.5
   ShootCD: 5
   walkSpeed: 6
   carSpeed: 0
+  carTime: 0
   rotateSpeed: 8
   PlayerID: 0
   dashCount: 0
@@ -338,7 +342,11 @@ MonoBehaviour:
   orbital: {fileID: 3107006982099270330}
   myCar: {fileID: 8879319599854110643}
   myShield: {fileID: 0}
+  myLimitBar: {fileID: 0}
   extraSpeed: 0
+  limit: 0
+  MAXLIMIT: 10
+  monsterCharge: 0
   currentState: 0
 --- !u!114 &454220025032678349
 MonoBehaviour:
