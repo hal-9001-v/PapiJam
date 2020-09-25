@@ -484,8 +484,7 @@ public class PlayerController : MonoBehaviour
         if (!hasChangedSword)
         {
             //TO DO IMPLEMENT SWORD
-            sword.swordModel.mesh = GameAssets.i.cloudSwordModel;
-            sword.swordMaterial.material = GameAssets.i.cloudSwordMaterial;
+            
             sword.swordCollider.size = new Vector3(
                 sword.swordCollider.size.x * 5, sword.swordCollider.size.y, sword.swordCollider.size.z * 2);
             hasChangedSword = true;

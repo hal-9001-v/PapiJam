@@ -21,8 +21,7 @@ public class GameAssets : MonoBehaviour
 
 
     public SoundAudioClip[] soundAudioClipArryay;
-    public Mesh cloudSwordModel;
-    public Material cloudSwordMaterial;
+    public GameObject cloudSwordModel;
     public Material[] mArray;
     public Mesh[] meshArray;
     public Material[] mOArray;
