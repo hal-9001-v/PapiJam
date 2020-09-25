@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: e0e58f0bb96789c4eb6bb81ff01b0b37
+guid: c69c404af789d6141b44fd80aec5af90
 ModelImporter:
   serializedVersion: 19301
   internalIDToNameTable: []
@@ -8,12 +8,12 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: ultrainst_mateliaco
-    second: {fileID: 2100000, guid: 1ac745015d9b9ad43bc0f0a6bf9767b5, type: 2}
+    second: {fileID: 2100000, guid: 91fbb9bf5bcfb8345913e9ca0e35266c, type: 2}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: Ultrainstinto
-    second: {fileID: 2800000, guid: a4b777c4957822944838117d7bba864e, type: 3}
+    second: {fileID: 2800000, guid: 6bffc42ead3361d478f95a5fc576d410, type: 3}
   materials:
     materialImportMode: 1
     materialName: 0
