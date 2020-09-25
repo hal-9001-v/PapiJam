@@ -1,20 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class GameManager : MonoBehaviour
 {
     // Update is called once per frame
-    void Update()
+    private void OnLimit()
     {
-        if (Input.GetKeyDown(KeyCode.A))
+        /*if (Input.GetKeyDown(KeyCode.A))
         {
-            GameObject.Find("Camera Switcher").GetComponent<CameraSwitcher>().enableCinematicCamera(2, 0);
         }
 
         if (Input.GetKeyDown(KeyCode.D))
         {
-            GameObject.Find("Camera Switcher").GetComponent<CameraSwitcher>().enableMainCamera(2, 2);
         }
 
         if (Input.GetKeyDown(KeyCode.S))
@@ -49,6 +48,8 @@ public class GameManager : MonoBehaviour
         {
             GameObject.FindWithTag("VirtualCamera").GetComponent<VirtualCamShake>().Shake(2);
             GameObject.FindWithTag("CinematicCamera").GetComponent<CamShake>().Shake(2);
-        }
+        }*/
+
+        GameObject.Find("Camera Switcher").GetComponent<CameraSwitcher>().enableMainCamera(2, 2);
     }
 }

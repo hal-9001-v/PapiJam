@@ -123,7 +123,7 @@ public class PlayerController : MonoBehaviour
     {
         limit += n;
 
-        if (limit > MAXLIMIT)
+        if (limit >= MAXLIMIT)
         {
             limit = MAXLIMIT;
         }
@@ -228,17 +228,24 @@ public class PlayerController : MonoBehaviour
 
     private void OnLimit()
     {
-
         if (canDoLimit)
         {
-
             if (limit >= MAXLIMIT)
             {
                 chargeLimit(-MAXLIMIT);
-                //DO LIMIT
-                Debug.Log("LIMIT");
+
+                ExecutionController exController = GetComponent<ExecutionController>();
+                if (!exController)
+                {
+                    Debug.LogWarning("This player isn't able to perform an Execution.");
+                }
+                else
+                {
+                    exController.doExecution();
+                }
             }
         }
+        
     }
 
     private void OnGas()
@@ -328,6 +335,7 @@ public class PlayerController : MonoBehaviour
         }
 
     }
+
 
     private void normalMovement(Vector2 movementInput)
     {

@@ -1,5 +1,17 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &6200014145672595387
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 481464454854794968}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2bd1c8b112052de469f061c43694dad0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &645227945402030873
 GameObject:
   m_ObjectHideFlags: 0
@@ -141,6 +153,7 @@ GameObject:
   - component: {fileID: 988563371761283700}
   - component: {fileID: 3447092904919184304}
   - component: {fileID: 454220025032678349}
+  - component: {fileID: -790636009157585780}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -272,6 +285,21 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &-790636009157585780
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 988563371761283702}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1483b261168964b438165290e23c5400, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  executionType: 0
+  speed: 5
+  radious: 3
 --- !u!1 &988563373216668070
 GameObject:
   m_ObjectHideFlags: 0
@@ -623,18 +651,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!114 &6200014145672595387
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 481464454854794968}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2bd1c8b112052de469f061c43694dad0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &8052440193674011974
 PrefabInstance:
   m_ObjectHideFlags: 0
