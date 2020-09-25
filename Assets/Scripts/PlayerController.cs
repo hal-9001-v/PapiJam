@@ -397,7 +397,16 @@ public class PlayerController : MonoBehaviour
 
     private void consumeItem(GameObject go)
     {
-        go.GetComponent<Item>().consume();
+        Item myItem = go.GetComponent<Item>();
+
+        if (myItem != null)
+        {
+            myItem.consume();
+        }
+        else {
+            Debug.LogWarning("Item" + go.name +" has no Item Component!");
+        }
+
     }
 
     private void takePowerUp(Collider col)
