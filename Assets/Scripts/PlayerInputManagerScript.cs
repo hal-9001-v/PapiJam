@@ -26,7 +26,8 @@ public class PlayerInputManagerScript : MonoBehaviour
         PlayerController playerJoined;
         //Jugador que se une es el jugador que encuentra nuevo
         go = GameObject.Find("Player(Clone)");
-        if(go!= null) {playerJoined = go.GetComponent<PlayerController>();
+        if (go != null) GameObject.FindWithTag("CameraSwitcher").GetComponent<CameraSwitcher>().addFollowPlayer(go);
+        if (go!= null) {playerJoined = go.GetComponent<PlayerController>();
         //Se añade nuevo jugador al array
         pArray[playerNum] = playerJoined;
         pArray[playerNum].PlayerID = playerNum;

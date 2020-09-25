@@ -9,13 +9,13 @@ public class ExecutionController : MonoBehaviour
     
     [Range(0, TOTAL_EXECUTIONS - 1)]
     public int executionType = 0;
-    public float speed = 5f;
+    public float speed = 20f;
     public float radious = 3f;
 
     private PlayerController playerControl;
 
     [HideInInspector]
-    public bool 
+    public bool wallLimitReached = false;
 
     private void Start()
     {
@@ -24,7 +24,9 @@ public class ExecutionController : MonoBehaviour
 
     public void doExecution()
     {
-        //Dejamos estático al personaje.
+        //Dejamos estático al personaje y establecemos colision con limites solamente.
+        playerControl.gameObject.layer = 9;
+        playerControl.isExecuting = true;
         playerControl.canDash = false;
         playerControl.canMove = false;
         playerControl.canShoot = false;
@@ -40,8 +42,15 @@ public class ExecutionController : MonoBehaviour
         {
             //Type of Execution.
             case 0:
-                while () {
-                    playerControl.rb.velocity = Vector3.forward * speed;
+                while (!wallLimitReached) {
+                    playerControl.rb.velocity = playerControl.transform.rotation * Vector3.forward * speed;
+                    foreach (GameObject playerGO in GameObject.FindGameObjectsWithTag("Player"))
+                    {
+                        if (playerGO != gameObject && Vector3.Distance(playerGO.transform.position, transform.position) <= radious)
+                        {
+                            playerGO.GetComponent<PlayerController>().getExecuted();
+                        }
+                    }
                     yield return new WaitForEndOfFrame();
                 }
                 break;
@@ -50,5 +59,15 @@ public class ExecutionController : MonoBehaviour
                 Debug.LogWarning("Execution not programmed yet.");
                 break;
         }
+
+        //Devolvemos al estado original.
+        playerControl.gameObject.layer = 0;
+        playerControl.isExecuting = false;
+        playerControl.canDash = true;
+        playerControl.canMove = true;
+        playerControl.canShoot = true;
+        playerControl.canSwing = true;
+
+        wallLimitReached = false;
     }
 }

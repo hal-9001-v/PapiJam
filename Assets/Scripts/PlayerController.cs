@@ -27,6 +27,7 @@ public class PlayerController : MonoBehaviour
     public bool isSword = false;
 
     public bool canDoLimit = false;
+    public bool isExecuting = false;
 
     //Player Stats
     public float DashCD;
@@ -54,8 +55,8 @@ public class PlayerController : MonoBehaviour
     public float extraSpeed;
     private float extraSpeedCounter = 0;
 
-    public float limit = 0;
     public float MAXLIMIT = 10;
+    public float limit = 0;
 
     public float monsterCharge;
 
@@ -110,9 +111,6 @@ public class PlayerController : MonoBehaviour
             Debug.LogWarning("No free Limit Bar in Scene");
         }
 
-
-
-
     }
     private void Start()
     {
@@ -123,7 +121,7 @@ public class PlayerController : MonoBehaviour
     {
         limit += n;
 
-        if (limit >= MAXLIMIT)
+        if (limit > MAXLIMIT)
         {
             limit = MAXLIMIT;
         }
@@ -224,6 +222,14 @@ public class PlayerController : MonoBehaviour
                 break;
         }
 
+    }
+
+    public void getExecuted()
+    {
+        //Program what happens.
+        Debug.Log(this.name + " got executed.");
+        gameObject.transform.position = new Vector3(gameObject.transform.position.x,
+            gameObject.transform.position.y -1000f, gameObject.transform.position.z);
     }
 
     private void OnLimit()
@@ -392,14 +398,22 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter(Collision col)
     {
-        if ((col.gameObject.tag.Equals("Wall") || col.gameObject.tag.Equals("Player")) && isHit == true && !col.gameObject.tag.Equals("Escudin"))
+        if (!isExecuting)
+        {
+            if ((col.gameObject.tag.Equals("Wall") || col.gameObject.tag.Equals("Player")) && isHit == true && !col.gameObject.tag.Equals("Escudin"))
+            {
+                rb.velocity = Vector3.zero;
+                canDash = true;
+                canMove = true;
+                canSwing = true;
+                canShoot = true;
+                isHit = false;
+            }
+        }
+        else
         {
             rb.velocity = Vector3.zero;
-            canDash = true;
-            canMove = true;
-            canSwing = true;
-            canShoot = true;
-            isHit = false;
+            GetComponent<ExecutionController>().wallLimitReached = true;
         }
     }
 

@@ -10,6 +10,7 @@ public class CameraSwitcher : MonoBehaviour
     public Camera mainCamera;
     public Camera cinematicCamera;
     public CinemachineVirtualCamera virtualCamera;
+    public CinemachineTargetGroup targetGroup;
 
     //Cambio de cámara
     private float startTime;
@@ -140,6 +141,15 @@ public class CameraSwitcher : MonoBehaviour
         atStartEvent.RemoveAllListeners();
         delayEvent.RemoveAllListeners();
         atEndEvent.RemoveAllListeners();
+    }
+
+    public void addFollowPlayer(GameObject go)
+    {
+        targetGroup.AddMember(go.transform, 1f, 0f);
+    }
+    public void removeFollowPlayer(GameObject go)
+    {
+        targetGroup.RemoveMember(go.transform);
     }
 
     //Metodos estáticos.
