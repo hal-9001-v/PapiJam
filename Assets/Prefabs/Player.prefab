@@ -644,7 +644,10 @@ PrefabInstance:
     m_Modifications:
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> parent of 835ff96... More item fixed
 =======
 >>>>>>> parent of 835ff96... More item fixed
     - target: {fileID: 4460130488008915016, guid: a33a0700a2ab4b74683199531dca79ab,
@@ -750,6 +753,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     - target: {fileID: 8937639319041034885, guid: a33a0700a2ab4b74683199531dca79ab,
         type: 3}
       propertyPath: rotation
@@ -841,6 +845,8 @@ PrefabInstance:
 =======
 =======
 >>>>>>> parent of 835ff96... More item fixed
+=======
+>>>>>>> parent of 835ff96... More item fixed
     - target: {fileID: 6355458438687519629, guid: a33a0700a2ab4b74683199531dca79ab,
         type: 3}
       propertyPath: m_LocalScale.z
@@ -865,11 +871,14 @@ PrefabInstance:
     m_RemovedComponents: []
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   m_SourcePrefab: {fileID: 100100000, guid: 4efdce3eedf3884429b19845e9daf525, type: 3}
 --- !u!1 &481464454854794968 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 9200807341898487651, guid: 4efdce3eedf3884429b19845e9daf525,
 =======
+=======
+>>>>>>> parent of 835ff96... More item fixed
 =======
 >>>>>>> parent of 835ff96... More item fixed
   m_SourcePrefab: {fileID: 100100000, guid: a33a0700a2ab4b74683199531dca79ab, type: 3}

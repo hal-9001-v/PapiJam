@@ -958,8 +958,13 @@ Transform:
   m_GameObject: {fileID: 1299677966}
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   m_LocalRotation: {x: 0.4663581, y: -0.0646146, z: 0.42928067, w: 0.7707484}
   m_LocalPosition: {x: 0, y: 22.8, z: 0}
+=======
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 47.1, z: 0}
+>>>>>>> parent of 835ff96... More item fixed
 =======
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 47.1, z: 0}
@@ -974,7 +979,11 @@ Transform:
   m_RootOrder: 1
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   m_LocalEulerAnglesHint: {x: 50.748, y: 28.384, z: 71.911}
+=======
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+>>>>>>> parent of 835ff96... More item fixed
 =======
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 >>>>>>> parent of 835ff96... More item fixed
@@ -2015,6 +2024,9 @@ PrefabInstance:
 =======
   m_SourcePrefab: {fileID: 100100000, guid: 1957089dce602bf4d86ac742d405c1af, type: 3}
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> parent of 835ff96... More item fixed
+=======
 >>>>>>> parent of 835ff96... More item fixed
 =======
 >>>>>>> parent of 835ff96... More item fixed
