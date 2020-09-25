@@ -19,7 +19,6 @@ public class GameAssets : MonoBehaviour
         }
     }
 
-
     public SoundAudioClip[] soundAudioClipArryay;
     public Mesh cloudSwordModel;
     public Material cloudSwordMaterial;
@@ -27,7 +26,6 @@ public class GameAssets : MonoBehaviour
     public Mesh[] meshArray;
     public Material[] mOArray;
     public Mesh[] meshOArray;
-    
     
     //public Sprite[] hpArray;
 
