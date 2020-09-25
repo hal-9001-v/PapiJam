@@ -403,8 +403,9 @@ public class PlayerController : MonoBehaviour
         {
             myItem.consume();
         }
-        else {
-            Debug.LogWarning("Item" + go.name +" has no Item Component!");
+        else
+        {
+            Debug.LogWarning("Item" + go.name + " has no Item Component!");
         }
 
     }
@@ -475,10 +476,7 @@ public class PlayerController : MonoBehaviour
 
             case "Monster":
                 consumeItem(col.gameObject);
-<<<<<<< HEAD
-=======
 
->>>>>>> development
                 chargeLimit(monsterCharge);
 
                 break;
