@@ -20,7 +20,8 @@ public class GameAssets : MonoBehaviour
     }
 
     public SoundAudioClip[] soundAudioClipArryay;
-    public GameObject cloudSwordModel;
+    public Mesh cloudSwordModel;
+    public Material cloudSwordMaterial;
     public Material[] mArray;
     public Mesh[] meshArray;
     public Material[] mOArray;

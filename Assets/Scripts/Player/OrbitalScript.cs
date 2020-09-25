@@ -52,7 +52,6 @@ public class OrbitalScript : MonoBehaviour
             go = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
 
             myBullets[i] = go.GetComponent<BulletScript>();
-
             myBullets[i].setPlayer(player);
         }
 

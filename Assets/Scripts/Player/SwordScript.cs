@@ -11,10 +11,9 @@ public class SwordScript : MonoBehaviour
     public float hitStunTime = 1;
     public float limitCharge = 1;
 
-    public GameObject normalSwordModel;
-    public GameObject cloudSwordModel;
-    
     public BoxCollider swordCollider;
+    public MeshFilter swordModel;
+    public MeshRenderer swordMaterial;
     public Vector3 dir;
 
     public float rotation = 15;
@@ -22,26 +21,20 @@ public class SwordScript : MonoBehaviour
     public void attack()
     {
         gameObject.SetActive(true);
-        if(myPlayer.hasChangedSword){
-            normalSwordModel.SetActive(false);
-            cloudSwordModel.SetActive(true);
-            } else {
-                cloudSwordModel.SetActive(false);
-                normalSwordModel.SetActive(true);
-            }
+
         StartCoroutine(Attack());
     }
 
     private void Awake()
     {
+        if (swordMaterial == null) swordMaterial = GetComponentInChildren<MeshRenderer>();
         if (swordCollider == null) swordCollider = GetComponent<BoxCollider>();
+        if (swordModel == null) swordModel = GetComponentInChildren<MeshFilter>();
         gameObject.SetActive(false);
 
     }
 
-    
     IEnumerator Attack() { 
-
         transform.position = new Vector3(myPlayer.transform.position.x, myPlayer.transform.position.y, myPlayer.transform.position.z);
 
         myPlayer.rb.velocity = Vector3.zero;
@@ -57,7 +50,7 @@ public class SwordScript : MonoBehaviour
         yield return new WaitForSeconds(0.55f);
 
         rotation = -rotation;
-        cloudSwordModel.transform.Rotate(0,0,180);
+
         myPlayer.canMove = true;
         myPlayer.canSwing = true;
         myPlayer.isSword = false;
