@@ -90,7 +90,6 @@ public class ItemSystem : MonoBehaviour
         }
         else
         {
-
             myItemSpawnQueue.Enqueue(itemSpawn);
 
         }

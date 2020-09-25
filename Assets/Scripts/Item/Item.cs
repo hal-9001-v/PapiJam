@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class Item : MonoBehaviour
 {
     public float timeRoRespawn;
@@ -12,11 +13,27 @@ public class Item : MonoBehaviour
 
     public static ItemSystem myItemSystem;
 
+    Renderer myRenderer;
+    Collider myCollider;
+
     private void Awake()
     {
         if (myItemSystem == null)
         {
             myItemSystem = FindObjectOfType<ItemSystem>();
+        }
+
+        myRenderer = GetComponent<Renderer>();
+        
+        if (myRenderer == null) {
+            Debug.Log("No Renderer Attached!");
+        }
+
+        myCollider = GetComponent<Collider>();
+
+        if (myCollider == null)
+        {
+            Debug.Log("No Collider Attached!");
         }
     }
 
@@ -25,7 +42,16 @@ public class Item : MonoBehaviour
         myItemSpawn.consumeItem();
         myItemSpawn = null;
 
+        itemSetActive(false);
+
         StartCoroutine(respawnTimer());
+    }
+
+    public void itemSetActive(bool b) {
+
+        myCollider.enabled = b;
+        myRenderer.enabled = b;
+
     }
 
     IEnumerator respawnTimer()

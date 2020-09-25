@@ -26,17 +26,23 @@ public class ItemSpawn : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        mySystem.getItem(this);
+    }
+
     public void spawnItem(Item item)
     {
         myItem = item;
         item.myItemSpawn = this;
+
+        myItem.itemSetActive(true);
 
         Vector3 spawnPosition = new Vector3(transform.position.x, transform.position.y + spawnHeight, transform.position.z);
 
         myItem.transform.position = spawnPosition;
 
     }
-
 
 
     public void consumeItem()
@@ -64,7 +70,7 @@ public class ItemSpawn : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.red;
+        Gizmos.color = Color.blue;
         Gizmos.DrawCube(transform.position + new Vector3(0, spawnHeight, 0), new Vector3(0.5f, 0.5f, 0.5f));
     }
 
