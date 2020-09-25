@@ -956,13 +956,40 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1299677966}
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
   m_LocalRotation: {x: 0.4663581, y: -0.0646146, z: 0.42928067, w: 0.7707484}
   m_LocalPosition: {x: 0, y: 22.8, z: 0}
+=======
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 47.1, z: 0}
+>>>>>>> parent of 835ff96... More item fixed
+=======
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 47.1, z: 0}
+>>>>>>> parent of 835ff96... More item fixed
+=======
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 47.1, z: 0}
+>>>>>>> parent of 835ff96... More item fixed
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
   m_LocalEulerAnglesHint: {x: 50.748, y: 28.384, z: 71.911}
+=======
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+>>>>>>> parent of 835ff96... More item fixed
+=======
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+>>>>>>> parent of 835ff96... More item fixed
+=======
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+>>>>>>> parent of 835ff96... More item fixed
 --- !u!1001 &1436003582
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1918,8 +1945,13 @@ PrefabInstance:
       value: Sonic
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+<<<<<<< HEAD
   m_SourcePrefab: {fileID: 100100000, guid: 380b1455272a36947863a1ed6ef13981, type: 3}
 --- !u!1001 &9200807343418298931
+=======
+  m_SourcePrefab: {fileID: 100100000, guid: 47c117f30b4d6b74e8e3567f1e9aa92e, type: 3}
+--- !u!1001 &8683061514939931817
+>>>>>>> parent of 835ff96... More item fixed
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -1987,4 +2019,14 @@ PrefabInstance:
       value: Shield
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+<<<<<<< HEAD
   m_SourcePrefab: {fileID: 100100000, guid: 4efdce3eedf3884429b19845e9daf525, type: 3}
+=======
+  m_SourcePrefab: {fileID: 100100000, guid: 1957089dce602bf4d86ac742d405c1af, type: 3}
+<<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> parent of 835ff96... More item fixed
+=======
+>>>>>>> parent of 835ff96... More item fixed
+=======
+>>>>>>> parent of 835ff96... More item fixed
