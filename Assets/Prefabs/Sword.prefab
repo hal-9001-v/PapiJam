@@ -109,6 +109,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6355458438140628199}
+  - {fileID: 6688207117132636256}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -138,11 +139,93 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 0}
-  player: {fileID: 0}
+  myPlayer: {fileID: 0}
   swordForce: 0
   hitStunTime: 0
+  limitCharge: 1
+  normalSwordModel: {fileID: 6355458438140628198}
+  cloudSwordModel: {fileID: 6312525242893761242}
   swordCollider: {fileID: 0}
-  swordModel: {fileID: 0}
-  swordMaterial: {fileID: 0}
   dir: {x: 0, y: 0, z: 0}
   rotation: 15
+--- !u!1001 &5317711871584782726
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 6355458438687519629}
+    m_Modifications:
+    - target: {fileID: 1521379027307096550, guid: 241c5e5a1bac15c49b42ad4ae3f1f242,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 5.28
+      objectReference: {fileID: 0}
+    - target: {fileID: 1521379027307096550, guid: 241c5e5a1bac15c49b42ad4ae3f1f242,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1521379027307096550, guid: 241c5e5a1bac15c49b42ad4ae3f1f242,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 3.27
+      objectReference: {fileID: 0}
+    - target: {fileID: 1521379027307096550, guid: 241c5e5a1bac15c49b42ad4ae3f1f242,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1521379027307096550, guid: 241c5e5a1bac15c49b42ad4ae3f1f242,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1521379027307096550, guid: 241c5e5a1bac15c49b42ad4ae3f1f242,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1521379027307096550, guid: 241c5e5a1bac15c49b42ad4ae3f1f242,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1521379027307096550, guid: 241c5e5a1bac15c49b42ad4ae3f1f242,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1521379027307096550, guid: 241c5e5a1bac15c49b42ad4ae3f1f242,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1521379027307096550, guid: 241c5e5a1bac15c49b42ad4ae3f1f242,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1521379027307096550, guid: 241c5e5a1bac15c49b42ad4ae3f1f242,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2186170543134094172, guid: 241c5e5a1bac15c49b42ad4ae3f1f242,
+        type: 3}
+      propertyPath: m_Name
+      value: EspadaCloudMateria
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 241c5e5a1bac15c49b42ad4ae3f1f242, type: 3}
+--- !u!1 &6312525242893761242 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2186170543134094172, guid: 241c5e5a1bac15c49b42ad4ae3f1f242,
+    type: 3}
+  m_PrefabInstance: {fileID: 5317711871584782726}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &6688207117132636256 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1521379027307096550, guid: 241c5e5a1bac15c49b42ad4ae3f1f242,
+    type: 3}
+  m_PrefabInstance: {fileID: 5317711871584782726}
+  m_PrefabAsset: {fileID: 0}

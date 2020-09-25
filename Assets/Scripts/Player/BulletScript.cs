@@ -78,7 +78,20 @@ public class BulletScript : MonoBehaviour
         else if (col.gameObject.tag.Equals("Wall"))
         {
             readyToShoot = true;
-            gameObject.SetActive(false);
+            gameObject.SetActive(false);  
+        } else if(col.gameObject.tag.Equals("Escudin")){
+                GameObject go;
+                ShieldScript pl;
+                go = col.gameObject;
+                pl = go.GetComponent<ShieldScript>();
+                if (pl.playerID != myPlayer.PlayerID)
+            {
+                readyToShoot = true;
+                gameObject.SetActive(false);  
+
+            
+            }
+
         }
 
     }

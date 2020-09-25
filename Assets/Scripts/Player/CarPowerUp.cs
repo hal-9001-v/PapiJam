@@ -26,7 +26,7 @@ public class CarPowerUp : MonoBehaviour
         hide();
 
     }
-
+    
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject != myPlayer.gameObject) {

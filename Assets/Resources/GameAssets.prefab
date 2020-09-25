@@ -88,8 +88,8 @@ MonoBehaviour:
     audioClip: {fileID: 8300000, guid: 9d4c8f59df2a0f64fb534d5132526ff3, type: 3}
   - sound: 21
     audioClip: {fileID: 8300000, guid: b2f722818b3cdf440bf4c49c3b427cf6, type: 3}
-  cloudSwordModel: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
-  cloudSwordMaterial: {fileID: 2100000, guid: c0d639b836945644f8c1517129c9799c, type: 2}
+  cloudSwordModel: {fileID: 2186170543134094172, guid: 241c5e5a1bac15c49b42ad4ae3f1f242,
+    type: 3}
   mArray:
   - {fileID: -3033667219593020291, guid: 7a52be7442b1c424f908e5c2f2d35b10, type: 3}
   - {fileID: -3033667219593020291, guid: 7a52be7442b1c424f908e5c2f2d35b10, type: 3}
