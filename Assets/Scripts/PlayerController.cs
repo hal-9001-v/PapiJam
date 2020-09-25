@@ -397,7 +397,16 @@ public class PlayerController : MonoBehaviour
 
     private void consumeItem(GameObject go)
     {
-        go.GetComponent<Item>().consume();
+        Item myItem = go.GetComponent<Item>();
+
+        if (myItem != null)
+        {
+            myItem.consume();
+        }
+        else {
+            Debug.LogWarning("Item" + go.name +" has no Item Component!");
+        }
+
     }
 
     private void takePowerUp(Collider col)
@@ -508,8 +517,6 @@ public class PlayerController : MonoBehaviour
         if (!hasChangedSword)
         {
             //TO DO IMPLEMENT SWORD
-            sword.swordModel.mesh = GameAssets.i.cloudSwordModel;
-            sword.swordMaterial.material = GameAssets.i.cloudSwordMaterial;
             sword.swordCollider.size = new Vector3(
                 sword.swordCollider.size.x * 5, sword.swordCollider.size.y, sword.swordCollider.size.z * 2);
             hasChangedSword = true;
