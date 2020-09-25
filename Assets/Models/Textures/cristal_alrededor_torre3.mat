@@ -26,17 +26,11 @@ Material:
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-<<<<<<< HEAD:Assets/Models/Textures/cristal_alrededor_torre3.mat
   m_CustomRenderQueue: 3050
   stringTagMap:
     RenderType: Transparent
   disabledShaderPasses:
   - SHADOWCASTER
-=======
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
->>>>>>> parent of 835ff96... More item fixed:Assets/Modelos/Powerups/Textures/Lata/Mat/metal_gris.mat
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -79,19 +73,11 @@ Material:
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
-<<<<<<< HEAD:Assets/Models/Textures/cristal_alrededor_torre3.mat
     - _Metallic: 0.68
     - _OcclusionStrength: 1
     - _QueueOffset: 0
     - _ReceiveShadows: 1
     - _Smoothness: 0.93
-=======
-    - _Metallic: 0
-    - _OcclusionStrength: 1
-    - _QueueOffset: 0
-    - _ReceiveShadows: 1
-    - _Smoothness: 0.5
->>>>>>> parent of 835ff96... More item fixed:Assets/Modelos/Powerups/Textures/Lata/Mat/metal_gris.mat
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 5
