@@ -395,57 +395,78 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void consumeItem(GameObject go)
+    {
+        go.GetComponent<Item>().consume();
+    }
+
     private void takePowerUp(Collider col)
     {
         switch (col.gameObject.tag)
         {
             case "BFG":
-                orbital.BulletsUpgrade(true);
-                col.gameObject.SetActive(false);
+                consumeItem(col.gameObject);
 
+                orbital.BulletsUpgrade(true);
                 break;
 
             case "Rambo":
+                consumeItem(col.gameObject);
+
                 orbital.BulletsUpgrade(false);
-                col.gameObject.SetActive(false);
+
+
                 break;
 
             case "Sonic":
+                consumeItem(col.gameObject);
 
-                if (!hasSpeeded) col.gameObject.SetActive(false);
-                SpeedBoost();
+                if (!hasSpeeded)
+                {
+                    SpeedBoost();
+                }
 
                 break;
 
             case "Ultra":
+                consumeItem(col.gameObject);
 
-                if (!hasUltraInstinted) col.gameObject.SetActive(false);
-                DashIncrease();
+                if (!hasUltraInstinted)
+                {
+                    DashIncrease();
+                }
+
 
                 break;
 
             case "Cloud":
+                consumeItem(col.gameObject);
 
-                if (!hasChangedSword) col.gameObject.SetActive(false);
-                changeSword();
+                if (!hasChangedSword)
+                {
+                    changeSword();
+
+                }
+
 
                 break;
             case "Shield":
+                consumeItem(col.gameObject);
 
-                col.gameObject.SetActive(false);
                 Shield();
                 break;
 
             case "Car":
+                consumeItem(col.gameObject);
 
-                col.gameObject.SetActive(false);
                 enterCarState();
                 changeStateTimer((int)playerState.normal, carTime);
 
                 break;
 
             case "Monster":
-                col.gameObject.SetActive(false);
+                consumeItem(col.gameObject);
+
                 chargeLimit(monsterCharge);
 
                 break;
