@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: f7a03a4d465e9e442baf49b5ab314d83
+guid: 6409ee9a47fd47e41b91b7b2777790b4
 ModelImporter:
   serializedVersion: 19301
   internalIDToNameTable: []
@@ -8,42 +8,42 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: blinn1
-    second: {fileID: 2100000, guid: 2c47cc1d27f25104889fde84208db868, type: 2}
+    second: {fileID: 2100000, guid: 8b5ba289a9326504dabbca2ca2a989ea, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: blinn3
-    second: {fileID: 2100000, guid: f855f3b121c0c6140a70f80b98d5b6bf, type: 2}
+    second: {fileID: 2100000, guid: 4e92dd74c21607f4ab967788227da67c, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: cargador
-    second: {fileID: 2100000, guid: cd93e86a79017b44fa385e2516c5876d, type: 2}
+    second: {fileID: 2100000, guid: 6ec41f78292db8447a03223a3fe3f1dd, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: mrilla
-    second: {fileID: 2100000, guid: 424dc3237e4fce6438d9f50f28e2e446, type: 2}
+    second: {fileID: 2100000, guid: 46f3b8d4f17e8d845a7a3d6aeb90946d, type: 2}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: Damaged Metal Texturefun.com 1k 4_baseColor
-    second: {fileID: 2800000, guid: d61328e2562d82f40a4292fcc51e4c92, type: 3}
+    second: {fileID: 2800000, guid: 55e9b2d67d367fa4786e7ac71514f4f3, type: 3}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: Damaged Metal Texturefun.com 1k 4_normal
-    second: {fileID: 2800000, guid: b75ad61ceb49c154f9592f2fa1a1f7e2, type: 3}
+    second: {fileID: 2800000, guid: 2a5b7c84ac4672c40ad8d77961880b0b, type: 3}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: NormalMap (6)
-    second: {fileID: 2800000, guid: 4077e4f6920662f4b8a5b8b1470afad1, type: 3}
+    second: {fileID: 2800000, guid: ff6630620236a58478b4adda7616986f, type: 3}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: madera_mesa3
-    second: {fileID: 2800000, guid: d15159857d90aa744b818fada2851c70, type: 3}
+    second: {fileID: 2800000, guid: 33c7d273aa57eb44eb343d7c8896b57e, type: 3}
   materials:
     materialImportMode: 1
     materialName: 0

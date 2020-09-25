@@ -1,12 +1,17 @@
 fileFormatVersion: 2
-guid: 7bca5647bb8717e468150b8243291627
+guid: 59686df3155eec94fbd992d03fec6138
 ModelImporter:
   serializedVersion: 19301
   internalIDToNameTable:
   - first:
       74: 1827226128182048838
     second: Take 001
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: anillo_oro
+    second: {fileID: 2100000, guid: b652c7f41c8439946ba4f9a90f666ac9, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
