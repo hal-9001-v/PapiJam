@@ -466,6 +466,10 @@ public class PlayerController : MonoBehaviour
 
             case "Monster":
                 consumeItem(col.gameObject);
+<<<<<<< HEAD
+=======
+
+>>>>>>> development
                 chargeLimit(monsterCharge);
 
                 break;
