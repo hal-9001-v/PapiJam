@@ -6,7 +6,82 @@ ModelImporter:
   - first:
       74: 1827226128182048838
     second: Take 001
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: aiStandardSurface1
+    second: {fileID: 2100000, guid: 64bab88eeddf9c14fa6b3ad87fe35ee9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: cristal1
+    second: {fileID: 2100000, guid: 84b2e17f69a740d4a9f0d49b24c411b8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: faros
+    second: {fileID: 2100000, guid: a28f4575a76083f42a4a51d897fef5ad, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: lambert1
+    second: {fileID: 2100000, guid: 998366de8d31ad944a6b0d46eb5efc86, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: lambert4
+    second: {fileID: 2100000, guid: 6de2bc98f3f53cb4f9bef7490b36e13e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: metal_negro1
+    second: {fileID: 2100000, guid: 0a0fb217553a06740a91e6b2f9851021, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: phong2
+    second: {fileID: 2100000, guid: 49f867dbfedefc94396612382b64c594, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: rejilla
+    second: {fileID: 2100000, guid: d6de3126512e417468d04e91d61f4bea, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: rosa_metalico
+    second: {fileID: 2100000, guid: ffafce061f1042a41997eea9de58419a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: ruedas
+    second: {fileID: 2100000, guid: 4cd2454a623f8f24da2a2c7f27688aa9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: standardSurface5
+    second: {fileID: 2100000, guid: 3ede830917567154480ac1fe9a18d668, type: 2}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Damaged Metal Texturefun.com 1k 4_baseColor
+    second: {fileID: 2800000, guid: f2a075afe6f774040bd8f11e659786da, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Damaged Metal Texturefun.com 1k 4_normal
+    second: {fileID: 2800000, guid: cf32a7d85f8d0ec4282b78dd6b2b36c8, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: pink
+    second: {fileID: 2800000, guid: 6523a303cdf2aec4d8287db1cf4c949b, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: rueda
+    second: {fileID: 2800000, guid: b9c3149d90ae40d48a05cd08103a66b1, type: 3}
   materials:
     materialImportMode: 1
     materialName: 0

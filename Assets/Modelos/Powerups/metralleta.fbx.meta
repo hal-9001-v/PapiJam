@@ -8,42 +8,42 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: blinn1
-    second: {fileID: 2100000, guid: 2c47cc1d27f25104889fde84208db868, type: 2}
+    second: {fileID: 2100000, guid: df9d03dfc13850745bf7892fb4619e34, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: blinn3
-    second: {fileID: 2100000, guid: f855f3b121c0c6140a70f80b98d5b6bf, type: 2}
+    second: {fileID: 2100000, guid: 6736e1508654e0a489e3c7efc2e68131, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: cargador
-    second: {fileID: 2100000, guid: cd93e86a79017b44fa385e2516c5876d, type: 2}
+    second: {fileID: 2100000, guid: 62f6fd3faf09b574bbcb6fe4ac1dd025, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: mrilla
-    second: {fileID: 2100000, guid: 424dc3237e4fce6438d9f50f28e2e446, type: 2}
+    second: {fileID: 2100000, guid: 3332f751e8efba042a28f9b0f49ab1e3, type: 2}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: Damaged Metal Texturefun.com 1k 4_baseColor
-    second: {fileID: 2800000, guid: d61328e2562d82f40a4292fcc51e4c92, type: 3}
+    second: {fileID: 2800000, guid: e72ead9892a5e694c89401ee1126b5ef, type: 3}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: Damaged Metal Texturefun.com 1k 4_normal
-    second: {fileID: 2800000, guid: b75ad61ceb49c154f9592f2fa1a1f7e2, type: 3}
+    second: {fileID: 2800000, guid: 3841d9233995083478f15bb5b9dcfc5c, type: 3}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: NormalMap (6)
-    second: {fileID: 2800000, guid: 4077e4f6920662f4b8a5b8b1470afad1, type: 3}
+    second: {fileID: 2800000, guid: a06c8b2bed564b145ac056870dc59f81, type: 3}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: madera_mesa3
-    second: {fileID: 2800000, guid: d15159857d90aa744b818fada2851c70, type: 3}
+    second: {fileID: 2800000, guid: 84d893485e9980c46b12111cfaee1c2f, type: 3}
   materials:
     materialImportMode: 1
     materialName: 0

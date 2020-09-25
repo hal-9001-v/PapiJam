@@ -3,7 +3,77 @@ guid: 067f3b7c5dd08d04589e38de28b0f153
 ModelImporter:
   serializedVersion: 19301
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Default_Material
+    second: {fileID: 2100000, guid: bec1d208a70a0bc41ae855fdac9d818d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: azul_metalico
+    second: {fileID: 2100000, guid: 1d27abf8094e087469d49fbe0ecf4b55, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: blanco2_metalico
+    second: {fileID: 2100000, guid: 127408d3e6b15ba45a8c628eb67a561d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: blanco_metalico
+    second: {fileID: 2100000, guid: 2b8de392c73d14d4780e5004062f067f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: cristal
+    second: {fileID: 2100000, guid: 51b5da1f64dc5824d8ec3241866c20b8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: cristal_dorado
+    second: {fileID: 2100000, guid: fcc956bd92130b8449041bb9d18b7367, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: gris_metalico
+    second: {fileID: 2100000, guid: d35aebe744fa9934181d3f5c52a9e893, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: mirilla
+    second: {fileID: 2100000, guid: 27adc0da426d20a4d8493950c6e82ae5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: naranja_emisivo
+    second: {fileID: 2100000, guid: 3e4652846b1cf2e4eb9281fc96ca6ef2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: plastico
+    second: {fileID: 2100000, guid: c3d42742b77645049a4b5df9f24788f6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: rojo_metalico
+    second: {fileID: 2100000, guid: 2cfa1aa055029304eb3889e6e2ddd5a5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: verde_emisivo
+    second: {fileID: 2100000, guid: ff3e3e970b7383f4d87b990b73046553, type: 2}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Damaged Metal Texturefun.com 1k 4_baseColor
+    second: {fileID: 2800000, guid: c6ab7a5e87e1b8749b0657a8b82249ec, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Damaged Metal Texturefun.com 1k 4_normal
+    second: {fileID: 2800000, guid: 955358681c92bbe49a2e9924b00da2e9, type: 3}
   materials:
     materialImportMode: 1
     materialName: 0

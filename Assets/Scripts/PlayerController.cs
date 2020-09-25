@@ -160,9 +160,9 @@ public class PlayerController : MonoBehaviour
         canMove = true;
         canShoot = false;
         isHit = false;
-        hasSpeeded = false;
-        hasUltraInstinted = false;
-        hasChangedSword = false;
+        //hasSpeeded = false;
+        //hasUltraInstinted = false;
+        //hasChangedSword = false;
         isShielded = true;
         canDoLimit = false;
 
@@ -181,9 +181,9 @@ public class PlayerController : MonoBehaviour
         canMove = true;
         canShoot = true;
         isHit = false;
-        hasSpeeded = false;
-        hasUltraInstinted = false;
-        hasChangedSword = false;
+        //hasSpeeded = false;
+        //hasUltraInstinted = false;
+        //hasChangedSword = false;
         isShielded = false;
         canDoLimit = true;
 

@@ -85,7 +85,7 @@ public class BulletScript : MonoBehaviour
                 ShieldScript pl;
                 go = col.gameObject;
                 pl = go.GetComponent<ShieldScript>();
-                if (pl.playerID != myPlayer.myShield.playerID)
+                if (pl.playerID != myPlayer.PlayerID)
             {
                 readyToShoot = true;
                 gameObject.SetActive(false);  
