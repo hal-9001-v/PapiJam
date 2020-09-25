@@ -52,7 +52,8 @@ public class OrbitalScript : MonoBehaviour
             go = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
 
             myBullets[i] = go.GetComponent<BulletScript>();
-            myBullets[i].playerID = player.PlayerID;
+
+            myBullets[i].setPlayer(player);
         }
 
         k = 0;
@@ -61,7 +62,7 @@ public class OrbitalScript : MonoBehaviour
 
     }
 
-
+    
     public void BulletsUpgrade(bool BFG){
         GameObject go;
         
@@ -91,7 +92,7 @@ public class OrbitalScript : MonoBehaviour
             {
                 go = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
                 myBullets[i] = go.GetComponent<BulletScript>();
-                myBullets[i].playerID = player.PlayerID;                
+                myBullets[i].setPlayer(player);                
             }
 
     }
