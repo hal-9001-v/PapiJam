@@ -238,11 +238,20 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void OnGas()
+    {
+        if (currentState == (int)playerState.car)
+        {
+            Debug.Log("Deja vu: " + carIsDrifting);
+            carIsDrifting = !carIsDrifting;
+
+        }
+
+    }
     private void OnMovement(InputValue value)
     {
-
+        
         Vector2 movementInput = value.Get<Vector2>().normalized;
-        Debug.Log(movementDirection);
 
         switch (currentState)
         {
@@ -288,8 +297,6 @@ public class PlayerController : MonoBehaviour
 
             //Car
             case (int)playerState.car:
-                Debug.Log("Deja vu: " + carIsDrifting);
-                carIsDrifting = !carIsDrifting;
                 break;
 
 
@@ -600,7 +607,7 @@ public class PlayerController : MonoBehaviour
 
             case (int)playerState.car:
 
-
+                
                 rb.velocity = movementDirection * carSpeed;
                 rotateToDirection();
 
