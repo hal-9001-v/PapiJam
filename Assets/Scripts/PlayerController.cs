@@ -25,6 +25,7 @@ public class PlayerController : MonoBehaviour
     public bool hasChangedSword = false;
     public bool isShielded = false;
     public bool isSword = false;
+    public bool isExecuted = false;
 
     public bool canDoLimit = false;
     public bool isExecuting = false;
@@ -228,8 +229,11 @@ public class PlayerController : MonoBehaviour
     {
         //Program what happens.
         Debug.Log(this.name + " got executed.");
-        gameObject.transform.position = new Vector3(gameObject.transform.position.x,
-            gameObject.transform.position.y -1000f, gameObject.transform.position.z);
+        //Solucion momentanea, no colisiona con nada excepto con los límites.
+        gameObject.layer = 9;
+        canSwing = false;
+        canShoot = false;
+        canDoLimit = false;
     }
 
     private void OnLimit()
