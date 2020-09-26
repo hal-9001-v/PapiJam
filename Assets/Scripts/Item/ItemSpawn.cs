@@ -40,7 +40,8 @@ public class ItemSpawn : MonoBehaviour
     {
         myItem = item;
         item.myItemSpawn = this;
-
+        animationTimer = 0;
+        movement = Mathf.Abs(movement);
         myItem.itemSetActive(true);
 
         Vector3 spawnPosition = new Vector3(transform.position.x, transform.position.y + spawnHeight, transform.position.z);
