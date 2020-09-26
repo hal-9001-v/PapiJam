@@ -184,7 +184,7 @@ public class MenuManager : MonoBehaviour
 
     void SubirPersonajes()
     {
-        iTween.MoveTo(fondo, iTween.Hash("y", -46f, "time", 1.5f, "easetype", "easeOutQuint"));
+        iTween.MoveTo(fondo, iTween.Hash("y", -10f, "time", 1.5f, "easetype", "easeOutQuint"));
         iTween.MoveTo(casillasPersonajes, iTween.Hash("y", -15.7f, "time", 1.5f, "easetype", "easeOutQuint"));
         columnasArray[0].SetActive(true);
         columnasArray[1].SetActive(true);
@@ -318,7 +318,7 @@ public class MenuManager : MonoBehaviour
         if (isNumSelected)
         {
             isNumSelected = !isNumSelected;
-            iTween.MoveTo(fondo, iTween.Hash("y", -205, "time", 1.5f, "easetype", "easeOutQuint"));
+            iTween.MoveTo(fondo, iTween.Hash("y", -162.6, "time", 1.5f, "easetype", "easeOutQuint"));
             iTween.MoveTo(casillasPersonajes, iTween.Hash("y", -34, "time", 1.5f, "easetype", "easeOutQuint"));
             iTween.MoveTo(columnas, iTween.Hash("y", -70, "time", 3f, "easetype", "easeOutQuint"));
             iTween.MoveTo(playersNumSelector, iTween.Hash("y", -7.2, "time", 1.5f, "easetype", "easeOutQuint"));
