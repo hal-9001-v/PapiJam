@@ -33,6 +33,8 @@ public class MenuManager : MonoBehaviour
 
     public GameObject Visor;
 
+    public int[] playersArray;
+
     //Selectores
     public GameObject[] selectors;
     public GameObject selectorGO;
