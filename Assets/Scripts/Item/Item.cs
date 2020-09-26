@@ -13,8 +13,8 @@ public class Item : MonoBehaviour
 
     public static ItemSystem myItemSystem;
 
-    MeshRenderer myRenderer;
-    BoxCollider myCollider;
+    MeshRenderer[] myRenderers;
+    BoxCollider[] myColliders;
 
     private void Awake()
     {
@@ -28,25 +28,25 @@ public class Item : MonoBehaviour
     private void OnEnable()
     {
 
-        myRenderer = GetComponent<MeshRenderer>();
+        myRenderers = GetComponentsInChildren<MeshRenderer>();
 
-        if (myRenderer == null)
+        if (myRenderers == null)
         {
-            myRenderer = GetComponentInChildren<MeshRenderer>(true);
+            myRenderers = GetComponentsInChildren<MeshRenderer>(true);
 
-            if (myRenderer == null)
+            if (myRenderers == null)
             {
-                Debug.Log("No Renderer Attached in " + gameObject.name + "!");
+                Debug.Log("No Renderers Attached in " + gameObject.name + "!");
             }
         }
 
-        myCollider = GetComponent<BoxCollider>();
+        myColliders = GetComponentsInChildren<BoxCollider>();
 
-        if (myCollider == null)
+        if (myColliders == null)
         {
-            myCollider = GetComponentInChildren<BoxCollider>(true);
+            myColliders = GetComponentsInChildren<BoxCollider>(true);
 
-            if (myCollider == null)
+            if (myColliders == null)
             {
                 Debug.Log("No Collider Attached in " + gameObject.name + "!");
             }
@@ -67,12 +67,19 @@ public class Item : MonoBehaviour
     public void itemSetActive(bool b)
     {
 
-        if (myCollider != null)
-            myCollider.enabled = b;
+        if (myColliders != null) {
+            foreach (BoxCollider c in myColliders) {
+                c.enabled = b;
+            }
+        }
 
-
-        if (myRenderer != null)
-            myRenderer.enabled = b;
+        if (myRenderers != null)
+        {
+            foreach (MeshRenderer r in myRenderers)
+            {
+                r.enabled = b;
+            }
+        }
 
     }
 

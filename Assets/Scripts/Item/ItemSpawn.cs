@@ -82,7 +82,7 @@ public class ItemSpawn : MonoBehaviour
         {
             animationTimer += Time.deltaTime;
 
-            itemTransform.localPosition = new Vector3(itemTransform.position.x, itemTransform.position.y + movement, itemTransform.localPosition.z);
+            itemTransform.position = new Vector3(itemTransform.position.x, itemTransform.position.y + movement, itemTransform.position.z);
 
         }
         else
