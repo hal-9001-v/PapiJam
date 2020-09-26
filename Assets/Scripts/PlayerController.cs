@@ -242,7 +242,6 @@ public class PlayerController : MonoBehaviour
     {
         if (currentState == (int)playerState.car)
         {
-            Debug.Log("Deja vu: " + carIsDrifting);
             carIsDrifting = !carIsDrifting;
 
         }
