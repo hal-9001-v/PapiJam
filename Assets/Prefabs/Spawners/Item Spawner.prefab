@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &764265017781109034
+--- !u!1 &7883355100329095232
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,47 +8,46 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 130857623043546000}
-  - component: {fileID: 3926925320160449589}
-  - component: {fileID: 1268830423580303615}
-  - component: {fileID: 2314653251832771337}
-  - component: {fileID: 617092003331154324}
+  - component: {fileID: 7883355100329095239}
+  - component: {fileID: 7883355100329095611}
+  - component: {fileID: 7883355100329095236}
+  - component: {fileID: 7883355100329095238}
   m_Layer: 0
-  m_Name: MYPREFAB
-  m_TagString: Sonic
+  m_Name: ItemSpawner
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &130857623043546000
+--- !u!4 &7883355100329095239
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 764265017781109034}
-  m_LocalRotation: {x: -0.12278836, y: 0.69636416, z: 0.69636416, w: 0.12278836}
-  m_LocalPosition: {x: -0.014424779, y: 0.00610119, z: -0.0015419697}
-  m_LocalScale: {x: 50, y: 50, z: 50}
+  m_GameObject: {fileID: 7883355100329095232}
+  m_LocalRotation: {x: -0, y: -0.36216697, z: -0, w: 0.93211323}
+  m_LocalPosition: {x: 0.47, y: -15.435841, z: 6.49}
+  m_LocalScale: {x: 1.8278, y: 0.34414, z: 1.5764}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &3926925320160449589
+  m_LocalEulerAnglesHint: {x: 0, y: -42.467003, z: 0}
+--- !u!33 &7883355100329095611
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 764265017781109034}
-  m_Mesh: {fileID: 7449339982671619617, guid: 7bca5647bb8717e468150b8243291627, type: 3}
---- !u!23 &1268830423580303615
+  m_GameObject: {fileID: 7883355100329095232}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!23 &7883355100329095236
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 764265017781109034}
+  m_GameObject: {fileID: 7883355100329095232}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -60,7 +59,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 1634404101832922676, guid: 7bca5647bb8717e468150b8243291627, type: 3}
+  - {fileID: 2100000, guid: 06974de3aafa88742ab2707c329b812d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -81,32 +80,21 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!114 &2314653251832771337
+--- !u!114 &7883355100329095238
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 764265017781109034}
+  m_GameObject: {fileID: 7883355100329095232}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8818ecccc11155f4298e725611d7c88e, type: 3}
+  m_Script: {fileID: 11500000, guid: a192c594d8d4ddf4abe449f5c57c6df1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeRoRespawn: 10
+  spawnHeight: 1.11
+  respawnTime: 1
+  rotationSpeed: {x: 0, y: 1, z: 0}
   readyToRespawn: 0
-  myItemSpawn: {fileID: 0}
---- !u!64 &617092003331154324
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 764265017781109034}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 7449339982671619617, guid: 7bca5647bb8717e468150b8243291627, type: 3}
+  timeUntilChange: 1
+  movement: 0.05

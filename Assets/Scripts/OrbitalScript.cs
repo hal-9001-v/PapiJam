@@ -185,8 +185,6 @@ public class OrbitalScript : MonoBehaviour
         BFGReady = true;
     }
     
-    
-
 
     private void OrbitalAnimation()
     {

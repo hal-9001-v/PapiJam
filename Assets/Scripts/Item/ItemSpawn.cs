@@ -12,9 +12,14 @@ public class ItemSpawn : MonoBehaviour
 
     public Vector3 rotationSpeed;
 
-    public bool readyToRespawn;
 
     ItemSystem mySystem;
+
+    
+    public float timeUntilChange;
+    public float movement;
+
+    float animationTimer;
 
     private void Awake()
     {
@@ -59,13 +64,33 @@ public class ItemSpawn : MonoBehaviour
     }
 
 
-
     private void FixedUpdate()
     {
         if (myItem != null)
         {
-            myItem.transform.Rotate(rotationSpeed);
+            itemAnimation(myItem.transform);
         }
+    }
+
+
+
+    private void itemAnimation(Transform itemTransform)
+    {
+        myItem.transform.Rotate(rotationSpeed);
+
+        if (animationTimer < timeUntilChange)
+        {
+            animationTimer += Time.deltaTime;
+
+            itemTransform.localPosition = new Vector3(itemTransform.position.x, itemTransform.position.y + movement, itemTransform.localPosition.z);
+
+        }
+        else
+        {
+            movement = -movement;
+            animationTimer = 0;
+        }
+
     }
 
     private void OnDrawGizmos()

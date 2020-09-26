@@ -8,7 +8,6 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerController : MonoBehaviour
 {
-
     public Rigidbody rb;
     public Vector3 movementDirection;
 
@@ -110,9 +109,6 @@ public class PlayerController : MonoBehaviour
             Debug.LogWarning("No free Limit Bar in Scene");
         }
 
-
-
-
     }
     private void Start()
     {
@@ -132,7 +128,8 @@ public class PlayerController : MonoBehaviour
             limit = 0;
         }
 
-        myLimitBar.setLimit(limit);
+        if (myLimitBar != null)
+            myLimitBar.setLimit(limit);
 
     }
 
@@ -166,7 +163,7 @@ public class PlayerController : MonoBehaviour
         isShielded = true;
         canDoLimit = false;
 
-        carIsDrifting = true;
+        carIsDrifting = false;
 
         myCar.show();
 
@@ -241,29 +238,11 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void OnGas()
-    {
-
-        if (currentState == (int)playerState.car)
-        {
-
-            carIsDrifting = !carIsDrifting;
-
-            if (carIsDrifting)
-            {
-                extraSpeedCounter = 0;
-
-            }
-            else
-            {
-                extraSpeedCounter = extraSpeed;
-            }
-        }
-
-    }
     private void OnMovement(InputValue value)
     {
-        Vector2 movementInput = value.Get<Vector2>();
+
+        Vector2 movementInput = value.Get<Vector2>().normalized;
+        Debug.Log(movementDirection);
 
         switch (currentState)
         {
@@ -279,9 +258,6 @@ public class PlayerController : MonoBehaviour
 
                 carMovement(movementInput);
                 break;
-
-
-
         }
     }
 
@@ -312,6 +288,8 @@ public class PlayerController : MonoBehaviour
 
             //Car
             case (int)playerState.car:
+                Debug.Log("Deja vu: " + carIsDrifting);
+                carIsDrifting = !carIsDrifting;
                 break;
 
 
@@ -342,14 +320,27 @@ public class PlayerController : MonoBehaviour
     {
         if (!carIsDrifting)
         {
-            if (movementInput.y < 0)
-                driftDirection = -movementInput.x;
-            else if (movementInput.y > 0)
-                driftDirection = movementInput.x;
+            if (movementInput.y > 0)
+            {
+                if (movementInput.x > 0)
+                    driftDirection = -1;
+                else
+                    driftDirection = 1;
+
+            }
+            else if (movementInput.y < 0)
+            {
+                if (movementInput.x > 0)
+                    driftDirection = 1;
+                else
+                    driftDirection = -1;
+
+            }
+
+
+            movementDirection = new Vector3(movementInput.x, 0, movementInput.y);
+
         }
-
-        movementDirection = new Vector3(movementInput.x, 0, movementInput.y);
-
     }
 
     public void Hit(float force, Vector3 dir, float time)
@@ -425,7 +416,6 @@ public class PlayerController : MonoBehaviour
 
                 orbital.BulletsUpgrade(false);
 
-
                 break;
 
             case "Sonic":
@@ -446,7 +436,6 @@ public class PlayerController : MonoBehaviour
                     DashIncrease();
                 }
 
-
                 break;
 
             case "Cloud":
@@ -457,7 +446,6 @@ public class PlayerController : MonoBehaviour
                     changeSword();
 
                 }
-
 
                 break;
             case "Shield":
@@ -489,8 +477,6 @@ public class PlayerController : MonoBehaviour
         takePowerUp(col);
     }
 
-
-
     //Habilidades
     public void DashIncrease()
     {
@@ -520,7 +506,6 @@ public class PlayerController : MonoBehaviour
             hasChangedSword = true;
         }
     }
-
 
     IEnumerator ShieldNumerator()
     {
@@ -556,6 +541,7 @@ public class PlayerController : MonoBehaviour
         }
 
     }
+
     IEnumerator DashCDIng()
     {
         if (hasUltraInstinted)
@@ -594,14 +580,12 @@ public class PlayerController : MonoBehaviour
     {
         if (movementDirection != Vector3.zero)
         {
-            transform.localRotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(movementDirection), rotateSpeed * Time.deltaTime);
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(movementDirection), rotateSpeed * Time.deltaTime);
         }
     }
 
     private void FixedUpdate()
     {
-
-
         switch (currentState)
         {
             case (int)playerState.normal:
@@ -609,44 +593,31 @@ public class PlayerController : MonoBehaviour
                 {
                     rb.velocity = movementDirection * walkSpeed;
 
-
                     rotateToDirection();
 
                 }
                 break;
 
             case (int)playerState.car:
-                if (canMove)
+
+
+                rb.velocity = movementDirection * carSpeed;
+                rotateToDirection();
+
+                //Drift
+                if (carIsDrifting && movementDirection != Vector3.zero)
                 {
-                    if (extraSpeedCounter > 0)
-                    {
-                        rb.velocity = movementDirection * (carSpeed + extraSpeedCounter);
-                        extraSpeedCounter -= extraSpeed * 0.05f;
-                    }
-                    else
-                    {
-                        rb.velocity = movementDirection * carSpeed;
-                    }
+                    rb.velocity = rb.velocity + transform.right * driftDirection * carSpeed * 2f;
+                    myCar.setDrift();
 
-                    rotateToDirection();
-
-                    //Drift
-                    if (carIsDrifting && movementDirection != Vector3.zero)
-                    {
-                        rb.velocity += transform.right * driftDirection * carSpeed * 2f;
-                        myCar.setDrift();
-
-                    }
-                    else
-                    {
-                        myCar.setNormal();
-                    }
                 }
-
+                else
+                {
+                    myCar.setNormal();
+                }
 
                 break;
         }
-
 
 
     }

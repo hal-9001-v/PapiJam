@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 382726636283876159}
   - component: {fileID: 5818701294984545846}
+  - component: {fileID: -4940889301884309556}
   m_Layer: 0
   m_Name: BFG
   m_TagString: BFG
@@ -26,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 382726636283876152}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -4.91, y: 2, z: 0}
-  m_LocalScale: {x: 3, y: 3, z: 3}
+  m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
   m_Children:
   - {fileID: 3602162212964469436}
   m_Father: {fileID: 0}
@@ -45,6 +46,21 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.67442274, y: 1, z: 3.042194}
   m_Center: {x: -0.06631939, y: 0, z: 0.018949112}
+--- !u!114 &-4940889301884309556
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 382726636283876152}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8818ecccc11155f4298e725611d7c88e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeRoRespawn: 2
+  readyToRespawn: 0
+  myItemSpawn: {fileID: 0}
 --- !u!1001 &3924827769970126167
 PrefabInstance:
   m_ObjectHideFlags: 0
