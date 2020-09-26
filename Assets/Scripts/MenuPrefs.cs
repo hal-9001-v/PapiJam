@@ -13,14 +13,14 @@ public class MenuPrefs : MonoBehaviour
     private void Awake() {
         
         DontDestroyOnLoad(gameObject);
+
+    }
+
+    private void Start() {
         p0=0;
         p1=1;
         p2=2;
         p3=3;
-    }
-
-    private void Start() {
-    
     }
 
     private void FixedUpdate() {
