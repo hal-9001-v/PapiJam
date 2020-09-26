@@ -82,7 +82,7 @@ public class ItemSystem : MonoBehaviour
     {
         if (myReadyList.Count != 0)
         {
-
+                
             int selection = Random.Range(0, myReadyList.Count);
 
             itemSpawn.spawnItem(myReadyList[selection]);

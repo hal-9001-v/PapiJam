@@ -2495,6 +2495,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Spawn (7)
       objectReference: {fileID: 0}
+    - target: {fileID: 7883355100329095238, guid: b5f689ddbabee5849b6f04a9b2d89d6b,
+        type: 3}
+      propertyPath: spawnHeight
+      value: 1.5
+      objectReference: {fileID: 0}
     - target: {fileID: 7883355100329095239, guid: b5f689ddbabee5849b6f04a9b2d89d6b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -5989,6 +5994,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Spawn (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 7883355100329095238, guid: b5f689ddbabee5849b6f04a9b2d89d6b,
+        type: 3}
+      propertyPath: spawnHeight
+      value: 1.5
+      objectReference: {fileID: 0}
     - target: {fileID: 7883355100329095239, guid: b5f689ddbabee5849b6f04a9b2d89d6b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -6860,6 +6870,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Spawn (8)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7883355100329095238, guid: b5f689ddbabee5849b6f04a9b2d89d6b,
+        type: 3}
+      propertyPath: spawnHeight
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 7883355100329095239, guid: b5f689ddbabee5849b6f04a9b2d89d6b,
         type: 3}
@@ -8429,6 +8444,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Spawn (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7883355100329095238, guid: b5f689ddbabee5849b6f04a9b2d89d6b,
+        type: 3}
+      propertyPath: spawnHeight
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 7883355100329095239, guid: b5f689ddbabee5849b6f04a9b2d89d6b,
         type: 3}

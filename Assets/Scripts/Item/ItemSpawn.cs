@@ -18,6 +18,7 @@ public class ItemSpawn : MonoBehaviour
     
     public float timeUntilChange;
     public float movement;
+    private float currentHeight;
 
     float animationTimer;
 
@@ -38,15 +39,17 @@ public class ItemSpawn : MonoBehaviour
 
     public void spawnItem(Item item)
     {
+        animationTimer = 0;
+        movement = Mathf.Abs(movement);
         myItem = item;
         item.myItemSpawn = this;
-
+        
         myItem.itemSetActive(true);
 
         Vector3 spawnPosition = new Vector3(transform.position.x, transform.position.y + spawnHeight, transform.position.z);
 
         myItem.transform.position = spawnPosition;
-
+        currentHeight = transform.position.y;
     }
 
 
@@ -57,7 +60,7 @@ public class ItemSpawn : MonoBehaviour
     }
 
     IEnumerator cdRespawn()
-    {
+    {   
         yield return new WaitForSeconds(respawnTime);
 
         mySystem.getItem(this);
@@ -68,23 +71,23 @@ public class ItemSpawn : MonoBehaviour
     {
         if (myItem != null)
         {
-            itemAnimation(myItem.transform);
+            itemAnimation();
         }
     }
 
 
 
-    private void itemAnimation(Transform itemTransform)
+    private void itemAnimation()
     {
         myItem.transform.Rotate(rotationSpeed);
 
         if (animationTimer < timeUntilChange)
         {
             animationTimer += Time.deltaTime;
-
-            itemTransform.localPosition = new Vector3(itemTransform.position.x, itemTransform.position.y + movement, itemTransform.localPosition.z);
-
-        }
+            currentHeight += movement;
+            myItem.transform.position= new Vector3(transform.position.x, currentHeight + spawnHeight, transform.position.z);
+            
+        }   
         else
         {
             movement = -movement;
