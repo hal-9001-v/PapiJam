@@ -72,7 +72,7 @@ public class charSelectScp : MonoBehaviour
             transform.position = casillasPos[charSelected] + new Vector3(1.7f, -1.7f, -1f);
         }
 
-        if (gamepad.dpad.up.wasPressedThisFrame || gamepad.leftStick.up.wasPressedThisFrame)
+        if (gamepad.dpad.up.wasReleasedThisFrame|| gamepad.leftStick.up.wasReleasedThisFrame)
         {
             if (charSelected < 2)
             {
@@ -83,12 +83,12 @@ public class charSelectScp : MonoBehaviour
                 charSelected -= 2;
             }
         }
-        if (gamepad.dpad.down.wasPressedThisFrame || gamepad.leftStick.down.wasPressedThisFrame)
+        if (gamepad.dpad.down.wasReleasedThisFrame || gamepad.leftStick.down.wasReleasedThisFrame)
         {
             charSelected = (charSelected + 2) % 4;
         }
 
-        if (gamepad.dpad.left.wasPressedThisFrame || gamepad.leftStick.left.wasPressedThisFrame)
+        if (gamepad.dpad.left.wasReleasedThisFrame|| gamepad.leftStick.left.wasReleasedThisFrame)
         {
             charSelected = (charSelected - 1);
             if (charSelected < 0)
@@ -97,17 +97,17 @@ public class charSelectScp : MonoBehaviour
             }
         }
 
-        if (gamepad.dpad.right.wasPressedThisFrame || gamepad.leftStick.right.wasPressedThisFrame)
+        if (gamepad.dpad.right.wasReleasedThisFrame|| gamepad.leftStick.right.wasReleasedThisFrame)
         {
             charSelected = (charSelected + 1) % 4;
         }
 
-        if (gamepad.aButton.wasPressedThisFrame)
+        if (gamepad.aButton.wasReleasedThisFrame)
         {
             isReady = true;
         }
 
-        if (gamepad.bButton.wasPressedThisFrame)
+        if (gamepad.bButton.wasReleasedThisFrame)
         {
             isReady = false;
         }

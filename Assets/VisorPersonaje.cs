@@ -8,6 +8,8 @@ public class VisorPersonaje : MonoBehaviour
     public int numChar;
     public GameObject selector;
     public Sprite[] charactersPics;
+
+    public bool hasSelected = false;
     // Start is called before the first frame update
     void Start()
     {
