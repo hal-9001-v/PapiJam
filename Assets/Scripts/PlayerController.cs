@@ -24,7 +24,7 @@ public class PlayerController : MonoBehaviour
     public bool hasChangedSword = false;
     public bool isShielded = false;
     public bool isSword = false;
-
+    public bool isLimiting = false;
     public bool canDoLimit = false;
 
     //Player Stats
@@ -53,6 +53,8 @@ public class PlayerController : MonoBehaviour
     public float extraSpeed;
     private float extraSpeedCounter = 0;
 
+    public ExecutionCollisioner myExecutionCollision;
+
     public float limit = 0;
     public float MAXLIMIT = 10;
 
@@ -61,6 +63,9 @@ public class PlayerController : MonoBehaviour
     public int currentState;
 
     Coroutine stateChanger;
+
+    private const int MAXLIVES = 3;
+    public int lives = MAXLIVES;
 
     enum playerState
     {
@@ -92,8 +97,11 @@ public class PlayerController : MonoBehaviour
             myCar = GetComponentInChildren<CarPowerUp>();
         if (myShield == null)
             myShield = GetComponentInChildren<ShieldScript>();
+        if (myExecutionCollision == null)
+            myExecutionCollision = GetComponentInChildren<ExecutionCollisioner>();
 
         myShield.gameObject.SetActive(false);
+        myExecutionCollision.gameObject.SetActive(false);
 
         sword.setPlayer(this);
 
@@ -233,22 +241,38 @@ public class PlayerController : MonoBehaviour
         }
 
     }
-
-    private void OnLimit()
+    public void getExecuted()
     {
-
+        --lives;
+        if (lives <= 0)
+        {
+            Debug.Log(this.name + " got executed.");
+            Destroy(gameObject);
+        }
+        
+    }
+ private void OnLimit()
+    {
         if (canDoLimit)
         {
-
             if (limit >= MAXLIMIT)
             {
                 chargeLimit(-MAXLIMIT);
-                //DO LIMIT
-                Debug.Log("LIMIT");
+
+                ExecutionController exController = GetComponent<ExecutionController>();
+                if (!exController)
+                {
+                    Debug.LogWarning("This player isn't able to perform an Execution.");
+                }
+                else
+                {
+                    isLimiting = true;
+                    exController.doExecution();
+                }
             }
         }
+        
     }
-
     private void OnGas()
     {
         if (currentState == (int)playerState.car)
