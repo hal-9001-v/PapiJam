@@ -10,6 +10,12 @@ public class LimitBar : MonoBehaviour
     public Image myImage;
     public PlayerController myPlayer;
 
+    public Sprite[] myIcons;
+    public Sprite[] myNumbers;
+
+    public Image myIconRenderer;
+    public Image myNumberRenderer;
+
     //Player's attributes
     private float limit;
     private float limitMax;
@@ -58,6 +64,9 @@ public class LimitBar : MonoBehaviour
     {
         myPlayer = player;
         limitMax = player.MAXLIMIT;
+
+        myIconRenderer.sprite = myIcons[player.charSelected];
+        myNumberRenderer.sprite = myNumbers[player.PlayerID - 1];
 
         setLimit(0);
     }

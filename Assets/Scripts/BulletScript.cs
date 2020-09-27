@@ -27,6 +27,8 @@ public class BulletScript : MonoBehaviour
         readyToShoot = true;
         gunReady = true;
         gameObject.SetActive(false);
+
+        DontDestroyOnLoad(gameObject);
     }
 
     IEnumerator BulletTime()

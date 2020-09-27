@@ -9,8 +9,8 @@ EditorBuildSettings:
     path: Assets/Scenes/Main Menu.unity
     guid: d1c3109bdb54ad54c8a2b2838528e640
   - enabled: 1
-    path: Assets/Scenes/Sample.unity
-    guid: 85e0f1ba95ad37e4a97773ae815c441e
+    path: Assets/Scenes/MarianoScene.unity
+    guid: c7742515b2beab0479ec699f2e9e954f
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 2514151f5b20ad948a85f65a09d5611e,
       type: 2}

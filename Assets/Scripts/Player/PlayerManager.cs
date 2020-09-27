@@ -45,7 +45,7 @@ public class PlayerManager : MonoBehaviour
     }
 
     IEnumerator ManagePlayerWait(){
-
+        /*
         //Esperamos para que se inicialicen los hijos del player 
         yield return new WaitForSeconds(0.1f);
         if(pis.pArray != null){
@@ -107,7 +107,8 @@ public class PlayerManager : MonoBehaviour
                  }
             }
         }
-        
+        */
+        yield return null;
 
     }
 

@@ -22,7 +22,7 @@ public class OrbitalScript : MonoBehaviour
     float timeToRotate = 0.2f;
     float rotationTimer = 0;
 
-    BulletScript[] myBullets;
+    public BulletScript[] myBullets;
 
     public GameObject bulletPrefab;
 
@@ -33,7 +33,8 @@ public class OrbitalScript : MonoBehaviour
     int j ;
     int k ;
     int ammo;
-    BulletScript[] bfgArray ;
+
+    public BulletScript[] bfgArray ;
     // Start is called before the first frame update
     private void Awake()
     {   
@@ -61,7 +62,7 @@ public class OrbitalScript : MonoBehaviour
 
     }
 
-    
+
     public void BulletsUpgrade(bool BFG){
         GameObject go;
         
