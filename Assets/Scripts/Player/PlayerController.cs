@@ -97,15 +97,14 @@ public class PlayerController : MonoBehaviour
         rotateSpeed = 8f;
         numberOfBullets = 3;
         dashCount = 1;
-        GameObject cancionFind;
-        cancionFind= GameObject.Find("AudioSource");
-        cancion = cancionFind.GetComponent<AudioSource>();
-        cancion.Pause();
+        
         //GO inicialization
         rb = GetComponent<Rigidbody>();
 
         if (orbital == null)
-            orbital = GetComponentInChildren<OrbitalScript>();
+            orbital = GetComponentInChildren<OrbitalScript>(true);
+        if (rb == null)
+            rb = GetComponentInChildren<Rigidbody>(true);
 
         if (sword == null)
             sword = GetComponentInChildren<SwordScript>();
@@ -122,9 +121,7 @@ public class PlayerController : MonoBehaviour
 
         sword.setPlayer(this);
 
-        
         myLimitBar = LimitBar.getFreeLimitBar();
-
 
         myMenuManager = FindObjectOfType<MenuManager>();
 
@@ -166,6 +163,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnLevelWasLoaded(int level)
     {
+
         switch (level)
         {
             //Menu
@@ -174,9 +172,9 @@ public class PlayerController : MonoBehaviour
                 destroyPlayer();
                 
                 break;
-
+                //Mariano
             case 1:
-                enterNormalState();
+                
                 canQuit = false;
 
                 PlayerSpawn ps = PlayerSpawn.getFreeSpawn();
@@ -203,6 +201,13 @@ public class PlayerController : MonoBehaviour
                     Debug.LogWarning("No free Limit Bar in Scene");
                 }
 
+                GameObject cancionFind;
+                cancionFind = GameObject.Find("AudioSource");
+                cancion = cancionFind.GetComponent<AudioSource>();
+                cancion.Pause();
+                
+
+                enterNormalState();
                 break;
         }
     }
@@ -299,7 +304,10 @@ public class PlayerController : MonoBehaviour
     {
         exitState();
         myCar.gameObject.SetActive(false);
+        myCharacterSelector.gameObject.SetActive(false);
+
         cancion.Play();
+
         canSwing = true;
         canDash = true;
         canshield = true;
@@ -313,6 +321,7 @@ public class PlayerController : MonoBehaviour
         canDoLimit = true;
 
         carIsDrifting = false;
+        
 
         currentState = (int)playerState.normal;
 
@@ -324,6 +333,7 @@ public class PlayerController : MonoBehaviour
 
         exitState();
         myCar.gameObject.SetActive(false);
+        myCharacterSelector.gameObject.SetActive(true);
         canSwing = false;
         canDash = false;
         canMove = false;
@@ -336,6 +346,7 @@ public class PlayerController : MonoBehaviour
         canDoLimit = false;
 
         carIsDrifting = false;
+        
 
         currentState = (int)playerState.menu;
     }
