@@ -293,6 +293,7 @@ MonoBehaviour:
   isNumSelected: 0
   menuPrefs: {fileID: 0}
   Visor: {fileID: 0}
+  playersArray: 
   selectors: []
   selectorGO: {fileID: 0}
   casillasPersonajes: {fileID: 394120797}
@@ -398,6 +399,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 22381926281ea5c40b3382b52a73003f, type: 3}
   - {fileID: 21300000, guid: 22381926281ea5c40b3382b52a73003f, type: 3}
   - {fileID: 21300000, guid: 22381926281ea5c40b3382b52a73003f, type: 3}
+  hasSelected: 0
 --- !u!1 &66893657
 GameObject:
   m_ObjectHideFlags: 0
@@ -2060,7 +2062,6 @@ GameObject:
   m_Component:
   - component: {fileID: 796280436}
   - component: {fileID: 796280435}
-  - component: {fileID: 796280434}
   - component: {fileID: 796280437}
   - component: {fileID: 796280439}
   - component: {fileID: 796280438}
@@ -2071,14 +2072,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &796280434
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 796280433}
-  m_Enabled: 1
 --- !u!20 &796280435
 Camera:
   m_ObjectHideFlags: 0
@@ -2210,6 +2203,7 @@ MonoBehaviour:
   isNumSelected: 0
   menuPrefs: {fileID: 0}
   Visor: {fileID: 0}
+  playersArray: 
   selectors: []
   selectorGO: {fileID: 8272688645385972111, guid: b2b63d03e350aad4b980f4de25dfec30,
     type: 3}

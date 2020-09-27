@@ -19,24 +19,21 @@ public class MenuPrefs : MonoBehaviour
     private void Awake() {
         
         DontDestroyOnLoad(gameObject);
-
-        p1=0;
-        p2=1;
-        p3=2;
-        p4=3;
-
-        menu = GameObject.Find("Main Camera").GetComponent<MenuManager>();
-    }
-
-    private void Start() {
+        
         p0=0;
         p1=1;
         p2=2;
         p3=3;
+
+        //menu = GameObject.Find("Main Camera").GetComponent<MenuManager>();
+    }
+
+    private void Start() {
+       
     }
 
     private void FixedUpdate() {
-        if (inMenu)
+     /*   if (inMenu)
         {
             if (GameObject.Find("Selector1"))
             {
@@ -73,7 +70,7 @@ public class MenuPrefs : MonoBehaviour
                 }
             }
         }
-       
+       */
         
     }
 
