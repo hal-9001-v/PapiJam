@@ -41,7 +41,6 @@ public class PlayerController : MonoBehaviour
     public int dashCount;
     public float shieldTime;
 
-
     //GOs
     public SwordScript sword;
     public OrbitalScript orbital;
@@ -54,7 +53,6 @@ public class PlayerController : MonoBehaviour
     private bool carIsDrifting;
 
     public float extraSpeed;
-    private float extraSpeedCounter = 0;
 
     public ExecutionCollisioner myExecutionCollision;
 
@@ -70,10 +68,23 @@ public class PlayerController : MonoBehaviour
     private const int MAXLIVES = 3;
     public int lives = MAXLIVES;
 
+    public int charSelected;
+    public Sprite[] selectorSP;
+    public Vector3[] casillasPos;
+
+    public CharacterSelector myCharacterSelector;
+    PlayerInputManagerScript myInputManagerScript;
+    MenuManager myMenuManager;
+
+    public bool canQuit;
+
+
+
     enum playerState
     {
         normal = 0,
         car = 1,
+        menu = 2,
 
     }
 
@@ -110,19 +121,27 @@ public class PlayerController : MonoBehaviour
         myExecutionCollision.gameObject.SetActive(false);
 
         sword.setPlayer(this);
+
         
         myLimitBar = LimitBar.getFreeLimitBar();
 
-        if (myLimitBar != null)
+
+        myMenuManager = FindObjectOfType<MenuManager>();
+
+        if (myCharacterSelector == null)
         {
-            myLimitBar.assingLimitBar(this);
-            myLimitBar.show();
+            myCharacterSelector = GetComponentInChildren<CharacterSelector>();
+            if (myCharacterSelector == null) Debug.LogWarning("No Character Selector On Player");
         }
-        else
+
+        myInputManagerScript = FindObjectOfType<PlayerInputManagerScript>();
+
+        if (myInputManagerScript == null)
         {
-            Debug.LogWarning("No free Limit Bar in Scene");
+            Debug.LogWarning("No InputManagerScript on Scene");
         }
     }
+
 
     IEnumerator SpawnWait(){
         canMove = false;
@@ -136,8 +155,84 @@ public class PlayerController : MonoBehaviour
     }
     private void Start()
     {
-        enterNormalState();
         StartCoroutine(SpawnWait());
+
+        enterMenuState();
+        hidePlayer();
+
+        canQuit = true;
+
+    }
+
+    private void OnLevelWasLoaded(int level)
+    {
+        switch (level)
+        {
+            //Menu
+            case 0:
+
+                destroyPlayer();
+                
+                break;
+
+            case 1:
+                enterNormalState();
+                canQuit = false;
+
+                PlayerSpawn ps = PlayerSpawn.getFreeSpawn();
+
+                if (ps != null)
+                {
+                    ps.spawnPlayer(this);
+                }
+                else
+                {
+                    Debug.LogWarning("No Spawn in scene");
+                }
+
+
+                myLimitBar = LimitBar.getFreeLimitBar();
+
+                if (myLimitBar != null)
+                {
+                    myLimitBar.assingLimitBar(this);
+                    myLimitBar.show();
+                }
+                else
+                {
+                    Debug.LogWarning("No free Limit Bar in Scene");
+                }
+
+                break;
+        }
+    }
+
+    public void hidePlayer()
+    {
+        foreach (MeshRenderer mr in GetComponentsInChildren<MeshRenderer>())
+        {
+            mr.enabled = false;
+
+        }
+        foreach (Collider c in GetComponentsInChildren<Collider>())
+        {
+            c.enabled = false;
+        }
+
+    }
+
+    public void show()
+    {
+        foreach (MeshRenderer mr in GetComponentsInChildren<MeshRenderer>())
+        {
+            mr.enabled = true;
+
+        }
+        foreach (Collider c in GetComponentsInChildren<Collider>())
+        {
+            c.enabled = true;
+        }
+
     }
 
     public void chargeLimit(float n)
@@ -220,6 +315,29 @@ public class PlayerController : MonoBehaviour
         carIsDrifting = false;
 
         currentState = (int)playerState.normal;
+
+        show();
+    }
+
+    public void enterMenuState()
+    {
+
+        exitState();
+        myCar.gameObject.SetActive(false);
+        canSwing = false;
+        canDash = false;
+        canMove = false;
+        canShoot = false;
+        isHit = false;
+        hasSpeeded = false;
+        hasUltraInstinted = false;
+        hasChangedSword = false;
+        isShielded = false;
+        canDoLimit = false;
+
+        carIsDrifting = false;
+
+        currentState = (int)playerState.menu;
     }
 
     public void changeStateTimer(int nextState, float time)
@@ -299,7 +417,7 @@ public class PlayerController : MonoBehaviour
     }
     private void OnMovement(InputValue value)
     {
-        
+
         Vector2 movementInput = value.Get<Vector2>().normalized;
 
         switch (currentState)
@@ -683,7 +801,7 @@ public class PlayerController : MonoBehaviour
 
             case (int)playerState.car:
 
-                
+
                 rb.velocity = movementDirection * carSpeed;
                 rotateToDirection();
 
@@ -704,4 +822,97 @@ public class PlayerController : MonoBehaviour
 
 
     }
+
+
+    private void OnUp()
+    {
+        if (myMenuManager != null)
+        {
+            myMenuManager.OnUp(myCharacterSelector);
+        }
+
+    }
+
+    private void OnDown()
+    {
+        if (myMenuManager != null)
+        {
+            myMenuManager.OnDown(myCharacterSelector);
+        }
+
+
+    }
+
+    private void OnLeft()
+    {
+        if (myMenuManager != null)
+        {
+            myMenuManager.OnLeft(myCharacterSelector);
+        }
+
+
+
+    }
+
+    private void OnRight()
+    {
+
+        if (myMenuManager != null)
+        {
+            myMenuManager.OnRight(myCharacterSelector);
+        }
+
+    }
+
+    private void OnSelect()
+    {
+        if (myMenuManager != null)
+        {
+            myMenuManager.OnSelect(myCharacterSelector);
+        }
+
+
+    }
+
+    private void OnBack()
+    {
+        if (myMenuManager != null)
+        {
+            myMenuManager.OnBack();
+        }
+    }
+
+    void destroyPlayer()
+    {
+        foreach (BulletScript bullet in orbital.myBullets)
+        {
+            Destroy(bullet.gameObject);
+        }
+
+        foreach (BulletScript bullet in orbital.bfgArray)
+        {
+            if (bullet != null)
+                Destroy(bullet.gameObject);
+        }
+
+
+        if (myInputManagerScript != null)
+            myInputManagerScript.quitPlayer(this);
+
+        Destroy(this.gameObject);
+
+    }
+
+    private void OnQuit()
+    {
+        if (canQuit)
+        {
+            destroyPlayer();
+        }
+
+
+
+    }
+
+
 }

@@ -36,5 +36,17 @@ public class PlayerSpawn : MonoBehaviour
         Gizmos.DrawCube(transform.position + new Vector3(0, spawnHeight, 0), new Vector3(0.5f, 0.5f, 0.5f));
     }
 
+    public static PlayerSpawn getFreeSpawn()
+    {
+        foreach (PlayerSpawn ps in FindObjectsOfType<PlayerSpawn>())
+        {
+            if (ps.myPlayer == null)
+            {
+                return ps;
+            }
+        }
+
+        return null;
+    }
 
 }

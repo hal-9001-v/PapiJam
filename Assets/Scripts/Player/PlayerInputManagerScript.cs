@@ -7,7 +7,8 @@ using UnityEngine.InputSystem;
 public class PlayerInputManagerScript : MonoBehaviour
 {
     public int playerNum;
-    public PlayerController[] pArray;
+
+    List<PlayerController> myPlayerControllers;
     PlayerInputManager myInputManager;
     private Cinemachine.CinemachineTargetGroup cinemachineTargetGroup;
     private PlayerSpawn[] myPlayerSpawns;
@@ -21,10 +22,33 @@ public class PlayerInputManagerScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //Son 8 por que cada jugador tiene dos players, el orbital y el jugador.
-        pArray = new PlayerController[4];
+        myPlayerControllers = new List<PlayerController>();
+    }
+
+    public void playersCanQuit(bool b)
+    {
+        foreach (PlayerController pc in myPlayerControllers)
+        {
+            pc.canQuit = b;
+        }
+    }
+
+    public void quitPlayer(PlayerController pc)
+    {
+        playerNum--;
+        myPlayerControllers.Remove(pc);
+
+        int i = 1;
+        foreach (PlayerController player in myPlayerControllers)
+        {
+            player.PlayerID = i;
+            player.name = "Player" + i;
+            i++;
+        }
 
     }
+
+
 
     public void setCanJoin(bool canJoin)
     {
@@ -46,12 +70,20 @@ public class PlayerInputManagerScript : MonoBehaviour
 
             if (go != null)
             {
+                playerNum++;
+
+                DontDestroyOnLoad(go);
+
                 playerJoined = go.GetComponent<PlayerController>();
-                //Se añade nuevo jugador al array
-                pArray[playerNum] = playerJoined;
-                pArray[playerNum].PlayerID = playerNum;
-                pArray[playerNum].name = "Jugador" + playerNum;
-//                if(pArray[playerNum]!=null) cinemachineTargetGroup.AddMember(pArray[playerNum].transform,1,0);
+
+                playerJoined.PlayerID = playerNum;
+
+                myPlayerControllers.Add(playerJoined);
+
+            
+                playerJoined.PlayerID = playerNum;
+                playerJoined.name = "Player" + playerNum;
+
 
                 PlayerSpawn selectedPlayerSpawn = getFreeSpawn();
 
@@ -61,12 +93,11 @@ public class PlayerInputManagerScript : MonoBehaviour
                 }
                 else
                 {
-                    selectedPlayerSpawn.spawnPlayer(pArray[playerNum]);
+                    selectedPlayerSpawn.spawnPlayer(playerJoined);
                 }
 
-                //Se aumenta el índice 
-                if (playerNum != 3)
-                    playerNum++;
+
+
             }
         }
 
