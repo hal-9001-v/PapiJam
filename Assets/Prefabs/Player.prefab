@@ -142,6 +142,7 @@ GameObject:
   - component: {fileID: 988563371761283700}
   - component: {fileID: 3447092904919184304}
   - component: {fileID: 454220025032678349}
+  - component: {fileID: 5546659318112409330}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -212,6 +213,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 0}
   movementDirection: {x: 0, y: 0, z: 0}
+  cancion: {fileID: 0}
   numberOfBullets: 3
   canSwing: 1
   canDash: 1
@@ -226,6 +228,7 @@ MonoBehaviour:
   isSword: 0
   isLimiting: 0
   canDoLimit: 0
+  hasPlayedLimitSound: 0
   DashCD: 0.5
   ShootCD: 5
   walkSpeed: 6
@@ -242,7 +245,7 @@ MonoBehaviour:
   myLimitBar: {fileID: 0}
   extraSpeed: 0
   myExecutionCollision: {fileID: 0}
-  limit: 10
+  limit: 0
   MAXLIMIT: 10
   monsterCharge: 3
   currentState: 0
@@ -278,6 +281,22 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &5546659318112409330
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 988563371761283702}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1483b261168964b438165290e23c5400, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  executionType: 0
+  speed: 20
+  radious: 3
+  wallLimitReached: 0
 --- !u!1 &988563373216668070
 GameObject:
   m_ObjectHideFlags: 0
@@ -894,7 +913,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8485284738642717885}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.4677887, y: 0.99577904, z: -2.0244806}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children: []
   m_Father: {fileID: 988563371761283703}
@@ -924,8 +943,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 2.3077059, y: 2.515936, z: 3.9115715}
+  m_Center: {x: -0.1295495, y: 0.75796795, z: -0.5258274}
 --- !u!54 &22565708397068303
 Rigidbody:
   m_ObjectHideFlags: 0

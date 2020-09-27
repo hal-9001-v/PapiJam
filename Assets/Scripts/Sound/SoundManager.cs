@@ -16,6 +16,14 @@ public static class SoundManager {
        LimiteAlcanzado,
        NoVidas,
        VidaMenos,
+       Execution,
+       SansHit,
+       FurroHit,
+       ViejaHit,
+       DarsayHit,
+       FALDAEUROBEAT,
+
+
 
 
     }

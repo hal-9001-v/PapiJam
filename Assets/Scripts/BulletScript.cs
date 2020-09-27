@@ -60,7 +60,7 @@ public class BulletScript : MonoBehaviour
     {
         if(myOrbital.BFGmode) SoundManager.PlaySound(SoundManager.Sound.Escopeta, 0.1f);
         if(myOrbital.gatlingMode) SoundManager.PlaySound(SoundManager.Sound.Metralleta, 0.1f);
-        if(!myOrbital.BFGmode && !myOrbital.gatlingMode) SoundManager.PlaySound(SoundManager.Sound.Disparos, 0.1f);
+        if(!myOrbital.BFGmode && !myOrbital.gatlingMode) SoundManager.PlaySound(SoundManager.Sound.Disparos, 0.3f);
         gameObject.SetActive(true);
         gunReady = false;
         readyToShoot = false;

@@ -11,6 +11,8 @@ public class PlayerController : MonoBehaviour
     public Rigidbody rb;
     public Vector3 movementDirection;
 
+
+    public AudioSource cancion;
     public int numberOfBullets;
 
     //Control Booleans
@@ -27,7 +29,7 @@ public class PlayerController : MonoBehaviour
     public bool isSword = false;
     public bool isLimiting = false;
     public bool canDoLimit = false;
-
+    public bool hasPlayedLimitSound = false;
     //Player Stats
     public float DashCD;
     public float ShootCD;
@@ -80,11 +82,14 @@ public class PlayerController : MonoBehaviour
         //Stat inicialization
         DashCD = 0.7f;
         ShootCD = 50f;
-
+        carTime = 15.5f;
         rotateSpeed = 8f;
         numberOfBullets = 3;
         dashCount = 1;
-
+        GameObject cancionFind;
+        cancionFind= GameObject.Find("AudioSource");
+        cancion = cancionFind.GetComponent<AudioSource>();
+        cancion.Pause();
         //GO inicialization
         rb = GetComponent<Rigidbody>();
 
@@ -138,6 +143,9 @@ public class PlayerController : MonoBehaviour
     public void chargeLimit(float n)
     {
         limit += n;
+        
+        if(limit >= MAXLIMIT && !hasPlayedLimitSound){ SoundManager.PlaySound(SoundManager.Sound.LimiteAlcanzado,0.3f);
+        hasPlayedLimitSound = true;}
 
         if (limit > MAXLIMIT)
         {
@@ -171,6 +179,7 @@ public class PlayerController : MonoBehaviour
     public void enterCarState()
     {
         exitState();
+        myShield.gameObject.SetActive(false);
         myCar.gameObject.SetActive(true);
         canSwing = false;
         canDash = false;
@@ -185,7 +194,8 @@ public class PlayerController : MonoBehaviour
         canDoLimit = false;
 
         carIsDrifting = false;
-
+        SoundManager.PlaySound(SoundManager.Sound.FALDAEUROBEAT, 0.7f);
+        cancion.Pause();
         myCar.show();
 
         currentState = (int)playerState.car;
@@ -194,6 +204,7 @@ public class PlayerController : MonoBehaviour
     {
         exitState();
         myCar.gameObject.SetActive(false);
+        cancion.Play();
         canSwing = true;
         canDash = true;
         canshield = true;
@@ -260,8 +271,9 @@ public class PlayerController : MonoBehaviour
         {
             if (limit >= MAXLIMIT)
             {
+                hasPlayedLimitSound = false;
                 chargeLimit(-MAXLIMIT);
-                
+
                 ExecutionController exController = GetComponent<ExecutionController>();
                 if (!exController)
                 {
@@ -391,7 +403,22 @@ public class PlayerController : MonoBehaviour
     {
         if (!isShielded)
         {
-            
+             /*switch(characterSelect){
+                 case 1: 
+                     SoundManager.PlaySound(SoundManager.Sound.FurroHit, 0.3f);
+                    break;
+                 case 2:
+                 SoundManager.PlaySound(SoundManager.Sound.DarsayHit, 0.3f);
+                    break;
+                case 3: 
+                SoundManager.PlaySound(SoundManager.Sound.ViejaHit, 0.3f);
+                    break;
+                case 4:
+                SoundManager.PlaySound(SoundManager.Sound.SansHit, 0.3f);
+                    break;
+
+             }*/
+
             isHit = true;
             canDash = false;
             canMove = false;
