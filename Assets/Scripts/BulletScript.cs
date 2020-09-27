@@ -11,7 +11,7 @@ public class BulletScript : MonoBehaviour
     public float limitCharge = 1;
 
     public float bulletForce;
-    public float hitStunTime = 0.25f;
+    public float hitStunTime = 0.5f;
 
     public float bulletTime = 5;
 

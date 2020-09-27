@@ -8,7 +8,7 @@ public class SwordScript : MonoBehaviour
     public PlayerController myPlayer;
 
     public float swordForce = 250;
-    public float hitStunTime = 1;
+    public float hitStunTime = 2;
     public float limitCharge = 1;
 
     public GameObject cloudSword;
@@ -85,6 +85,7 @@ public class SwordScript : MonoBehaviour
                 if (myPlayer != null)
                 {
                     hitParticle = Instantiate(GameAssets.i.particles[3], col.gameObject.transform);
+                    hitParticle.transform.parent = null;
                     myPlayer.chargeLimit(limitCharge);
                 }
 
