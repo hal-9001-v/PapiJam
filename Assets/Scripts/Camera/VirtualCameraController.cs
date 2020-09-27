@@ -6,7 +6,7 @@ using UnityEngine.Events;
 
 public class VirtualCameraController : MonoBehaviour
 {
-    public float mainDistance = 10f;
+    public float mainDistance = 400f;
     public float mainAngle = 30f;
     private CinemachineTransposer transposer;
     private bool isMoving = false;
@@ -33,7 +33,7 @@ public class VirtualCameraController : MonoBehaviour
             if (timeToGet <= 0)
             {
                 transposer.m_FollowOffset.y = d * Mathf.Sin(Mathf.Deg2Rad * r);
-                transposer.m_FollowOffset.z = d * Mathf.Cos(Mathf.Deg2Rad * r);
+                transposer.m_FollowOffset.z = -d * Mathf.Cos(Mathf.Deg2Rad * r);
             }
             else
             {
@@ -42,7 +42,7 @@ public class VirtualCameraController : MonoBehaviour
                 auxPos = transposer.m_FollowOffset;
                 atStartEvent.Invoke();
                 StartCoroutine(DoSetPos(new Vector3(transposer.m_FollowOffset.x, d * Mathf.Sin(Mathf.Deg2Rad * r),
-                    d * Mathf.Cos(Mathf.Deg2Rad * r)), timeToGet, delay));
+                    -d * Mathf.Cos(Mathf.Deg2Rad * r)), timeToGet, delay));
             }
         }
     }
