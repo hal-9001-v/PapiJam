@@ -28,6 +28,7 @@ public class PlayerAnimator : MonoBehaviour
         animator.SetBool("IsAtacking", playerControl.isSword);
         animator.SetBool("IsLimiting", playerControl.isLimiting);
         if(playerControl.isLimiting) animator.SetFloat("MovementValue", 0f);
+        animator.SetBool("IsHit", playerControl.isHit);
 
     }
 }

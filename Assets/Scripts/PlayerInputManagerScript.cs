@@ -61,6 +61,7 @@ public class PlayerInputManagerScript : MonoBehaviour
                 }
                 else
                 {
+                    pArray[playerNum].ps = selectedPlayerSpawn;
                     selectedPlayerSpawn.spawnPlayer(pArray[playerNum]);
                 }
 

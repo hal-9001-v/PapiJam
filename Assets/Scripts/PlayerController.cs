@@ -55,6 +55,7 @@ public class PlayerController : MonoBehaviour
     private float extraSpeedCounter = 0;
 
     public ExecutionCollisioner myExecutionCollision;
+    public PlayerSpawn ps;
 
     public float limit = 0;
     public float MAXLIMIT = 10;
@@ -251,6 +252,10 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log(this.name + " got executed.");
             Destroy(gameObject);
+        }
+        else
+        {
+            ps.spawnPlayer(this);
         }
         
     }
