@@ -216,6 +216,7 @@ MonoBehaviour:
   canDash: 1
   canMove: 1
   canShoot: 1
+  canshield: 1
   isHit: 1
   hasSpeeded: 0
   hasUltraInstinted: 0
@@ -402,8 +403,13 @@ MonoBehaviour:
   pos: 0
   bulletSpeed: 5
   lasWalkVelocity: {x: 0, y: 0, z: 0}
+  pistolModel: {fileID: 0}
+  BFGModel: {fileID: 0}
+  gatlingModel: {fileID: 0}
   bulletPrefab: {fileID: 4541983544115623155, guid: 76fde1cfc73dd954daeadf4ba35ee308,
     type: 3}
+  BFGmode: 0
+  gatlingMode: 0
 --- !u!114 &7609599622220501205
 MonoBehaviour:
   m_ObjectHideFlags: 0
