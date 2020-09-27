@@ -38,18 +38,18 @@
                     "interactions": ""
                 },
                 {
+                    "name": "Gas",
+                    "type": "PassThrough",
+                    "id": "a82dc716-c765-49d7-917e-bcd02aadf1b3",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "Press(behavior=2)"
+                },
+                {
                     "name": "Shoot",
                     "type": "Button",
                     "id": "a0865784-61a5-4bed-92d0-6e3d8f9d875f",
                     "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": ""
-                },
-                {
-                    "name": "Gas",
-                    "type": "PassThrough",
-                    "id": "1d2d945e-e31f-46fe-813c-59fc3a66bc32",
-                    "expectedControlType": "",
                     "processors": "",
                     "interactions": ""
                 },
@@ -351,28 +351,6 @@
                 },
                 {
                     "name": "",
-                    "id": "1caac4a1-dac7-4443-b47a-d4df6ac68493",
-                    "path": "<Keyboard>/space",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Gas",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "64956d90-df17-4edd-93f5-ff86ee10dff5",
-                    "path": "<Gamepad>/buttonSouth",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Gas",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "05f8d2f7-7dde-4b87-8319-6d8c5d4f464b",
                     "path": "<Keyboard>/r",
                     "interactions": "Press",
@@ -390,6 +368,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "Limit",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "dc41b0f1-3d4c-4970-bc8b-6f4c5d6ba6c4",
+                    "path": "<Keyboard>/space",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Gas",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "df50d2b2-4131-413c-a7e4-024730004bed",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Gas",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

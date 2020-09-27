@@ -51,18 +51,18 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
                     ""interactions"": """"
                 },
                 {
+                    ""name"": ""Gas"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""a82dc716-c765-49d7-917e-bcd02aadf1b3"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": ""Press(behavior=2)""
+                },
+                {
                     ""name"": ""Shoot"",
                     ""type"": ""Button"",
                     ""id"": ""a0865784-61a5-4bed-92d0-6e3d8f9d875f"",
                     ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """"
-                },
-                {
-                    ""name"": ""Gas"",
-                    ""type"": ""PassThrough"",
-                    ""id"": ""1d2d945e-e31f-46fe-813c-59fc3a66bc32"",
-                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """"
                 },
@@ -364,28 +364,6 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""1caac4a1-dac7-4443-b47a-d4df6ac68493"",
-                    ""path"": ""<Keyboard>/space"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Gas"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""64956d90-df17-4edd-93f5-ff86ee10dff5"",
-                    ""path"": ""<Gamepad>/buttonSouth"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Gas"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""05f8d2f7-7dde-4b87-8319-6d8c5d4f464b"",
                     ""path"": ""<Keyboard>/r"",
                     ""interactions"": ""Press"",
@@ -403,6 +381,28 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Limit"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""dc41b0f1-3d4c-4970-bc8b-6f4c5d6ba6c4"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Gas"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""df50d2b2-4131-413c-a7e4-024730004bed"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Gas"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -737,8 +737,8 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
         m_Player_Aim = m_Player.FindAction("Aim", throwIfNotFound: true);
         m_Player_Melee = m_Player.FindAction("Melee", throwIfNotFound: true);
         m_Player_Dash = m_Player.FindAction("Dash", throwIfNotFound: true);
-        m_Player_Shoot = m_Player.FindAction("Shoot", throwIfNotFound: true);
         m_Player_Gas = m_Player.FindAction("Gas", throwIfNotFound: true);
+        m_Player_Shoot = m_Player.FindAction("Shoot", throwIfNotFound: true);
         m_Player_Limit = m_Player.FindAction("Limit", throwIfNotFound: true);
         // Menu
         m_Menu = asset.FindActionMap("Menu", throwIfNotFound: true);
@@ -801,8 +801,8 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
     private readonly InputAction m_Player_Aim;
     private readonly InputAction m_Player_Melee;
     private readonly InputAction m_Player_Dash;
-    private readonly InputAction m_Player_Shoot;
     private readonly InputAction m_Player_Gas;
+    private readonly InputAction m_Player_Shoot;
     private readonly InputAction m_Player_Limit;
     public struct PlayerActions
     {
@@ -812,8 +812,8 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
         public InputAction @Aim => m_Wrapper.m_Player_Aim;
         public InputAction @Melee => m_Wrapper.m_Player_Melee;
         public InputAction @Dash => m_Wrapper.m_Player_Dash;
-        public InputAction @Shoot => m_Wrapper.m_Player_Shoot;
         public InputAction @Gas => m_Wrapper.m_Player_Gas;
+        public InputAction @Shoot => m_Wrapper.m_Player_Shoot;
         public InputAction @Limit => m_Wrapper.m_Player_Limit;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
@@ -836,12 +836,12 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
                 @Dash.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDash;
                 @Dash.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDash;
                 @Dash.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDash;
-                @Shoot.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnShoot;
-                @Shoot.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnShoot;
-                @Shoot.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnShoot;
                 @Gas.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnGas;
                 @Gas.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnGas;
                 @Gas.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnGas;
+                @Shoot.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnShoot;
+                @Shoot.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnShoot;
+                @Shoot.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnShoot;
                 @Limit.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLimit;
                 @Limit.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLimit;
                 @Limit.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLimit;
@@ -861,12 +861,12 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
                 @Dash.started += instance.OnDash;
                 @Dash.performed += instance.OnDash;
                 @Dash.canceled += instance.OnDash;
-                @Shoot.started += instance.OnShoot;
-                @Shoot.performed += instance.OnShoot;
-                @Shoot.canceled += instance.OnShoot;
                 @Gas.started += instance.OnGas;
                 @Gas.performed += instance.OnGas;
                 @Gas.canceled += instance.OnGas;
+                @Shoot.started += instance.OnShoot;
+                @Shoot.performed += instance.OnShoot;
+                @Shoot.canceled += instance.OnShoot;
                 @Limit.started += instance.OnLimit;
                 @Limit.performed += instance.OnLimit;
                 @Limit.canceled += instance.OnLimit;
@@ -953,8 +953,8 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
         void OnAim(InputAction.CallbackContext context);
         void OnMelee(InputAction.CallbackContext context);
         void OnDash(InputAction.CallbackContext context);
-        void OnShoot(InputAction.CallbackContext context);
         void OnGas(InputAction.CallbackContext context);
+        void OnShoot(InputAction.CallbackContext context);
         void OnLimit(InputAction.CallbackContext context);
     }
     public interface IMenuActions

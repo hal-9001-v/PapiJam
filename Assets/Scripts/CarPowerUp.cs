@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.InputSystem;
+﻿using UnityEngine;
 
 public class CarPowerUp : MonoBehaviour
 {
@@ -36,17 +33,11 @@ public class CarPowerUp : MonoBehaviour
 
                 myPlayer.chargeLimit(2);
             }
-
-
         
         }
     }
 
-    private void Start()
-    {
-        
-    }
-
+ 
     public void setDrift()
     {
         myAnimator.SetBool("IsDrifting", true);

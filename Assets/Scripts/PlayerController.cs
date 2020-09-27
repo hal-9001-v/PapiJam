@@ -8,7 +8,6 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerController : MonoBehaviour
 {
-
     public Rigidbody rb;
     public Vector3 movementDirection;
 
@@ -131,7 +130,8 @@ public class PlayerController : MonoBehaviour
             limit = 0;
         }
 
-        myLimitBar.setLimit(limit);
+        if (myLimitBar != null)
+            myLimitBar.setLimit(limit);
 
     }
 
@@ -165,7 +165,7 @@ public class PlayerController : MonoBehaviour
         isShielded = true;
         canDoLimit = false;
 
-        carIsDrifting = true;
+        carIsDrifting = false;
 
         myCar.show();
 
@@ -260,27 +260,17 @@ public class PlayerController : MonoBehaviour
 
     private void OnGas()
     {
-
         if (currentState == (int)playerState.car)
         {
-
             carIsDrifting = !carIsDrifting;
 
-            if (carIsDrifting)
-            {
-                extraSpeedCounter = 0;
-
-            }
-            else
-            {
-                extraSpeedCounter = extraSpeed;
-            }
         }
 
     }
     private void OnMovement(InputValue value)
     {
-        Vector2 movementInput = value.Get<Vector2>();
+        
+        Vector2 movementInput = value.Get<Vector2>().normalized;
 
         switch (currentState)
         {
@@ -296,9 +286,6 @@ public class PlayerController : MonoBehaviour
 
                 carMovement(movementInput);
                 break;
-
-
-
         }
     }
 
@@ -360,14 +347,27 @@ public class PlayerController : MonoBehaviour
     {
         if (!carIsDrifting)
         {
-            if (movementInput.y < 0)
-                driftDirection = -movementInput.x;
-            else if (movementInput.y > 0)
-                driftDirection = movementInput.x;
+            if (movementInput.y > 0)
+            {
+                if (movementInput.x > 0)
+                    driftDirection = -1;
+                else
+                    driftDirection = 1;
+
+            }
+            else if (movementInput.y < 0)
+            {
+                if (movementInput.x > 0)
+                    driftDirection = 1;
+                else
+                    driftDirection = -1;
+
+            }
+
+
+            movementDirection = new Vector3(movementInput.x, 0, movementInput.y);
+
         }
-
-        movementDirection = new Vector3(movementInput.x, 0, movementInput.y);
-
     }
 
     public void Hit(float force, Vector3 dir, float time)
@@ -421,57 +421,85 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void consumeItem(GameObject go)
+    {
+        Item myItem = go.GetComponent<Item>();
+
+        if (myItem != null)
+        {
+            myItem.consume();
+        }
+        else
+        {
+            Debug.LogWarning("Item" + go.name + " has no Item Component!");
+        }
+
+    }
+
     private void takePowerUp(Collider col)
     {
         switch (col.gameObject.tag)
         {
             case "BFG":
-                orbital.BulletsUpgrade(true);
-                col.gameObject.SetActive(false);
+                consumeItem(col.gameObject);
 
+                orbital.BulletsUpgrade(true);
                 break;
 
             case "Rambo":
+                consumeItem(col.gameObject);
+
                 orbital.BulletsUpgrade(false);
-                col.gameObject.SetActive(false);
+
                 break;
 
             case "Sonic":
+                consumeItem(col.gameObject);
 
-                if (!hasSpeeded) col.gameObject.SetActive(false);
-                SpeedBoost();
+                if (!hasSpeeded)
+                {
+                    SpeedBoost();
+                }
 
                 break;
 
             case "Ultra":
+                consumeItem(col.gameObject);
 
-                if (!hasUltraInstinted) col.gameObject.SetActive(false);
-                DashIncrease();
+                if (!hasUltraInstinted)
+                {
+                    DashIncrease();
+                }
 
                 break;
 
             case "Cloud":
+                consumeItem(col.gameObject);
 
-                if (!hasChangedSword) col.gameObject.SetActive(false);
-                changeSword();
+                if (!hasChangedSword)
+                {
+                    changeSword();
+
+                }
 
                 break;
             case "Shield":
+                consumeItem(col.gameObject);
 
-                col.gameObject.SetActive(false);
                 Shield();
                 break;
 
             case "Car":
+                consumeItem(col.gameObject);
 
-                col.gameObject.SetActive(false);
                 enterCarState();
                 changeStateTimer((int)playerState.normal, carTime);
 
                 break;
 
             case "Monster":
-                col.gameObject.SetActive(false);
+                consumeItem(col.gameObject);
+
                 chargeLimit(monsterCharge);
 
                 break;
@@ -483,8 +511,6 @@ public class PlayerController : MonoBehaviour
     {
         takePowerUp(col);
     }
-
-
 
     //Habilidades
     public void DashIncrease()
@@ -510,14 +536,11 @@ public class PlayerController : MonoBehaviour
         if (!hasChangedSword)
         {
             //TO DO IMPLEMENT SWORD
-            sword.swordModel.mesh = GameAssets.i.cloudSwordModel;
-            sword.swordMaterial.material = GameAssets.i.cloudSwordMaterial;
             sword.swordCollider.size = new Vector3(
                 sword.swordCollider.size.x * 5, sword.swordCollider.size.y, sword.swordCollider.size.z * 2);
             hasChangedSword = true;
         }
     }
-
 
     IEnumerator ShieldNumerator()
     {
@@ -553,6 +576,7 @@ public class PlayerController : MonoBehaviour
         }
 
     }
+
     IEnumerator DashCDIng()
     {
         if (hasUltraInstinted)
@@ -591,14 +615,12 @@ public class PlayerController : MonoBehaviour
     {
         if (movementDirection != Vector3.zero)
         {
-            transform.localRotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(movementDirection), rotateSpeed * Time.deltaTime);
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(movementDirection), rotateSpeed * Time.deltaTime);
         }
     }
 
     private void FixedUpdate()
     {
-
-
         switch (currentState)
         {
             case (int)playerState.normal:
@@ -606,44 +628,31 @@ public class PlayerController : MonoBehaviour
                 {
                     rb.velocity = movementDirection * walkSpeed;
 
-
                     rotateToDirection();
 
                 }
                 break;
 
             case (int)playerState.car:
-                if (canMove)
+
+                
+                rb.velocity = movementDirection * carSpeed;
+                rotateToDirection();
+
+                //Drift
+                if (carIsDrifting && movementDirection != Vector3.zero)
                 {
-                    if (extraSpeedCounter > 0)
-                    {
-                        rb.velocity = movementDirection * (carSpeed + extraSpeedCounter);
-                        extraSpeedCounter -= extraSpeed * 0.05f;
-                    }
-                    else
-                    {
-                        rb.velocity = movementDirection * carSpeed;
-                    }
+                    rb.velocity = rb.velocity + transform.right * driftDirection * carSpeed * 2f;
+                    myCar.setDrift();
 
-                    rotateToDirection();
-
-                    //Drift
-                    if (carIsDrifting && movementDirection != Vector3.zero)
-                    {
-                        rb.velocity += transform.right * driftDirection * carSpeed * 2f;
-                        myCar.setDrift();
-
-                    }
-                    else
-                    {
-                        myCar.setNormal();
-                    }
                 }
-
+                else
+                {
+                    myCar.setNormal();
+                }
 
                 break;
         }
-
 
 
     }
