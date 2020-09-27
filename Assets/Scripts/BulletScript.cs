@@ -65,6 +65,8 @@ public class BulletScript : MonoBehaviour
             {
                 Vector3 dir = rb.velocity;
                 hitParticle = Instantiate(GameAssets.i.particles[2], col.gameObject.transform);
+                hitParticle.transform.parent = null;
+                StartCoroutine(DestroyParticles());
                 col.gameObject.GetComponent<PlayerController>().Hit(bulletForce, dir, hitStunTime);
                 readyToShoot = true;
                 gameObject.SetActive(false);
@@ -87,6 +89,10 @@ public class BulletScript : MonoBehaviour
     }
 
 
+    IEnumerator DestroyParticles(){
+        yield return new WaitForSeconds(1);
+        Destroy(hitParticle);
+    }
 
     public void setPlayer(PlayerController player)
     {

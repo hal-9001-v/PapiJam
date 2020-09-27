@@ -391,14 +391,16 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter(Collision col)
     {
-        if ((col.gameObject.tag.Equals("Wall") || col.gameObject.tag.Equals("Player")) && isHit == true && !col.gameObject.tag.Equals("Escudin"))
-        {
+        if ( (col.gameObject.tag.Equals("Wall") || col.gameObject.tag.Equals("Player"))  && !col.gameObject.tag.Equals("Escudin"))
+        {   
+            if(isHit == true){
             rb.velocity = Vector3.zero;
             canDash = true;
             canMove = true;
             canSwing = true;
             canShoot = true;
             isHit = false;
+            }
         }
     }
 

@@ -86,6 +86,7 @@ public class SwordScript : MonoBehaviour
                 {
                     hitParticle = Instantiate(GameAssets.i.particles[3], col.gameObject.transform);
                     hitParticle.transform.parent = null;
+                    StartCoroutine(DestroyParticles());
                     myPlayer.chargeLimit(limitCharge);
                 }
 
@@ -95,6 +96,11 @@ public class SwordScript : MonoBehaviour
 
     }
 
+
+    IEnumerator DestroyParticles(){
+        yield return new WaitForSeconds(1);
+        Destroy(hitParticle);
+    }
     private void LateUpdate() {
     }
 
