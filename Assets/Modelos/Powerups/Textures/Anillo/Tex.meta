@@ -1,5 +1,13 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
+<<<<<<< HEAD:Assets/Modelos/Powerups/Textures/Anillo/Tex.meta
 guid: c07765aede66f6f4ba397cde16595c89
+=======
+guid: 5890b0ccffaa1ba448c37c110fac7650
+>>>>>>> marianoColliders:Assets/Modelos/Powerups/Textures/Cloud/Tex.meta
+=======
+guid: c07765aede66f6f4ba397cde16595c89
+>>>>>>> marianoColliders
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}
