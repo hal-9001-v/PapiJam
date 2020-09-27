@@ -18,16 +18,14 @@ public class PlayerController : MonoBehaviour
     public bool canDash = false;
     public bool canMove = false;
     public bool canShoot = false;
+    public bool canDoLimit = false;
     public bool isHit = false;
     public bool hasSpeeded = false;
     public bool hasUltraInstinted = false;
     public bool hasChangedSword = false;
     public bool isShielded = false;
     public bool isSword = false;
-    public bool isExecuted = false;
-
-    public bool canDoLimit = false;
-    public bool isExecuting = false;
+    public bool isLimiting = false;
 
     //Player Stats
     public float DashCD;
@@ -49,6 +47,8 @@ public class PlayerController : MonoBehaviour
     public ShieldScript myShield;
     public LimitBar myLimitBar;
 
+    public ExecutionCollisioner myExecutionCollision;
+
     float driftDirection = 0;
     private bool carIsDrifting;
 
@@ -63,6 +63,9 @@ public class PlayerController : MonoBehaviour
     public int currentState;
 
     Coroutine stateChanger;
+
+    private const int MAXLIVES = 3;
+    public int lives = MAXLIVES;
 
     enum playerState
     {
@@ -92,10 +95,16 @@ public class PlayerController : MonoBehaviour
 
         if (myCar == null)
             myCar = GetComponentInChildren<CarPowerUp>();
+
         if (myShield == null)
             myShield = GetComponentInChildren<ShieldScript>();
 
+        if (myExecutionCollision == null)
+            myExecutionCollision = GetComponentInChildren<ExecutionCollisioner>();
+
         myShield.gameObject.SetActive(false);
+
+        myExecutionCollision.gameObject.SetActive(false);
 
         sword.setPlayer(this);
 
@@ -227,13 +236,13 @@ public class PlayerController : MonoBehaviour
 
     public void getExecuted()
     {
-        //Program what happens.
-        Debug.Log(this.name + " got executed.");
-        //Solucion momentanea, no colisiona con nada excepto con los límites.
-        gameObject.layer = 9;
-        canSwing = false;
-        canShoot = false;
-        canDoLimit = false;
+        --lives;
+        if (lives <= 0)
+        {
+            Debug.Log(this.name + " got executed.");
+            Destroy(gameObject);
+        }
+        
     }
 
     private void OnLimit()
@@ -251,6 +260,7 @@ public class PlayerController : MonoBehaviour
                 }
                 else
                 {
+                    isLimiting = true;
                     exController.doExecution();
                 }
             }
@@ -402,7 +412,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter(Collision col)
     {
-        if (!isExecuting)
+        if (!isLimiting)
         {
             if ((col.gameObject.tag.Equals("Wall") || col.gameObject.tag.Equals("Player")) && isHit == true && !col.gameObject.tag.Equals("Escudin"))
             {
@@ -413,11 +423,6 @@ public class PlayerController : MonoBehaviour
                 canShoot = true;
                 isHit = false;
             }
-        }
-        else
-        {
-            rb.velocity = Vector3.zero;
-            GetComponent<ExecutionController>().wallLimitReached = true;
         }
     }
 

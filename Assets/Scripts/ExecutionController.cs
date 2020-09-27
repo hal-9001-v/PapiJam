@@ -26,7 +26,7 @@ public class ExecutionController : MonoBehaviour
     {
         //Dejamos estático al personaje y establecemos colision con limites solamente.
         playerControl.gameObject.layer = 9;
-        playerControl.isExecuting = true;
+        playerControl.myExecutionCollision.gameObject.SetActive(true);
         playerControl.canDash = false;
         playerControl.canMove = false;
         playerControl.canShoot = false;
@@ -46,8 +46,7 @@ public class ExecutionController : MonoBehaviour
                     playerControl.rb.velocity = playerControl.transform.rotation * Vector3.forward * speed;
                     foreach (GameObject playerGO in GameObject.FindGameObjectsWithTag("Player"))
                     {
-                        if (playerGO != gameObject && Vector3.Distance(playerGO.transform.position, transform.position)
-                            <= radious && !playerGO.GetComponent<PlayerController>().isExecuted)
+                        if (playerGO != gameObject && Vector3.Distance(playerGO.transform.position, transform.position) <= radious)
                         {
                             playerGO.GetComponent<PlayerController>().getExecuted();
                         }
@@ -63,7 +62,8 @@ public class ExecutionController : MonoBehaviour
 
         //Devolvemos al estado original.
         playerControl.gameObject.layer = 0;
-        playerControl.isExecuting = false;
+        playerControl.myExecutionCollision.gameObject.SetActive(false);
+        playerControl.isLimiting = false;
         playerControl.canDash = true;
         playerControl.canMove = true;
         playerControl.canShoot = true;

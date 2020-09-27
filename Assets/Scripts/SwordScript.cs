@@ -14,9 +14,13 @@ public class SwordScript : MonoBehaviour
     public GameObject cloudSword;
     public GameObject normalSword;
     public BoxCollider swordCollider;
+
+    private float startTime = 0;
     public Vector3 dir;
 
-    public float rotation = 15;
+    public Transform constrainPosition;
+    public Vector3 posOffset;
+    public Vector3 rotOffset;
 
     public void attack()
     {
@@ -45,20 +49,20 @@ public class SwordScript : MonoBehaviour
         myPlayer.movementDirection = Vector3.zero;
         myPlayer.canMove = false;
         myPlayer.canSwing = false;
-
-        for (int i = 0; i < 5; i++)
+        myPlayer.canDoLimit = false;
+        startTime = Time.realtimeSinceStartup;
+        while (Time.realtimeSinceStartup - startTime < 1.04f)
         {
-            yield return new WaitForSeconds(0.1f);
-            transform.Rotate(0, rotation, 0);
+            cloudSword.transform.position = constrainPosition.position + posOffset;
+            normalSword.transform.position = constrainPosition.position + posOffset;
+            cloudSword.transform.rotation = Quaternion.Euler(constrainPosition.rotation.eulerAngles + rotOffset);
+            normalSword.transform.rotation = Quaternion.Euler(constrainPosition.rotation.eulerAngles + rotOffset);
+            yield return new WaitForEndOfFrame();
         }
-        yield return new WaitForSeconds(0.55f);
-
-        rotation = -rotation;
-        cloudSword.transform.Rotate(0,0,180);
-        normalSword.transform.Rotate(0,0,180);
         myPlayer.canMove = true;
         myPlayer.canSwing = true;
         myPlayer.isSword = false;
+        myPlayer.canDoLimit = true;
 
         gameObject.SetActive(false);
 

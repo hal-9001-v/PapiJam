@@ -19,7 +19,7 @@ public class MenuPrefs : MonoBehaviour
     private void Awake() {
         
         DontDestroyOnLoad(gameObject);
-        menu = GameObject.Find("Main Camera").GetComponent<MenuManager>();
+        //menu = GameObject.Find("Main Camera").GetComponent<MenuManager>();
     }
 
     private void Start() {
@@ -30,7 +30,7 @@ public class MenuPrefs : MonoBehaviour
     }
 
     private void FixedUpdate() {
-        if (inMenu)
+        /*if (inMenu)
         {
             if (GameObject.Find("Selector1"))
             {
@@ -68,7 +68,7 @@ public class MenuPrefs : MonoBehaviour
             }
         }
        
-        
+        */
     }
 
     bool playersReady()
