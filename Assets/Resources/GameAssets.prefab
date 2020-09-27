@@ -88,8 +88,6 @@ MonoBehaviour:
     audioClip: {fileID: 8300000, guid: 9d4c8f59df2a0f64fb534d5132526ff3, type: 3}
   - sound: 21
     audioClip: {fileID: 8300000, guid: b2f722818b3cdf440bf4c49c3b427cf6, type: 3}
-  cloudSwordModel: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
-  cloudSwordMaterial: {fileID: 2100000, guid: c0d639b836945644f8c1517129c9799c, type: 2}
   mArray:
   - {fileID: 2100000, guid: 7cfff5b5fa2b35246a9afb4f5e1bff75, type: 2}
   - {fileID: 2100000, guid: b3b4196db6b5ac545ace7f9843372e6b, type: 2}
@@ -110,3 +108,14 @@ MonoBehaviour:
   - {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
   - {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
   - {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+  particles:
+  - {fileID: 80243095855677482, guid: 6c8cbd48ae0c9c248a4710d8bad48fb5, type: 3}
+  - {fileID: 8028096067496524983, guid: d821e2ce2f0ca0a4bac2e8cb1bd1a5e3, type: 3}
+  - {fileID: 3855888676539611251, guid: 6b0a7aa4ecd59ea42a3c27a8d0e355be, type: 3}
+  - {fileID: 9168577644384840733, guid: 5e772dfa70bf82244aef83300498cc26, type: 3}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}

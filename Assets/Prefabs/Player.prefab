@@ -142,7 +142,7 @@ GameObject:
   - component: {fileID: 988563371761283700}
   - component: {fileID: 3447092904919184304}
   - component: {fileID: 454220025032678349}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -195,8 +195,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 2.53753, z: 1}
-  m_Center: {x: 0, y: 0.26876497, z: 0}
+  m_Size: {x: 3.3678741, y: 4.7029266, z: 1.960059}
+  m_Center: {x: 0.3335476, y: 0.31666374, z: 0.48002952}
 --- !u!114 &3447092904919184304
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1015,12 +1015,32 @@ PrefabInstance:
     - target: {fileID: 4460130488008915016, guid: a33a0700a2ab4b74683199531dca79ab,
         type: 3}
       propertyPath: m_Center.x
-      value: 0
+      value: -0.0820727
       objectReference: {fileID: 0}
     - target: {fileID: 4460130488008915016, guid: a33a0700a2ab4b74683199531dca79ab,
         type: 3}
       propertyPath: m_Center.z
-      value: -2.66
+      value: -3.2700124
+      objectReference: {fileID: 0}
+    - target: {fileID: 4460130488008915016, guid: a33a0700a2ab4b74683199531dca79ab,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 1.3385444
+      objectReference: {fileID: 0}
+    - target: {fileID: 4460130488008915016, guid: a33a0700a2ab4b74683199531dca79ab,
+        type: 3}
+      propertyPath: m_Size.z
+      value: 4.220029
+      objectReference: {fileID: 0}
+    - target: {fileID: 4460130488008915016, guid: a33a0700a2ab4b74683199531dca79ab,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 1.3410416
+      objectReference: {fileID: 0}
+    - target: {fileID: 4460130488008915016, guid: a33a0700a2ab4b74683199531dca79ab,
+        type: 3}
+      propertyPath: m_Center.y
+      value: 0.039515495
       objectReference: {fileID: 0}
     - target: {fileID: 6355458438140628198, guid: a33a0700a2ab4b74683199531dca79ab,
         type: 3}
@@ -1041,6 +1061,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Sword
+      objectReference: {fileID: 0}
+    - target: {fileID: 6355458438687519628, guid: a33a0700a2ab4b74683199531dca79ab,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6355458438687519629, guid: a33a0700a2ab4b74683199531dca79ab,
         type: 3}

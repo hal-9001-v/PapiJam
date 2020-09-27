@@ -10,7 +10,7 @@ public class BulletScript : MonoBehaviour
 
     public float limitCharge = 1;
 
-    public float bulletForce = 50;
+    public float bulletForce;
     public float hitStunTime = 0.25f;
 
     public float bulletTime = 5;
@@ -18,9 +18,10 @@ public class BulletScript : MonoBehaviour
     public Vector3 dir;
     public bool gunReady;
     public bool readyToShoot;
-
+    GameObject hitParticle;
     private void Awake()
-    {
+    {   
+        bulletForce = 200;
 
         rb = GetComponent<Rigidbody>();
 
@@ -63,7 +64,7 @@ public class BulletScript : MonoBehaviour
             if (pl.PlayerID != myPlayer.PlayerID)
             {
                 Vector3 dir = rb.velocity;
-
+                hitParticle = Instantiate(GameAssets.i.particles[2], col.gameObject.transform);
                 col.gameObject.GetComponent<PlayerController>().Hit(bulletForce, dir, hitStunTime);
                 readyToShoot = true;
                 gameObject.SetActive(false);
@@ -71,6 +72,8 @@ public class BulletScript : MonoBehaviour
                 myPlayer.chargeLimit(limitCharge);
 
             }
+
+
 
 
 
@@ -82,6 +85,7 @@ public class BulletScript : MonoBehaviour
         }
 
     }
+
 
 
     public void setPlayer(PlayerController player)

@@ -6,18 +6,27 @@ public class PlayerSpawn : MonoBehaviour
 {
 
     public PlayerController myPlayer;
-
+    GameObject particleSpawn;
     [Range(0.5f, 10)]
     public float spawnHeight;
 
+    private void Awake() {
+        particleSpawn = Instantiate(GameAssets.i.particles[1], gameObject.transform);
+        particleSpawn.SetActive(false);
+    }
     public void spawnPlayer(PlayerController player)
     {
         myPlayer = player;
-
         Vector3 spawnPosition = new Vector3(transform.position.x, transform.position.y + spawnHeight, transform.position.z);
 
         myPlayer.transform.position = spawnPosition;
+        particleSpawn.SetActive(true);
+        StartCoroutine(SpawnParticle());
+    }
 
+    IEnumerator SpawnParticle(){
+        yield return new WaitForSeconds(4);
+        particleSpawn.SetActive(false);
     }
 
     private void OnDrawGizmos()
