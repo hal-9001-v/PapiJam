@@ -103,7 +103,7 @@ public class CameraSwitcher : MonoBehaviour
         stopMoving();
         atEndEvent.Invoke();
     }
-
+    
     IEnumerator DoGoToCinematicCamera(Camera start, Camera end, Vector3 endPos, Quaternion endRot, float timeToGet, float delay)
     {
         while ((Vector3.Distance(end.transform.position, endPos) > 0.05f) ||

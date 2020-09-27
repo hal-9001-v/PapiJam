@@ -72,7 +72,7 @@ public class SwordScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider col)
     {
-
+            
         if ((col.gameObject.tag.Equals("Player")))
         {
             PlayerController hitPlayer = col.GetComponent<PlayerController>();
@@ -84,6 +84,8 @@ public class SwordScript : MonoBehaviour
 
                 if (myPlayer != null)
                 {
+                    if(cloudSword.gameObject.activeSelf) SoundManager.PlaySound(SoundManager.Sound.GolpePuerro, 0.1f);
+                    if(normalSword.gameObject.activeSelf) SoundManager.PlaySound(SoundManager.Sound.GolpePuerro, 0.1f);
                     hitParticle = Instantiate(GameAssets.i.particles[3], col.gameObject.transform);
                     hitParticle.transform.parent = null;
                     StartCoroutine(DestroyParticles());

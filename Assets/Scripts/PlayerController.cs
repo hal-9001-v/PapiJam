@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour
     public bool canDash = false;
     public bool canMove = false;
     public bool canShoot = false;
+    public bool canshield = true;
     public bool isHit = false;
     public bool hasSpeeded = false;
     public bool hasUltraInstinted = false;
@@ -166,6 +167,7 @@ public class PlayerController : MonoBehaviour
         canSwing = false;
         canDash = false;
         canMove = true;
+         canshield = false;
         canShoot = false;
         isHit = false;
         hasSpeeded = false;
@@ -186,6 +188,7 @@ public class PlayerController : MonoBehaviour
         myCar.gameObject.SetActive(false);
         canSwing = true;
         canDash = true;
+        canshield = true;
         canMove = true;
         canShoot = true;
         isHit = false;
@@ -370,7 +373,7 @@ public class PlayerController : MonoBehaviour
             canMove = false;
             canShoot = false;
             canSwing = false;
-
+        
             StartCoroutine(HitStun(time));
             rb.AddForce(Vector3.Normalize(dir) * force);
             StartCoroutine(HitStun(time));
@@ -546,15 +549,17 @@ public class PlayerController : MonoBehaviour
         {
             isShielded = false;
             myShield.gameObject.SetActive(false);
-        };
+        }
     }
 
     public void Shield()
     {
+        if(canshield){
         myShield.gameObject.SetActive(true);
 
         shieldTime += 5f;
         if (!isShielded) StartCoroutine(ShieldNumerator());
+        }
     }
 
     IEnumerator SlowDashing()

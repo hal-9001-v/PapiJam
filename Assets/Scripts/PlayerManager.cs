@@ -72,7 +72,7 @@ public class PlayerManager : MonoBehaviour
                         meshP2.material = GameAssets.i.mArray[mp.p1];
                         meshFP2 = pis.pArray[1].GetComponentInChildren<MeshFilter>(); 
                         meshFP2.mesh = GameAssets.i.meshArray[mp.p1];
-            
+                        
                         //Orbital
                         meshO2 = pis.pArray[1].orbital.GetComponentInChildren<MeshRenderer>(); 
                         meshO2.material = GameAssets.i.mOArray[mp.p1];

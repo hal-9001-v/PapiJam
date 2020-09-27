@@ -13,7 +13,9 @@ public static class SoundManager {
        Metralleta,
        Reaparecer,
        GolpePuerro,
-       
+       LimiteAlcanzado,
+       NoVidas,
+       VidaMenos,
 
 
     }
