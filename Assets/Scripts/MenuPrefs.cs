@@ -19,18 +19,19 @@ public class MenuPrefs : MonoBehaviour
     private void Awake() {
         
         DontDestroyOnLoad(gameObject);
-        menu = GameObject.Find("Main Camera").GetComponent<MenuManager>();
-    }
-
-    private void Start() {
-        p0=0;
+                p0=0;
         p1=1;
         p2=2;
         p3=3;
+       //if(menu == null) menu = GameObject.Find("Main Camera").GetComponent<MenuManager>();
+    }
+
+    private void Start() {
+
     }
 
     private void FixedUpdate() {
-        if (inMenu)
+   /*     if (inMenu)
         {
             if (GameObject.Find("Selector1"))
             {
@@ -66,7 +67,7 @@ public class MenuPrefs : MonoBehaviour
                     Debug.Log("A luchar!");
                 }
             }
-        }
+        }*/
        
         
     }
