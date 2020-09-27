@@ -9,13 +9,13 @@ public class PlayerInputManagerScript : MonoBehaviour
     public int playerNum;
     public PlayerController[] pArray;
     PlayerInputManager myInputManager;
-
+    private Cinemachine.CinemachineTargetGroup cinemachineTargetGroup;
     private PlayerSpawn[] myPlayerSpawns;
 
     private void Awake()
     {
         myInputManager = GetComponent<PlayerInputManager>();
-
+        cinemachineTargetGroup = FindObjectOfType<Cinemachine.CinemachineTargetGroup>();
         myPlayerSpawns = GameObject.FindObjectsOfType<PlayerSpawn>();
     }
     // Start is called before the first frame update
@@ -47,11 +47,11 @@ public class PlayerInputManagerScript : MonoBehaviour
             if (go != null)
             {
                 playerJoined = go.GetComponent<PlayerController>();
-
                 //Se añade nuevo jugador al array
                 pArray[playerNum] = playerJoined;
                 pArray[playerNum].PlayerID = playerNum;
                 pArray[playerNum].name = "Jugador" + playerNum;
+//                if(pArray[playerNum]!=null) cinemachineTargetGroup.AddMember(pArray[playerNum].transform,1,0);
 
                 PlayerSpawn selectedPlayerSpawn = getFreeSpawn();
 

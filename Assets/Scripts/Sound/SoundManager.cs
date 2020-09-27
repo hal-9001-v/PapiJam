@@ -7,7 +7,15 @@ public static class SoundManager {
 
     public enum Sound {
 
-       
+       PowerUp,
+       Disparos,
+       Escopeta,
+       Metralleta,
+       Reaparecer,
+       GolpePuerro,
+       LimiteAlcanzado,
+       NoVidas,
+       VidaMenos,
 
 
     }

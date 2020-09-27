@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour
     public bool canDash = false;
     public bool canMove = false;
     public bool canShoot = false;
+    public bool canshield = true;
     public bool isHit = false;
     public bool hasSpeeded = false;
     public bool hasUltraInstinted = false;
@@ -104,7 +105,7 @@ public class PlayerController : MonoBehaviour
         myExecutionCollision.gameObject.SetActive(false);
 
         sword.setPlayer(this);
-
+        
         myLimitBar = LimitBar.getFreeLimitBar();
 
         if (myLimitBar != null)
@@ -174,6 +175,7 @@ public class PlayerController : MonoBehaviour
         canSwing = false;
         canDash = false;
         canMove = true;
+         canshield = false;
         canShoot = false;
         isHit = false;
         hasSpeeded = false;
@@ -194,6 +196,7 @@ public class PlayerController : MonoBehaviour
         myCar.gameObject.SetActive(false);
         canSwing = true;
         canDash = true;
+        canshield = true;
         canMove = true;
         canShoot = true;
         isHit = false;
@@ -394,7 +397,7 @@ public class PlayerController : MonoBehaviour
             canMove = false;
             canShoot = false;
             canSwing = false;
-
+        
             StartCoroutine(HitStun(time));
             rb.AddForce(Vector3.Normalize(dir) * force);
             StartCoroutine(HitStun(time));
@@ -447,20 +450,24 @@ public class PlayerController : MonoBehaviour
     {
         switch (col.gameObject.tag)
         {
-            case "BFG":
+            case "BFG":        
+                
+                SoundManager.PlaySound(SoundManager.Sound.PowerUp, 0.1f);
                 consumeItem(col.gameObject);
 
                 orbital.BulletsUpgrade(true);
                 break;
 
-            case "Rambo":
+            case "Rambo":        
+                SoundManager.PlaySound(SoundManager.Sound.PowerUp, 0.1f);
                 consumeItem(col.gameObject);
 
                 orbital.BulletsUpgrade(false);
 
                 break;
 
-            case "Sonic":
+            case "Sonic":        
+                SoundManager.PlaySound(SoundManager.Sound.PowerUp, 0.1f);
                 consumeItem(col.gameObject);
 
                 if (!hasSpeeded)
@@ -470,7 +477,8 @@ public class PlayerController : MonoBehaviour
 
                 break;
 
-            case "Ultra":
+            case "Ultra":        
+                SoundManager.PlaySound(SoundManager.Sound.PowerUp, 0.1f);
                 consumeItem(col.gameObject);
 
                 if (!hasUltraInstinted)
@@ -480,7 +488,8 @@ public class PlayerController : MonoBehaviour
 
                 break;
 
-            case "Cloud":
+            case "Cloud":        
+                SoundManager.PlaySound(SoundManager.Sound.PowerUp, 0.1f);
                 consumeItem(col.gameObject);
 
                 if (!hasChangedSword)
@@ -490,13 +499,15 @@ public class PlayerController : MonoBehaviour
                 }
 
                 break;
-            case "Shield":
+            case "Shield":        
+                SoundManager.PlaySound(SoundManager.Sound.PowerUp, 0.1f);
                 consumeItem(col.gameObject);
 
                 Shield();
                 break;
 
-            case "Car":
+            case "Car":        
+                SoundManager.PlaySound(SoundManager.Sound.PowerUp, 0.1f);
                 consumeItem(col.gameObject);
 
                 enterCarState();
@@ -504,7 +515,8 @@ public class PlayerController : MonoBehaviour
 
                 break;
 
-            case "Monster":
+            case "Monster":        SoundManager.PlaySound(SoundManager.Sound.PowerUp, 0.1f);
+
                 consumeItem(col.gameObject);
 
                 chargeLimit(monsterCharge);
@@ -561,15 +573,17 @@ public class PlayerController : MonoBehaviour
         {
             isShielded = false;
             myShield.gameObject.SetActive(false);
-        };
+        }
     }
 
     public void Shield()
     {
+        if(canshield){
         myShield.gameObject.SetActive(true);
 
         shieldTime += 5f;
         if (!isShielded) StartCoroutine(ShieldNumerator());
+        }
     }
 
     IEnumerator SlowDashing()
