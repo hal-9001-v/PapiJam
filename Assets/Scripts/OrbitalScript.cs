@@ -39,7 +39,7 @@ public class OrbitalScript : MonoBehaviour
     int j ;
     int k ;
     int ammo;
-    BulletScript[] bfgArray ;
+    public BulletScript[] bfgArray ;
     // Start is called before the first frame update
     private void Awake()
     {   
@@ -180,7 +180,7 @@ public class OrbitalScript : MonoBehaviour
                     b2= transform.parent.forward;
                     b2 = Quaternion.Euler(0,-15,0) * b2; 
                     bfgArray[2].shoot(transform.position, b2*1000);
-
+                    
                     
                    
                     StartCoroutine(BFGCD());

@@ -68,7 +68,16 @@ public class BulletScript : MonoBehaviour
         gameObject.transform.position = pos;
         rb.velocity = Vector3.zero;
         rb.AddForce(dir);
+        if(!myOrbital.BFGmode) {
+            gameObject.transform.forward = myOrbital.transform.forward;
+        }
+         else {
+            myOrbital.bfgArray[0].transform.forward = Quaternion.Euler(0,15,0) *  myOrbital.transform.forward;
+            myOrbital.bfgArray[1].transform.forward =   myOrbital.transform.forward;
+            myOrbital.bfgArray[2].transform.forward = Quaternion.Euler(0,-15,0) *  myOrbital.transform.forward;
 
+        }
+        
         StartCoroutine(BulletTime());
     }
 

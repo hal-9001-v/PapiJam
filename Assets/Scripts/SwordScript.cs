@@ -88,8 +88,8 @@ public class SwordScript : MonoBehaviour
 
                 if (myPlayer != null)
                 {
-                    if(cloudSword.gameObject.activeSelf) SoundManager.PlaySound(SoundManager.Sound.GolpePuerro, 0.1f);
-                    if(normalSword.gameObject.activeSelf) SoundManager.PlaySound(SoundManager.Sound.GolpePuerro, 0.1f);
+                    if(cloudSword.gameObject.activeSelf) SoundManager.PlaySound(SoundManager.Sound.EspadaHit, 0.5f);
+                    if(normalSword.gameObject.activeSelf) SoundManager.PlaySound(SoundManager.Sound.GolpePuerro, 0.3f);
                     hitParticle = Instantiate(GameAssets.i.particles[3], col.gameObject.transform);
                     hitParticle.transform.parent = null;
                     StartCoroutine(DestroyParticles());

@@ -22,6 +22,7 @@ public static class SoundManager {
        ViejaHit,
        DarsayHit,
        FALDAEUROBEAT,
+       EspadaHit,
 
 
 
