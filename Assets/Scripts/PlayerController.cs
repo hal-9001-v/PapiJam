@@ -108,11 +108,22 @@ public class PlayerController : MonoBehaviour
         {
             Debug.LogWarning("No free Limit Bar in Scene");
         }
+    }
 
+    IEnumerator SpawnWait(){
+        canMove = false;
+        for (int i = 0; i<200; i++){
+        yield return new WaitForSeconds(0.01f);
+        canMove =false;
+        }
+        
+        canMove = true;
+        movementDirection = Vector3.zero;
     }
     private void Start()
     {
         enterNormalState();
+        StartCoroutine(SpawnWait());
     }
 
     public void chargeLimit(float n)
@@ -353,16 +364,15 @@ public class PlayerController : MonoBehaviour
     {
         if (!isShielded)
         {
+            
             isHit = true;
             canDash = false;
             canMove = false;
             canShoot = false;
             canSwing = false;
 
-
             StartCoroutine(HitStun(time));
             rb.AddForce(Vector3.Normalize(dir) * force);
-
             StartCoroutine(HitStun(time));
         }
 
@@ -508,7 +518,7 @@ public class PlayerController : MonoBehaviour
         {
             //TO DO IMPLEMENT SWORD
             sword.swordCollider.size = new Vector3(
-                sword.swordCollider.size.x * 5, sword.swordCollider.size.y, sword.swordCollider.size.z * 2);
+                sword.swordCollider.size.x , sword.swordCollider.size.y, sword.swordCollider.size.z * 2);
             hasChangedSword = true;
         }
     }

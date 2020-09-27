@@ -7,7 +7,7 @@ public class SwordScript : MonoBehaviour
     public Rigidbody rb;
     public PlayerController myPlayer;
 
-    public float swordForce = 150;
+    public float swordForce = 250;
     public float hitStunTime = 1;
     public float limitCharge = 1;
 
@@ -15,6 +15,7 @@ public class SwordScript : MonoBehaviour
     public GameObject normalSword;
     public BoxCollider swordCollider;
     public Vector3 dir;
+    GameObject hitParticle;
 
     public float rotation = 15;
 
@@ -26,7 +27,7 @@ public class SwordScript : MonoBehaviour
     }
 
     private void Awake()
-    {
+    {swordForce = 250;
         gameObject.SetActive(false);
 
     }
@@ -79,11 +80,11 @@ public class SwordScript : MonoBehaviour
             if (hitPlayer != null)
             {
                 dir = Vector3.Normalize(hitPlayer.transform.position - transform.position);
-
                 hitPlayer.Hit(swordForce, dir, hitStunTime);
 
                 if (myPlayer != null)
                 {
+                    hitParticle = Instantiate(GameAssets.i.particles[3], col.gameObject.transform);
                     myPlayer.chargeLimit(limitCharge);
                 }
 
