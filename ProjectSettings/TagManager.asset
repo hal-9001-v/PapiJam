@@ -4,24 +4,22 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Bullet
-  - Wall
-  - Orbital
-  - Selector
-  - Cloud
-  - Shield
-  - Rambo
-  - BFG
-  - Ultra
-  - Sword
-  - Escudin
-  - Sonic
   - Car
+  - Cloud
+  - Escudin
+  - Bullet
+  - Sword
+  - BFG
+  - Shield
   - Monster
-  - CameraSwitcher
-  - CinematicCamera
+  - Rambo
+  - Sonic
+  - Ultra
   - VirtualCamera
   - CameraTransitioner
+  - CameraSwitcher
+  - CinematicCamera
+  - Wall
   layers:
   - Default
   - TransparentFX
@@ -31,7 +29,7 @@ TagManager:
   - UI
   - 
   - 
-  - Player
+  - 
   - 
   - 
   - 

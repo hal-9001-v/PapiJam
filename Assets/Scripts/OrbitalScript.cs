@@ -24,10 +24,16 @@ public class OrbitalScript : MonoBehaviour
 
     BulletScript[] myBullets;
 
+    public GameObject pistolModel;
+    public GameObject BFGModel;
+    public GameObject gatlingModel;
+
     public GameObject bulletPrefab;
 
     //Control bools
-    bool BFGmode;
+   public bool BFGmode;
+    public bool gatlingMode;
+    
     bool BFGReady;
     bool gunReady;
     int j ;
@@ -37,6 +43,10 @@ public class OrbitalScript : MonoBehaviour
     // Start is called before the first frame update
     private void Awake()
     {   
+
+        BFGModel.SetActive(false);
+        gatlingModel.SetActive(false);
+
          bfgArray = new BulletScript[3];
         
         //Initialize control bools;
@@ -50,9 +60,11 @@ public class OrbitalScript : MonoBehaviour
         for (int i = 0; i < myBullets.Length; i++)
         {
             go = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
-
+            
             myBullets[i] = go.GetComponent<BulletScript>();
+            
             myBullets[i].setPlayer(player);
+            myBullets[i].myOrbital = this;
         }
 
         k = 0;
@@ -60,7 +72,7 @@ public class OrbitalScript : MonoBehaviour
 
 
     }
-
+    
     
     public void BulletsUpgrade(bool BFG){
         GameObject go;
@@ -71,18 +83,24 @@ public class OrbitalScript : MonoBehaviour
             }
         
         if(BFG){
-
+            BFGModel.SetActive(true);
+            pistolModel.SetActive(false);
+            gatlingModel.SetActive(false);
             BFGmode = true;
+            gatlingMode = false;
             //Escopeta: 9 balas, ráfagas de 3 en 3 Más CD
             if(myBullets.Length != 9){
                 myBullets = new BulletScript[9];
             } 
         }
         else {
-            BFGmode =false;
+            BFGModel.SetActive(false);
+            pistolModel.SetActive(false);
+            gatlingModel.SetActive(true);
+            BFGmode =false; 
+            gatlingMode = true;
             //Metralleta: 5 balas en fila, menos CD
             if(myBullets.Length != 5){
-                
                 myBullets = new BulletScript[5];
             }
         }
@@ -91,7 +109,8 @@ public class OrbitalScript : MonoBehaviour
             {
                 go = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
                 myBullets[i] = go.GetComponent<BulletScript>();
-                myBullets[i].setPlayer(player);                
+                myBullets[i].setPlayer(player);               
+                myBullets[i].myOrbital = this; 
             }
 
     }

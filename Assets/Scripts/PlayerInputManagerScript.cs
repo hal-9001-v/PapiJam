@@ -51,7 +51,7 @@ public class PlayerInputManagerScript : MonoBehaviour
                 pArray[playerNum] = playerJoined;
                 pArray[playerNum].PlayerID = playerNum;
                 pArray[playerNum].name = "Jugador" + playerNum;
-                if(pArray[playerNum]!=null) cinemachineTargetGroup.AddMember(pArray[playerNum].transform,1,0);
+//                if(pArray[playerNum]!=null) cinemachineTargetGroup.AddMember(pArray[playerNum].transform,1,0);
 
                 PlayerSpawn selectedPlayerSpawn = getFreeSpawn();
 

@@ -16,6 +16,7 @@ public class PlayerSpawn : MonoBehaviour
     }
     public void spawnPlayer(PlayerController player)
     {
+        SoundManager.PlaySound(SoundManager.Sound.Reaparecer, 0.4f);
         myPlayer = player;
         Vector3 spawnPosition = new Vector3(transform.position.x, transform.position.y + spawnHeight, transform.position.z);
 

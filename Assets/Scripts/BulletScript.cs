@@ -19,15 +19,33 @@ public class BulletScript : MonoBehaviour
     public bool gunReady;
     public bool readyToShoot;
     GameObject hitParticle;
+
+    public OrbitalScript myOrbital;
+    public GameObject normalBullet;
+    public GameObject bfgBullet;
     private void Awake()
     {   
-        bulletForce = 200;
+        
+       
 
+        bulletForce = 200;
+        
         rb = GetComponent<Rigidbody>();
 
         readyToShoot = true;
         gunReady = true;
         gameObject.SetActive(false);
+    }
+
+    private void Start() {
+         if(myOrbital.BFGmode == true ) {
+            bfgBullet.SetActive(true);
+            normalBullet.SetActive(false);
+        }  else {
+            bfgBullet.SetActive(false);
+            normalBullet.SetActive(true);
+        }
+        
     }
 
     IEnumerator BulletTime()
@@ -40,6 +58,9 @@ public class BulletScript : MonoBehaviour
 
     public void shoot(Vector3 pos, Vector3 dir)
     {
+        if(myOrbital.BFGmode) SoundManager.PlaySound(SoundManager.Sound.Escopeta, 0.1f);
+        if(myOrbital.gatlingMode) SoundManager.PlaySound(SoundManager.Sound.Metralleta, 0.1f);
+        if(!myOrbital.BFGmode && !myOrbital.gatlingMode) SoundManager.PlaySound(SoundManager.Sound.Disparos, 0.1f);
         gameObject.SetActive(true);
         gunReady = false;
         readyToShoot = false;
@@ -89,8 +110,9 @@ public class BulletScript : MonoBehaviour
     }
 
 
+
     IEnumerator DestroyParticles(){
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(3);
         Destroy(hitParticle);
     }
 
