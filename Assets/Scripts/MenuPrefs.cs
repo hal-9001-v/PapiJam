@@ -19,6 +19,12 @@ public class MenuPrefs : MonoBehaviour
     private void Awake() {
         
         DontDestroyOnLoad(gameObject);
+
+        p1=0;
+        p2=1;
+        p3=2;
+        p4=3;
+
         menu = GameObject.Find("Main Camera").GetComponent<MenuManager>();
     }
 
@@ -41,24 +47,24 @@ public class MenuPrefs : MonoBehaviour
 
                     if (menu.playersNum == 2)
                     {
-                        p0 = players[0];
-                        p1 = players[1];
-                        p2 = 4;
+                        p1 = players[0];
+                        p2 = players[1];
                         p3 = 4;
+                        p4 = 4;
                     }
                     else if (menu.playersNum == 3)
                     {
-                        p0 = players[0];
-                        p1 = players[1];
-                        p2 = players[2];
-                        p3 = 4;
+                        p1 = players[0];
+                        p2 = players[1];
+                        p3 = players[2];
+                        p4 = 4;
                     }
                     else if (menu.playersNum == 4)
                     {
-                        p0 = players[0];
-                        p1 = players[1];
-                        p2 = players[2];
-                        p3 = players[3];
+                        p1 = players[0];
+                        p2 = players[1];
+                        p3 = players[2];
+                        p4 = players[3];
                     }
 
                     inMenu = false;
