@@ -74,7 +74,7 @@ public class PlayerController : MonoBehaviour
 
     public CharacterSelector myCharacterSelector;
     PlayerInputManagerScript myInputManagerScript;
-    MenuManager myMenuManager;
+    public MenuManager myMenuManager;
 
     public bool canQuit;
 
@@ -160,6 +160,7 @@ public class PlayerController : MonoBehaviour
         hidePlayer();
 
         canQuit = true;
+
 
     }
 
@@ -802,6 +803,7 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
+
         switch (currentState)
         {
             case (int)playerState.normal:
@@ -848,13 +850,22 @@ public class PlayerController : MonoBehaviour
 
     }
 
+   
+
+
+     
+    
+
+
     private void OnDown()
     {
         if (myMenuManager != null)
         {
+            
             myMenuManager.OnDown(myCharacterSelector);
         }
 
+        
 
     }
 
@@ -917,6 +928,7 @@ public class PlayerController : MonoBehaviour
         Destroy(this.gameObject);
 
     }
+
 
     private void OnQuit()
     {

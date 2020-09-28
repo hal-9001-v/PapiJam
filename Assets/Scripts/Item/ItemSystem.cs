@@ -37,6 +37,7 @@ public class ItemSystem : MonoBehaviour
 
     private void Awake()
     {
+        carNumber = 1;
         //Singleton
         if (instance == null)
         {

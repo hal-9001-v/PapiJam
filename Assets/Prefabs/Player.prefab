@@ -51,7 +51,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 645227945402030873}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -255,6 +255,7 @@ MonoBehaviour:
   selectorSP: []
   casillasPos: []
   myCharacterSelector: {fileID: 2270852124843149552}
+  myMenuManager: {fileID: 0}
   canQuit: 0
 --- !u!114 &454220025032678349
 MonoBehaviour:
