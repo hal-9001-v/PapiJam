@@ -81,6 +81,7 @@ public class PlayerController : MonoBehaviour
 
     public bool canQuit;
 
+    public CharacterContainer myCharacterContainer;
 
 
     enum playerState
@@ -100,7 +101,7 @@ public class PlayerController : MonoBehaviour
         rotateSpeed = 8f;
         numberOfBullets = 3;
         dashCount = 1;
-        
+
         //GO inicialization
         rb = GetComponent<Rigidbody>();
 
@@ -140,23 +141,27 @@ public class PlayerController : MonoBehaviour
         {
             Debug.LogWarning("No InputManagerScript on Scene");
         }
-                transform.position = new Vector3(10000,1000,1000);
+        transform.position = new Vector3(10000, 1000, 1000);
+
 
     }
 
 
-    IEnumerator SpawnWait(){
+    IEnumerator SpawnWait()
+    {
         canMove = false;
-        for (int i = 0; i<200; i++){
-        yield return new WaitForSeconds(0.01f);
-        canMove =false;
+        for (int i = 0; i < 200; i++)
+        {
+            yield return new WaitForSeconds(0.01f);
+            canMove = false;
         }
-        
+
         canMove = true;
         movementDirection = Vector3.zero;
     }
     private void Start()
     {
+        DontDestroyOnLoad(this.gameObject);
         StartCoroutine(SpawnWait());
 
         enterMenuState();
@@ -175,11 +180,14 @@ public class PlayerController : MonoBehaviour
             case 0:
 
                 destroyPlayer();
-                
+
                 break;
-                //Mariano
+
+            //Mariano
             case 1:
-                
+
+                myCharacterContainer.selectSkin(charSelected);
+
                 canQuit = false;
 
                 PlayerSpawn ps = PlayerSpawn.getFreeSpawn();
@@ -210,7 +218,8 @@ public class PlayerController : MonoBehaviour
                 cancionFind = GameObject.Find("AudioSource");
                 cancion = cancionFind.GetComponent<AudioSource>();
                 cancion.Pause();
-                
+
+
 
                 enterNormalState();
                 break;
@@ -248,10 +257,13 @@ public class PlayerController : MonoBehaviour
     public void chargeLimit(float n)
     {
         limit += n;
-        
-        if(limit >= MAXLIMIT && !hasPlayedLimitSound){ SoundManager.PlaySound(SoundManager.Sound.LimiteAlcanzado,0.3f);
-        myLimitBar.relleno.myImage.color = new Color32(255,255,0,255);
-        hasPlayedLimitSound = true;}
+
+        if (limit >= MAXLIMIT && !hasPlayedLimitSound)
+        {
+            SoundManager.PlaySound(SoundManager.Sound.LimiteAlcanzado, 0.3f);
+            myLimitBar.relleno.myImage.color = new Color32(255, 255, 0, 255);
+            hasPlayedLimitSound = true;
+        }
 
         if (limit > MAXLIMIT)
         {
@@ -290,7 +302,7 @@ public class PlayerController : MonoBehaviour
         canSwing = false;
         canDash = false;
         canMove = true;
-         canshield = false;
+        canshield = false;
         canShoot = false;
         isHit = false;
         hasSpeeded = false;
@@ -327,7 +339,7 @@ public class PlayerController : MonoBehaviour
         canDoLimit = true;
 
         carIsDrifting = false;
-        
+
 
         currentState = (int)playerState.normal;
 
@@ -352,7 +364,7 @@ public class PlayerController : MonoBehaviour
         canDoLimit = false;
 
         carIsDrifting = false;
-        
+
 
         currentState = (int)playerState.menu;
     }
@@ -419,7 +431,7 @@ public class PlayerController : MonoBehaviour
             ps.spawnPlayer(this);
             StartCoroutine(DoRegen(4f));
         }
-        
+
     }
 
     private IEnumerator DoRegen(float time)
@@ -430,14 +442,14 @@ public class PlayerController : MonoBehaviour
 
         canBeExecuted = true;
     }
- private void OnLimit()
+    private void OnLimit()
     {
         if (canDoLimit)
         {
             if (limit >= MAXLIMIT)
             {
                 hasPlayedLimitSound = false;
-                myLimitBar.relleno.myImage.color = new Color32(95,122,254,255);
+                myLimitBar.relleno.myImage.color = new Color32(95, 122, 254, 255);
                 chargeLimit(-MAXLIMIT);
 
                 ExecutionController exController = GetComponent<ExecutionController>();
@@ -452,7 +464,7 @@ public class PlayerController : MonoBehaviour
                 }
             }
         }
-        
+
     }
     private void OnGas()
     {
@@ -569,28 +581,28 @@ public class PlayerController : MonoBehaviour
     {
         if (!isShielded)
         {
-             /*switch(characterSelect){
-                 case 1: 
-                     SoundManager.PlaySound(SoundManager.Sound.FurroHit, 0.3f);
-                    break;
-                 case 2:
-                 SoundManager.PlaySound(SoundManager.Sound.DarsayHit, 0.3f);
-                    break;
-                case 3: 
-                SoundManager.PlaySound(SoundManager.Sound.ViejaHit, 0.3f);
-                    break;
-                case 4:
-                SoundManager.PlaySound(SoundManager.Sound.SansHit, 0.3f);
-                    break;
+            /*switch(characterSelect){
+                case 1: 
+                    SoundManager.PlaySound(SoundManager.Sound.FurroHit, 0.3f);
+                   break;
+                case 2:
+                SoundManager.PlaySound(SoundManager.Sound.DarsayHit, 0.3f);
+                   break;
+               case 3: 
+               SoundManager.PlaySound(SoundManager.Sound.ViejaHit, 0.3f);
+                   break;
+               case 4:
+               SoundManager.PlaySound(SoundManager.Sound.SansHit, 0.3f);
+                   break;
 
-             }*/
+            }*/
 
             isHit = true;
             canDash = false;
             canMove = false;
             canShoot = false;
             canSwing = false;
-        
+
             StartCoroutine(HitStun(time));
             rb.AddForce(Vector3.Normalize(dir) * force);
             StartCoroutine(HitStun(time));
@@ -611,15 +623,16 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter(Collision col)
     {
-        if ( (col.gameObject.tag.Equals("Wall") || col.gameObject.tag.Equals("Player"))  && !col.gameObject.tag.Equals("Escudin"))
-        {   
-            if(isHit == true){
-            rb.velocity = Vector3.zero;
-            canDash = true;
-            canMove = true;
-            canSwing = true;
-            canShoot = true;
-            isHit = false;
+        if ((col.gameObject.tag.Equals("Wall") || col.gameObject.tag.Equals("Player")) && !col.gameObject.tag.Equals("Escudin"))
+        {
+            if (isHit == true)
+            {
+                rb.velocity = Vector3.zero;
+                canDash = true;
+                canMove = true;
+                canSwing = true;
+                canShoot = true;
+                isHit = false;
             }
         }
     }
@@ -643,15 +656,15 @@ public class PlayerController : MonoBehaviour
     {
         switch (col.gameObject.tag)
         {
-            case "BFG":        
-                
+            case "BFG":
+
                 SoundManager.PlaySound(SoundManager.Sound.PowerUp, 0.1f);
                 consumeItem(col.gameObject);
 
                 orbital.BulletsUpgrade(true);
                 break;
 
-            case "Rambo":        
+            case "Rambo":
                 SoundManager.PlaySound(SoundManager.Sound.PowerUp, 0.1f);
                 consumeItem(col.gameObject);
 
@@ -659,7 +672,7 @@ public class PlayerController : MonoBehaviour
 
                 break;
 
-            case "Sonic":        
+            case "Sonic":
                 SoundManager.PlaySound(SoundManager.Sound.PowerUp, 0.1f);
                 consumeItem(col.gameObject);
 
@@ -670,7 +683,7 @@ public class PlayerController : MonoBehaviour
 
                 break;
 
-            case "Ultra":        
+            case "Ultra":
                 SoundManager.PlaySound(SoundManager.Sound.PowerUp, 0.1f);
                 consumeItem(col.gameObject);
 
@@ -681,7 +694,7 @@ public class PlayerController : MonoBehaviour
 
                 break;
 
-            case "Cloud":        
+            case "Cloud":
                 SoundManager.PlaySound(SoundManager.Sound.PowerUp, 0.1f);
                 consumeItem(col.gameObject);
 
@@ -692,14 +705,14 @@ public class PlayerController : MonoBehaviour
                 }
 
                 break;
-            case "Shield":        
+            case "Shield":
                 SoundManager.PlaySound(SoundManager.Sound.PowerUp, 0.1f);
                 consumeItem(col.gameObject);
 
                 Shield();
                 break;
 
-            case "Car":        
+            case "Car":
                 SoundManager.PlaySound(SoundManager.Sound.PowerUp, 0.1f);
                 consumeItem(col.gameObject);
 
@@ -708,7 +721,8 @@ public class PlayerController : MonoBehaviour
 
                 break;
 
-            case "Monster":        SoundManager.PlaySound(SoundManager.Sound.PowerUp, 0.1f);
+            case "Monster":
+                SoundManager.PlaySound(SoundManager.Sound.PowerUp, 0.1f);
 
                 consumeItem(col.gameObject);
 
@@ -749,7 +763,7 @@ public class PlayerController : MonoBehaviour
         {
             //TO DO IMPLEMENT SWORD
             sword.swordCollider.size = new Vector3(
-                sword.swordCollider.size.x , sword.swordCollider.size.y, sword.swordCollider.size.z * 2);
+                sword.swordCollider.size.x, sword.swordCollider.size.y, sword.swordCollider.size.z * 2);
             hasChangedSword = true;
         }
     }
@@ -771,11 +785,12 @@ public class PlayerController : MonoBehaviour
 
     public void Shield()
     {
-        if(canshield){
-        myShield.gameObject.SetActive(true);
+        if (canshield)
+        {
+            myShield.gameObject.SetActive(true);
 
-        shieldTime += 5f;
-        if (!isShielded) StartCoroutine(ShieldNumerator());
+            shieldTime += 5f;
+            if (!isShielded) StartCoroutine(ShieldNumerator());
         }
     }
 
@@ -857,12 +872,6 @@ public class PlayerController : MonoBehaviour
                 if (carIsDrifting && movementDirection != Vector3.zero)
                 {
                     rb.velocity = rb.velocity + transform.right * driftDirection * carSpeed * 2f;
-                    myCar.setDrift();
-
-                }
-                else
-                {
-                    myCar.setNormal();
                 }
 
                 break;

@@ -26,7 +26,7 @@ public class CharacterSelector : MonoBehaviour
 
     public void setCharacter(CharacterHolder holder)
     {
-        
+
         myPlayerController.charSelected = holder.characterNumber;
 
         Vector3 aux = holder.transform.position;
@@ -34,7 +34,7 @@ public class CharacterSelector : MonoBehaviour
 
         transform.position = aux;
 
-        mySpriteRenderer.sprite = mySprites[myPlayerController.PlayerID-1];
+        mySpriteRenderer.sprite = mySprites[myPlayerController.PlayerID];
     }
 
 

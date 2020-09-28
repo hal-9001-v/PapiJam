@@ -37,19 +37,6 @@ public class CarPowerUp : MonoBehaviour
         }
     }
 
- 
-    public void setDrift()
-    {
-        myAnimator.SetBool("IsDrifting", true);
-        //myAnimator.SetTrigger("Drift");
-
-    }
-
-    public void setNormal()
-    {
-        myAnimator.SetBool("IsDrifting", false);
-    }
-
     public void hide()
     {
         gameObject.SetActive(false);
