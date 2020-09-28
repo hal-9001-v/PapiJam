@@ -466,7 +466,7 @@ public class PlayerController : MonoBehaviour
             }
 
             Destroy(myLimitBar.gameObject);
-
+            StartCoroutine(DoParticles(4f));
             Destroy(gameObject);
 
 
@@ -516,6 +516,16 @@ public class PlayerController : MonoBehaviour
         canBeExecuted = true;
         particleDie.SetActive(false);
     }
+
+    private IEnumerator DoParticles(float time)
+    {
+        particleDie.SetActive(true);
+
+        yield return new WaitForSeconds(time);
+
+        particleDie.SetActive(false);
+    }
+
     private void OnLimit()
     {
         if (canDoLimit)

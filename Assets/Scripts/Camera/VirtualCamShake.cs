@@ -6,14 +6,14 @@ using Cinemachine;
 public class VirtualCamShake : MonoBehaviour
 {
     public float intensity = 0.5f;
-    private CinemachineTransposer target;
+    private CinemachineFramingTransposer target;
     private Vector3 lastShake = new Vector3();
     private float pendingShakeDuration = 0f;
     private bool isShaking = false;
 
     public void Start()
     {
-        target = GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineTransposer>();
+        target = GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineFramingTransposer>();
     }
 
     public void Shake(float duration)
@@ -38,12 +38,12 @@ public class VirtualCamShake : MonoBehaviour
         var startTime = Time.realtimeSinceStartup;
         while (Time.realtimeSinceStartup < startTime + pendingShakeDuration)
         {
-            target.m_FollowOffset -= lastShake;
+            target.m_TrackedObjectOffset -= lastShake;
             lastShake = new Vector3(Random.Range(-1, 1f) * intensity, Random.Range(-1f, 1f) * intensity, 0f);
-            target.m_FollowOffset += lastShake;
+            target.m_TrackedObjectOffset += lastShake;
             yield return null;
         }
-        target.m_FollowOffset -= lastShake;
+        target.m_TrackedObjectOffset -= lastShake;
         pendingShakeDuration = 0f;
         isShaking = false;
     }

@@ -8,7 +8,7 @@ public class VirtualCameraController : MonoBehaviour
 {
     public float mainDistance = 400f;
     public float mainAngle = 30f;
-    private CinemachineTransposer transposer;
+    private CinemachineFramingTransposer transposer;
     private bool isMoving = false;
     private Vector3 auxPos;
     private float startTime;
@@ -21,11 +21,7 @@ public class VirtualCameraController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        transposer = GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineTransposer>();
-        setPos(mainDistance, mainAngle, 0, 0);
-    }
-
-    private void FixedUpdate() {
+        transposer = GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineFramingTransposer>();
         setPos(mainDistance, mainAngle, 0, 0);
     }
 
@@ -36,16 +32,16 @@ public class VirtualCameraController : MonoBehaviour
             StopAllCoroutines();
             if (timeToGet <= 0)
             {
-                transposer.m_FollowOffset.y = d * Mathf.Sin(Mathf.Deg2Rad * r);
-                transposer.m_FollowOffset.z = -d * Mathf.Cos(Mathf.Deg2Rad * r);
+                transposer.m_TrackedObjectOffset.y = d * Mathf.Sin(Mathf.Deg2Rad * r);
+                transposer.m_TrackedObjectOffset.z = -d * Mathf.Cos(Mathf.Deg2Rad * r);
             }
             else
             {
                 isMoving = true;
                 startTime = Time.realtimeSinceStartup;
-                auxPos = transposer.m_FollowOffset;
+                auxPos = transposer.m_TrackedObjectOffset;
                 atStartEvent.Invoke();
-                StartCoroutine(DoSetPos(new Vector3(transposer.m_FollowOffset.x, d * Mathf.Sin(Mathf.Deg2Rad * r),
+                StartCoroutine(DoSetPos(new Vector3(transposer.m_TrackedObjectOffset.x, d * Mathf.Sin(Mathf.Deg2Rad * r),
                     -d * Mathf.Cos(Mathf.Deg2Rad * r)), timeToGet, delay));
             }
         }
@@ -53,16 +49,16 @@ public class VirtualCameraController : MonoBehaviour
 
     IEnumerator DoSetPos(Vector3 end, float timeToGet, float delay)
     {
-        while (Vector3.Distance(transposer.m_FollowOffset, end) > 0.05)
+        while (Vector3.Distance(transposer.m_TrackedObjectOffset, end) > 0.05)
         {
-            transposer.m_FollowOffset = Vector3.Lerp(auxPos, end, (Time.realtimeSinceStartup - startTime) / timeToGet);
+            transposer.m_TrackedObjectOffset = Vector3.Lerp(auxPos, end, (Time.realtimeSinceStartup - startTime) / timeToGet);
             yield return new WaitForEndOfFrame();
         }
 
         delayEvent.Invoke();
         if (delay > 0) yield return new WaitForSeconds(delay);
 
-        transposer.m_FollowOffset = end;
+        transposer.m_TrackedObjectOffset = end;
         isMoving = false;
         atEndEvent.Invoke();
     }
