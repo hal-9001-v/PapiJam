@@ -7,7 +7,9 @@ using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
 public class MenuManager : MonoBehaviour
-{
+{   
+
+
     public GameObject fondo;
 
     public AudioClip[] sonidos;
@@ -24,33 +26,33 @@ public class MenuManager : MonoBehaviour
     public GameObject columnas;
     public GameObject[] columnasArray;
     public Text playerNumTx;
-
+    public DisconnectedScript[] Disconnected;
     public PlayerInputManagerScript myInputManager;
 
     //Cosa de la seleccion de personajes
-    public MenuPrefs menuPrefs;
 
     public GameObject casillasPersonajes;
 
     public MenuLayer myIntroLayer;
 
     public MenuLayer myNumberLayer;
-
+    public MenuLayer myTutorialLayer;
     public MenuLayer mySelectionLayer;
 
     private MenuLayer currentLayer;
 
     private MenuButton currentButton;
-
+    public int currentPlayer;
     //public Image
     private void Awake()
-    {
-        menuPrefs = FindObjectOfType<MenuPrefs>();
+    {        
+        
+        Disconnected = GetComponentsInChildren<DisconnectedScript>();
         audioPlay.volume = 0.05f;
         currentLayer = myIntroLayer;
     }
 
-    void TESTSELECCIONPERS()
+  /*  void TESTSELECCIONPERS()
     {
         int furro = 0;
         int darsay = 1;
@@ -65,7 +67,7 @@ public class MenuManager : MonoBehaviour
 
         // (evidentemente p4 debería poder elegir al furro por ejemplo etc...);
         // Con que asignes los numeros bien, cuando cargues la escena "Sample", se pondrán bien los modelos
-    }
+    }*/
 
     private void hideMainMenu()
     {
@@ -73,6 +75,8 @@ public class MenuManager : MonoBehaviour
         iTween.MoveTo(botonesMain[0], iTween.Hash("x", 45, "time", 1.5f, "easetype", "easeOutQuint"));
         iTween.MoveTo(botonesMain[1], iTween.Hash("x", -45, "time", 1.5f, "easetype", "easeOutQuint"));
         iTween.MoveTo(botonesMain[2], iTween.Hash("x", 45, "time", 1.5f, "easetype", "easeOutQuint"));
+        iTween.MoveTo(botonesMain[3], iTween.Hash("x", 45, "time", 1.5f, "easetype", "easeOutQuint"));
+
 
     }
 
@@ -96,7 +100,8 @@ public class MenuManager : MonoBehaviour
 
     public void showStartMenu()
     {
-        for (int i = 0; i < botonesMain.Length; i++)
+        iTween.MoveTo(botonesMain[3], iTween.Hash("x", -20, "time", 1.5f, "easetype", "easeOutQuint"));
+        for (int i = 0; i < 3; i++)
         {
             iTween.MoveTo(botonesMain[i], iTween.Hash("x", 0, "time", 1.5f, "easetype", "easeOutQuint"));
         }
@@ -201,6 +206,15 @@ public class MenuManager : MonoBehaviour
 
     }
 
+    public void GoToTutorialLayer(){
+            hideMainMenu();
+             iTween.MoveTo(botonesMain[6], iTween.Hash("x", 0, "time", 1.5f, "easetype", "easeOutQuint"));
+            currentLayer = myTutorialLayer;
+    }
+
+        
+
+
     public void goToPreviousLayer()
     {
         //GO TO MENU LAYER
@@ -213,6 +227,19 @@ public class MenuManager : MonoBehaviour
 
             currentButton = currentLayer.startButton();
 
+            flechita.SetActive(true);
+            selectButton(currentButton.gameObject, true);
+
+        }
+        //GO TO MENU LAYER
+           if (currentLayer == myTutorialLayer)
+        {
+            showStartMenu();
+
+            currentLayer = myIntroLayer;
+
+            currentButton = currentLayer.startButton();
+             iTween.MoveTo(botonesMain[6], iTween.Hash("x", -75, "time", 1.5f, "easetype", "easeOutQuint"));
             flechita.SetActive(true);
             selectButton(currentButton.gameObject, true);
 
@@ -422,6 +449,7 @@ public class MenuManager : MonoBehaviour
             {
                 currentButton = myIntroLayer.xArray[0].yArray[0];
                 selectButton(currentButton.gameObject, true);
+                
             }
         }
         else
@@ -438,16 +466,79 @@ public class MenuManager : MonoBehaviour
 
     }
 
-    public void OnJoin()
-    {
+
+    public void OnJoin(){
+
+        myInputManager.setCanJoin(false);
+        myInputManager.playersCanQuit(false);
+        currentPlayer = myInputManager.playerJoined.PlayerID;
+
+        switch (currentPlayer){
+            case 1:
+            foreach(DisconnectedScript d in Disconnected) {        
+                d.mySpriteRenderer.color = new Color32(255,255,255,255);
+            }
+            break;
+            case 2:
+             foreach(DisconnectedScript d in Disconnected) {        
+                d.mySpriteRenderer.color = new Color32(255,0,0,255);
+            }
+            break;
+            case 3:
+             foreach(DisconnectedScript d in Disconnected) {        
+                d.mySpriteRenderer.color = new Color32(102,52,0,255);
+            }
+            break;
+            case 4:
+             foreach(DisconnectedScript d in Disconnected) {        
+                d.mySpriteRenderer.color = new Color32(0,255,0,255);
+            }
+            break;
+        }
+
+          iTween.MoveTo(botonesMain[5], iTween.Hash("x", 15, "time", 1.5f, "easetype", "easeOutQuint"));
         audioPlay.clip = sonidos[0];
         audioPlay.Play();
+        StartCoroutine(EaseButton(botonesMain[5]));
     }
 
-    public void OnDisconnect()
-    {
+    public IEnumerator EaseButton(GameObject go){
+       yield return new WaitForSeconds(1.5f);
+        iTween.MoveTo(go, iTween.Hash("x", 50, "time", 1.5f, "easetype", "easeOutQuint"));
+        yield return new WaitForSeconds(1f);
+        myInputManager.setCanJoin(true);
+        myInputManager.playersCanQuit(true);
+    }
+    public void OnDisconnect(){
+        myInputManager.setCanJoin(false);
+        myInputManager.playersCanQuit(false);
+            currentPlayer = myInputManager.playerRemoved.PlayerID;
+          switch (currentPlayer){
+            case 1:
+            foreach(DisconnectedScript d in Disconnected) {        
+                d.mySpriteRenderer.color = new Color32(255,255,255,255);
+            }
+            break;
+            case 2:
+             foreach(DisconnectedScript d in Disconnected) {        
+                d.mySpriteRenderer.color = new Color32(255,0,0,255);
+            }
+            break;
+            case 3:
+             foreach(DisconnectedScript d in Disconnected) {        
+                d.mySpriteRenderer.color = new Color32(102,52,0,255);
+            }
+            break;
+            case 4:
+             foreach(DisconnectedScript d in Disconnected) {        
+                d.mySpriteRenderer.color = new Color32(0,255,0,255);
+            }
+            break;
+        }
+        iTween.MoveTo(botonesMain[4], iTween.Hash("x", 15, "time", 1.5f, "easetype", "easeOutQuint"));
         audioPlay.clip = sonidos[2];
         audioPlay.Play();
+        StartCoroutine(EaseButton(botonesMain[4]));
     }
 
     public void OnBack()
@@ -536,12 +627,10 @@ public class MenuManager : MonoBehaviour
             if (0 <= (currentPosition.y - 1))
             {
                 currentPosition.y -= 1;
-
             }
             else
             {
                 currentPosition.y = xArray[currentPosition.x].yArray.Length - 1;
-
             }
             return xArray[currentPosition.x].yArray[currentPosition.y];
 
