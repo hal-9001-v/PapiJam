@@ -4,15 +4,19 @@ using UnityEngine;
 
 public class MenuScenario : MonoBehaviour
 {
+    public float speed;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        if (speed == 0) speed = 7;
     }
 
     // Update is called once per frame
-    void Update()
+    private void FixedUpdate()
     {
-        transform.Rotate(Vector3.up * 7 * Time.deltaTime);
+        
+            transform.Rotate(Vector3.up * speed * Time.deltaTime);
+        
     }
 }

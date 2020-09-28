@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(Collider))]
 [RequireComponent(typeof(Rigidbody))]
@@ -209,6 +209,10 @@ public class PlayerController : MonoBehaviour
 
                 enterNormalState();
                 break;
+
+            case 2:
+                enterInactiveState();
+                break;
         }
     }
 
@@ -334,6 +338,7 @@ public class PlayerController : MonoBehaviour
         exitState();
         myCar.gameObject.SetActive(false);
         myCharacterSelector.gameObject.SetActive(true);
+
         canSwing = false;
         canDash = false;
         canMove = false;
@@ -349,6 +354,31 @@ public class PlayerController : MonoBehaviour
         
 
         currentState = (int)playerState.menu;
+    }
+
+    public void enterInactiveState() {
+        
+        exitState();
+
+        orbital.gameObject.SetActive(false);
+        myCar.gameObject.SetActive(false);
+        myCharacterSelector.gameObject.SetActive(false);
+        rb.freezeRotation = false;
+
+        canSwing = false;
+        canDash = false;
+        canMove = false;
+        canShoot = false;
+        isHit = false;
+        hasSpeeded = false;
+        hasUltraInstinted = false;
+        hasChangedSword = false;
+        isShielded = false;
+        canDoLimit = false;
+
+        carIsDrifting = false;
+
+        //VICTORY ANIMATION
     }
 
     public void changeStateTimer(int nextState, float time)
@@ -390,9 +420,18 @@ public class PlayerController : MonoBehaviour
         if (lives <= 0)
         {
             Debug.Log(this.name + " got executed.");
+
+
             Destroy(gameObject);
+
+            if (FindObjectsOfType<PlayerController>().Length == 1)
+            {
+                SceneManager.LoadScene(2);
+            }
         }
-        
+        SceneManager.LoadScene(2);
+
+
     }
  private void OnLimit()
     {
@@ -920,10 +959,5 @@ public class PlayerController : MonoBehaviour
         {
             destroyPlayer();
         }
-
-
-
     }
-
-
 }
