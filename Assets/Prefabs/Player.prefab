@@ -96,6 +96,7 @@ MonoBehaviour:
   isSword: 0
   isLimiting: 0
   canDoLimit: 0
+  canBeExecuted: 1
   DashCD: 0.5
   ShootCD: 5
   walkSpeed: 6
@@ -262,6 +263,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3733625836227742734, guid: 0b6faf203edfb104ba17bf44ffff2b72,
+        type: 3}
+      propertyPath: myPlayer
+      value: 
+      objectReference: {fileID: 3447092904919184304}
     - target: {fileID: 8666778781597201306, guid: 0b6faf203edfb104ba17bf44ffff2b72,
         type: 3}
       propertyPath: father
@@ -392,6 +398,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3733625836227742734, guid: 2826e9ef9b805974abc1304c405f8931,
+        type: 3}
+      propertyPath: myPlayer
+      value: 
+      objectReference: {fileID: 3447092904919184304}
     - target: {fileID: 6409843445709380770, guid: 2826e9ef9b805974abc1304c405f8931,
         type: 3}
       propertyPath: playerControl
@@ -522,6 +533,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3733625836227742734, guid: eacff566b996de34898178acdca42f86,
+        type: 3}
+      propertyPath: myPlayer
+      value: 
+      objectReference: {fileID: 3447092904919184304}
     - target: {fileID: 6566796780298675326, guid: eacff566b996de34898178acdca42f86,
         type: 3}
       propertyPath: constrainPosition
@@ -665,6 +681,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3733625836227742734, guid: 254e7b0bb017c35439f1851df987e8a3,
+        type: 3}
+      propertyPath: myPlayer
+      value: 
+      objectReference: {fileID: 3447092904919184304}
     - target: {fileID: 4264323831049043973, guid: 254e7b0bb017c35439f1851df987e8a3,
         type: 3}
       propertyPath: playerControl

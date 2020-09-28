@@ -46,7 +46,8 @@ public class ExecutionController : MonoBehaviour
                     playerControl.rb.velocity = playerControl.transform.rotation * Vector3.forward * speed;
                     foreach (GameObject playerGO in GameObject.FindGameObjectsWithTag("Player"))
                     {
-                        if (playerGO != gameObject && Vector3.Distance(playerGO.transform.position, transform.position) <= radious)
+                        if (playerGO != gameObject && Vector3.Distance(playerGO.transform.position, transform.position) <= radious &&
+                            playerGO.GetComponent<PlayerController>().canBeExecuted)
                         {
                             playerGO.GetComponent<PlayerController>().getExecuted();
                         }
