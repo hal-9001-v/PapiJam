@@ -453,54 +453,56 @@ public class PlayerController : MonoBehaviour
 
     }
     public void getExecuted()
-    {   
-
-        --lives;
-        myLimitBar.myHealthRenderer.sprite = GameAssets.i.healthArray[lives];
-        if (lives <= 0)
+    {
+        if (!isShielded)
         {
-            foreach (BulletScript bullet in orbital.myBullets)
+            --lives;
+            myLimitBar.myHealthRenderer.sprite = GameAssets.i.healthArray[lives];
+            if (lives <= 0)
             {
-                Destroy(bullet);
+                foreach (BulletScript bullet in orbital.myBullets)
+                {
+                    Destroy(bullet);
+
+                }
+
+                Destroy(myLimitBar.gameObject);
+                StartCoroutine(DoParticles(4f));
+                Destroy(gameObject);
+
+
+                if (FindObjectsOfType<PlayerController>().Length == 2)
+                {
+                    SceneManager.LoadScene(2);
+
+                    Debug.Log("END!");
+                }
+
 
             }
+            else
+            {
+                myCar.gameObject.SetActive(false);
+                canSwing = true;
+                canDash = true;
+                canshield = true;
+                canMove = true;
+                canShoot = true;
+                isHit = false;
+                hasSpeeded = false;
+                hasUltraInstinted = false;
+                hasChangedSword = false;
+                isShielded = false;
+                canDoLimit = true;
 
-            Destroy(myLimitBar.gameObject);
-            StartCoroutine(DoParticles(4f));
-            Destroy(gameObject);
+                carIsDrifting = false;
 
+                currentState = (int)playerState.normal;
 
-            if(FindObjectsOfType<PlayerController>().Length == 2) {
-                SceneManager.LoadScene(2);
-
-                Debug.Log("END!");
+                particleDie.SetActive(true);
+                StartCoroutine(DoRegen(3.5f));
             }
-
-
         }
-        else
-        {
-            myCar.gameObject.SetActive(false);
-            canSwing = true;
-            canDash = true;
-            canshield = true;
-            canMove = true;
-            canShoot = true;
-            isHit = false;
-            hasSpeeded = false;
-            hasUltraInstinted = false;
-            hasChangedSword = false;
-            isShielded = false;
-            canDoLimit = true;
-
-            carIsDrifting = false;
-
-            currentState = (int)playerState.normal;
-
-            particleDie.SetActive(true);
-            StartCoroutine(DoRegen(3.5f));
-        }
-
     }
 
     private IEnumerator DoRegen(float time)

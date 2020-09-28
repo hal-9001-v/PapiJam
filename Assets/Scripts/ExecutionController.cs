@@ -13,6 +13,7 @@ public class ExecutionController : MonoBehaviour
     public float radious = 3f;
 
     private PlayerController playerControl;
+    private bool wasShielded = false;
 
     [HideInInspector]
     public bool wallLimitReached = false;
@@ -31,6 +32,8 @@ public class ExecutionController : MonoBehaviour
         playerControl.canMove = false;
         playerControl.canShoot = false;
         playerControl.canSwing = false;
+        if (playerControl.isShielded) wasShielded = true;
+        playerControl.isShielded = true;
 
         //Ejecutamos el Dash de la ejecución.
         StartCoroutine(PerformeExecution());
@@ -74,6 +77,8 @@ public class ExecutionController : MonoBehaviour
         playerControl.canMove = true;
         playerControl.canShoot = true;
         playerControl.canSwing = true;
+        if (!wasShielded) playerControl.isShielded = false;
+        wasShielded = false;
 
         wallLimitReached = false;
     }
