@@ -83,6 +83,9 @@ public class PlayerController : MonoBehaviour
 
     public CharacterContainer myCharacterContainer;
 
+    GameObject particleDie;
+
+
 
     enum playerState
     {
@@ -117,6 +120,7 @@ public class PlayerController : MonoBehaviour
             myCar = GetComponentInChildren<CarPowerUp>();
         if (myShield == null)
             myShield = GetComponentInChildren<ShieldScript>();
+
         if (myExecutionCollision == null)
             myExecutionCollision = GetComponentInChildren<ExecutionCollisioner>();
 
@@ -143,6 +147,9 @@ public class PlayerController : MonoBehaviour
         }
         transform.position = new Vector3(10000, 1000, 1000);
 
+        particleDie = Instantiate(GameAssets.i.particles[4], gameObject.transform);
+        particleDie.SetActive(false);
+
 
     }
 
@@ -150,11 +157,8 @@ public class PlayerController : MonoBehaviour
     IEnumerator SpawnWait()
     {
         canMove = false;
-        for (int i = 0; i < 200; i++)
-        {
-            yield return new WaitForSeconds(0.01f);
-            canMove = false;
-        }
+
+        yield return new WaitForSeconds(200);
 
         canMove = true;
         movementDirection = Vector3.zero;
@@ -162,7 +166,6 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         DontDestroyOnLoad(this.gameObject);
-        StartCoroutine(SpawnWait());
 
         enterMenuState();
         hidePlayer();
@@ -185,6 +188,8 @@ public class PlayerController : MonoBehaviour
 
             //Mariano
             case 1:
+
+                StartCoroutine(SpawnWait());
 
                 myCharacterContainer.selectSkin(charSelected);
 
@@ -428,7 +433,7 @@ public class PlayerController : MonoBehaviour
 
             currentState = (int)playerState.normal;
 
-            ps.spawnPlayer(this);
+            particleDie.SetActive(true);
             StartCoroutine(DoRegen(4f));
         }
 
@@ -438,9 +443,14 @@ public class PlayerController : MonoBehaviour
     {
         canBeExecuted = false;
 
-        yield return new WaitForSeconds(time);
+        yield return new WaitForSeconds(time * 0.5f);
+
+        ps.spawnPlayer(this);
+
+        yield return new WaitForSeconds(time * 0.5f);
 
         canBeExecuted = true;
+        particleDie.SetActive(false);
     }
     private void OnLimit()
     {
@@ -448,8 +458,12 @@ public class PlayerController : MonoBehaviour
         {
             if (limit >= MAXLIMIT)
             {
+
                 hasPlayedLimitSound = false;
                 myLimitBar.relleno.myImage.color = new Color32(95, 122, 254, 255);
+
+                GameObject.FindWithTag("VirtualCamera").GetComponent<VirtualCamShake>().Shake(2f);
+
                 chargeLimit(-MAXLIMIT);
 
                 ExecutionController exController = GetComponent<ExecutionController>();
