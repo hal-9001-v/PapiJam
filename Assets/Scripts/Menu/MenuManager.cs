@@ -513,8 +513,8 @@ public class MenuManager : MonoBehaviour
         myInputManager.playersCanQuit(true);
     }
     public void OnDisconnect(){
-        myInputManager.setCanJoin(false);
-        myInputManager.playersCanQuit(false);
+            myInputManager.setCanJoin(false);
+            myInputManager.playersCanQuit(false);
             currentPlayer = myInputManager.playerRemoved.PlayerID;
           switch (currentPlayer){
             case 1:

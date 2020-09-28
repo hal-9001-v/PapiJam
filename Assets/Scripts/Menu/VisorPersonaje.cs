@@ -12,7 +12,7 @@ public class VisorPersonaje : MonoBehaviour
     public Sprite[] charactersPics;
 
     // Update is called once per frame
-    void Update()
+    void Fixe()
     {
         if (myPlayer == null)
         {
@@ -20,6 +20,7 @@ public class VisorPersonaje : MonoBehaviour
             {
                 if (pc.PlayerID == playerNumber)
                 {
+                    
                     myPlayer = pc;
                     break;
                 }
@@ -27,7 +28,8 @@ public class VisorPersonaje : MonoBehaviour
 
         }
         else
-        {
+        {   
+            Debug.Log(myPlayer.charSelected);
             mySpriteRenderer.sprite = charactersPics[myPlayer.charSelected];
         }
     }

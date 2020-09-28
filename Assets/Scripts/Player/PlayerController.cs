@@ -108,6 +108,13 @@ public class PlayerController : MonoBehaviour
         //GO inicialization
         rb = GetComponent<Rigidbody>();
 
+        myInputManagerScript = FindObjectOfType<PlayerInputManagerScript>();
+
+        if (myInputManagerScript == null)
+        {
+            Debug.LogWarning("No InputManagerScript on Scene");
+        }
+
         if (orbital == null)
             orbital = GetComponentInChildren<OrbitalScript>(true);
         if (rb == null)
@@ -139,12 +146,6 @@ public class PlayerController : MonoBehaviour
             if (myCharacterSelector == null) Debug.LogWarning("No Character Selector On Player");
         }
 
-        myInputManagerScript = FindObjectOfType<PlayerInputManagerScript>();
-
-        if (myInputManagerScript == null)
-        {
-            Debug.LogWarning("No InputManagerScript on Scene");
-        }
         transform.position = new Vector3(10000, 1000, 1000);
 
         particleDie = Instantiate(GameAssets.i.particles[4], gameObject.transform);
@@ -191,7 +192,6 @@ public class PlayerController : MonoBehaviour
             case 1:
 
                 StartCoroutine(SpawnWait());
-
                 myCharacterContainer.selectSkin(charSelected);
 
                 canQuit = false;
@@ -354,6 +354,7 @@ public class PlayerController : MonoBehaviour
 
         carIsDrifting = false;
 
+        
 
         currentState = (int)playerState.normal;
 

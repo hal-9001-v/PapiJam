@@ -25,6 +25,10 @@ public class VirtualCameraController : MonoBehaviour
         setPos(mainDistance, mainAngle, 0, 0);
     }
 
+    private void FixedUpdate() {
+        setPos(mainDistance, mainAngle, 0, 0);
+    }
+
     public void setPos(float d, float r, float timeToGet, float delay)
     {
         if (CameraSwitcher.canMove())
