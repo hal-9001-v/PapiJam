@@ -311,6 +311,7 @@ public class PlayerController : MonoBehaviour
     public void enterCarState()
     {
         exitState();
+        carSpeed = walkSpeed*3;
         myShield.gameObject.SetActive(false);
         myCar.gameObject.SetActive(true);
         canSwing = false;
@@ -341,7 +342,7 @@ public class PlayerController : MonoBehaviour
         myCharacterSelector.gameObject.SetActive(false);
 
         cancion.Play();
-
+        rb.velocity = Vector3.zero;
         canSwing = true;
         canDash = true;
         canshield = true;
@@ -497,11 +498,11 @@ public class PlayerController : MonoBehaviour
     }
     private void OnGas()
     {
-        if (currentState == (int)playerState.car)
+        /*if (currentState == (int)playerState.car)
         {
             carIsDrifting = !carIsDrifting;
 
-        }
+        }*/
 
     }
     private void OnMovement(InputValue value)
@@ -661,8 +662,6 @@ public class PlayerController : MonoBehaviour
             if (isHit == true)
             {
                 hitAnim = false;
-                
-                rb.velocity = Vector3.zero;
                 canDash = true;
                 canMove = true;
                 canSwing = true;
@@ -791,8 +790,8 @@ public class PlayerController : MonoBehaviour
             hasSpeeded = true;
         }
                 
-                
-        if(walkSpeed > 18) walkSpeed = 18;
+
+                if(walkSpeed > 15) walkSpeed = 15;
     }
 
     public void changeSword()
@@ -909,15 +908,15 @@ public class PlayerController : MonoBehaviour
             case (int)playerState.car:
 
 
-                rb.velocity = movementDirection * walkSpeed * 3;
+                rb.velocity = movementDirection * carSpeed ;
                 rotateToDirection();
 
                 //Drift
-                if (carIsDrifting && movementDirection != Vector3.zero)
+            /*    if (carIsDrifting && movementDirection != Vector3.zero)
                 {
                     rb.velocity = rb.velocity + transform.right * driftDirection * walkSpeed * 2f;
                 }
-
+*/
                 break;
         }
 
