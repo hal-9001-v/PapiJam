@@ -104,7 +104,7 @@ public class BulletScript : MonoBehaviour
 
             if (pl.PlayerID != myPlayer.PlayerID)
             {
-                 if(!pl.isHit) {
+                 if(!pl.isHit && !pl.isShielded) {
                 Vector3 dir = rb.velocity;
                 hitParticle = Instantiate(GameAssets.i.particles[2], col.gameObject.transform);
                 hitParticle.transform.parent = null;

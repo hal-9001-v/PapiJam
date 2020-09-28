@@ -8,31 +8,30 @@ public class Victory : MonoBehaviour
 
     public float time;
     public float spinnignSpeed;
-
+    public CameraTransitioner cta;
     public GameObject playerLocator;
     public GameObject myPlayer;
 
     bool spin = false;
 
+    private void Awake() {
+        cta.transitionToColor(11.5f,0f, new Color(0,0,0,0));
+    }
     // Start is called before the first frame update
     void Start()
-    {
-        StartCoroutine(timer());
+    {   
 
     }
 
-    IEnumerator timer()
+    public void NextScene()
     {
-
-        yield return new WaitForSeconds(time);
-
         SceneManager.LoadScene(3);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (myPlayer == null)
+       if (myPlayer == null)
         {
             myPlayer = FindObjectOfType<PlayerController>().gameObject;
 
@@ -53,6 +52,5 @@ public class Victory : MonoBehaviour
         if (spin)
             myPlayer.transform.Rotate(new Vector3(0, spinnignSpeed, 0));
     }
-
 
 }

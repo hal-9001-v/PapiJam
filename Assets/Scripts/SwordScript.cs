@@ -91,7 +91,7 @@ public class SwordScript : MonoBehaviour
                 if(hitPlayer.PlayerID != myPlayer.PlayerID){
                 Debug.Log(hitPlayer.name + " hit with sword!");
                 
-               if(!hitPlayer.isHit){ 
+               if(!hitPlayer.isHit && !hitPlayer.isShielded){ 
 
                 dir = Vector3.Normalize(hitPlayer.transform.position - transform.position);
                 hitPlayer.Hit(swordForce, dir, hitStunTime,0.9f);

@@ -30,7 +30,7 @@ public class CarPowerUp : MonoBehaviour
 
             if (other.tag == "Player") {
 
-                if(!other.GetComponent<PlayerController>().isHit) {
+                if(!other.GetComponent<PlayerController>().isHit && !other.GetComponent<PlayerController>().isShielded) {
                     myPlayer.chargeLimit(2);
                     other.GetComponent<PlayerController>().Hit(hitForce, other.transform.position - transform.position, 1,1);
                     }

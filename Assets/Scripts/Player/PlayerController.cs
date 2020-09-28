@@ -704,11 +704,12 @@ public class PlayerController : MonoBehaviour
         hitAnim = true;
         yield return new WaitForSeconds(hitstun);
         rb.velocity = Vector3.zero;
+        
+        yield return new WaitForSeconds(1.2f-hitstun);
         canDash = true;
         canMove = true;
         canSwing = true;
         canShoot = true;
-        yield return new WaitForSeconds(1.2f-hitstun);
         if(hitAnim) hitAnim = false;
         yield return new WaitForSeconds(hitstun2);
         isHit = false;
