@@ -99,7 +99,7 @@ LightmapSettings:
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 112000000, guid: b78ca62af6b360d4385b56d044ff69e5,
     type: 2}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -3900,7 +3900,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 10, y: 10}
+  m_Size: {x: 5.91, y: 4.26}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -16818,7 +16818,7 @@ MonoBehaviour:
         m_Action: Join
         m_Flags: 0
     m_Reference: {fileID: 0}
-  m_PlayerPrefab: {fileID: 988563371761283702, guid: 0aa13e247f08e4e42a5b889fbdf7a4a8,
+  m_PlayerPrefab: {fileID: 988563371761283702, guid: 5eb1b797410920740883534fa8420b44,
     type: 3}
   m_SplitScreen: 0
   m_MaintainAspectRatioInSplitScreen: 0
@@ -16842,8 +16842,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerNum: 0
-  playerJoined: {fileID: 0}
-  playerRemoved: {fileID: 0}
 --- !u!4 &634504329
 Transform:
   m_ObjectHideFlags: 0
@@ -19848,8 +19846,8 @@ MonoBehaviour:
   - {fileID: 972608467}
   - {fileID: 1564823971}
   playerNumTx: {fileID: 0}
-  Disconnected: []
   myInputManager: {fileID: 634504327}
+  menuPrefs: {fileID: 0}
   casillasPersonajes: {fileID: 114318020}
   myIntroLayer:
     xArray:
@@ -19864,24 +19862,6 @@ MonoBehaviour:
     xArray:
     - yArray:
       - {fileID: 373475410}
-    backAction:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 796280438}
-          m_MethodName: goToPreviousLayer
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-  myTutorialLayer:
-    xArray:
-    - yArray:
-      - {fileID: 179612122}
     backAction:
       m_PersistentCalls:
         m_Calls:
@@ -19940,7 +19920,6 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 1
           m_CallState: 2
-  currentPlayer: 0
 --- !u!1001 &798545421
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -24374,7 +24353,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54949e3eaedc6c64396eddbb6b3e77dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mySpriteRenderer: {fileID: 0}
 --- !u!1001 &936061541
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -37770,7 +37748,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54949e3eaedc6c64396eddbb6b3e77dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mySpriteRenderer: {fileID: 0}
 --- !u!1001 &1578854738
 PrefabInstance:
   m_ObjectHideFlags: 0
