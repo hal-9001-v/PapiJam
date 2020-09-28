@@ -469,10 +469,13 @@ public class MenuManager : MonoBehaviour
 
     public void OnJoin(){
 
+        
+        
         myInputManager.setCanJoin(false);
         myInputManager.playersCanQuit(false);
         currentPlayer = myInputManager.playerJoined.PlayerID;
-
+    
+    
         switch (currentPlayer){
             case 1:
             foreach(DisconnectedScript d in Disconnected) {        

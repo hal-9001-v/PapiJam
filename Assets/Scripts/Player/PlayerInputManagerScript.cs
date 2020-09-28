@@ -69,7 +69,6 @@ public class PlayerInputManagerScript : MonoBehaviour
         if (playerNum < 4)
         {
            
-
             //Jugador que se une es el jugador que encuentra nuevo
             go = GameObject.Find("Player(Clone)");
 
@@ -85,7 +84,7 @@ public class PlayerInputManagerScript : MonoBehaviour
 
                 myPlayerControllers.Add(playerJoined);
 
-<
+
                 playerJoined.PlayerID = playerNum;
                 playerJoined.name = "Player" + playerNum;
 
