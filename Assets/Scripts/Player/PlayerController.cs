@@ -221,8 +221,16 @@ public class PlayerController : MonoBehaviour
 
                 GameObject cancionFind;
                 cancionFind = GameObject.Find("AudioSource");
-                cancion = cancionFind.GetComponent<AudioSource>();
-                cancion.Pause();
+
+                if (cancionFind != null)
+                {
+                    cancion = cancionFind.GetComponent<AudioSource>();
+                    cancion.Pause();
+
+                }
+                else {
+                    Debug.LogWarning("No AudioSource in Scene");
+                }
 
 
 
