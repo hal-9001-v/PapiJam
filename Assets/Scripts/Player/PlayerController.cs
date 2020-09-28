@@ -137,6 +137,8 @@ public class PlayerController : MonoBehaviour
         {
             Debug.LogWarning("No InputManagerScript on Scene");
         }
+                transform.position = new Vector3(10000,1000,1000);
+
     }
 
 
@@ -245,6 +247,7 @@ public class PlayerController : MonoBehaviour
         limit += n;
         
         if(limit >= MAXLIMIT && !hasPlayedLimitSound){ SoundManager.PlaySound(SoundManager.Sound.LimiteAlcanzado,0.3f);
+        myLimitBar.relleno.myImage.color = new Color32(255,255,0,255);
         hasPlayedLimitSound = true;}
 
         if (limit > MAXLIMIT)
@@ -401,6 +404,7 @@ public class PlayerController : MonoBehaviour
             if (limit >= MAXLIMIT)
             {
                 hasPlayedLimitSound = false;
+                myLimitBar.relleno.myImage.color = new Color32(95,122,254,255);
                 chargeLimit(-MAXLIMIT);
 
                 ExecutionController exController = GetComponent<ExecutionController>();

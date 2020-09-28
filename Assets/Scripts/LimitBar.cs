@@ -15,13 +15,16 @@ public class LimitBar : MonoBehaviour
 
     public Image myIconRenderer;
     public Image myNumberRenderer;
-
+    public RellenoLimite relleno;
     //Player's attributes
     private float limit;
     private float limitMax;
 
     private void Awake()
     {
+
+         if (relleno== null) relleno = GetComponentInChildren<RellenoLimite>();
+        
         if (myImage == null)
         {
             myImage = GetComponentInChildren<Image>();

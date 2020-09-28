@@ -84,7 +84,7 @@ public class SwordScript : MonoBehaviour
             if (hitPlayer != null)
             {
                 dir = Vector3.Normalize(hitPlayer.transform.position - transform.position);
-                hitPlayer.Hit(swordForce, dir, hitStunTime);
+                hitPlayer.Hit(swordForce, dir, hitStunTime);    
 
                 if (myPlayer != null)
                 {

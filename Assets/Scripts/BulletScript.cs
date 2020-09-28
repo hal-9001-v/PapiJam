@@ -22,6 +22,7 @@ public class BulletScript : MonoBehaviour
 
     public OrbitalScript myOrbital;
     public GameObject normalBullet;
+    public GameObject gatlingBullet;
     public GameObject bfgBullet;
     private void Awake()
     {   
@@ -40,12 +41,20 @@ public class BulletScript : MonoBehaviour
     }
 
     private void Start() {
-         if(myOrbital.BFGmode == true ) {
+         if(myOrbital.BFGmode && !myOrbital.gatlingMode ) {
             bfgBullet.SetActive(true);
             normalBullet.SetActive(false);
-        }  else {
+            gatlingBullet.SetActive(false);
+        } else if(myOrbital.gatlingMode && !myOrbital.BFGmode ) {
+            bfgBullet.SetActive(false);
+            normalBullet.SetActive(false);
+            gatlingBullet.SetActive(true);
+        }
+        else if (!myOrbital.gatlingMode && !myOrbital.BFGmode){
             bfgBullet.SetActive(false);
             normalBullet.SetActive(true);
+            gatlingBullet.SetActive(false);
+
         }
         
     }

@@ -46,7 +46,7 @@ public class MenuManager : MonoBehaviour
     private void Awake()
     {
         menuPrefs = FindObjectOfType<MenuPrefs>();
-
+        audioPlay.volume = 0.05f;
         currentLayer = myIntroLayer;
     }
 
@@ -405,6 +405,16 @@ public class MenuManager : MonoBehaviour
         }
 
 
+    }
+
+    public void OnJoin(){
+        audioPlay.clip = sonidos[0];
+        audioPlay.Play();
+    }
+
+    public void OnDisconnect(){
+        audioPlay.clip = sonidos[2];
+        audioPlay.Play();
     }
 
     public void OnBack()
