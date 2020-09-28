@@ -81,6 +81,7 @@ public class PlayerController : MonoBehaviour
 
     public bool canQuit;
 
+    GameObject particleDie;
 
 
     enum playerState
@@ -116,6 +117,7 @@ public class PlayerController : MonoBehaviour
             myCar = GetComponentInChildren<CarPowerUp>();
         if (myShield == null)
             myShield = GetComponentInChildren<ShieldScript>();
+
         if (myExecutionCollision == null)
             myExecutionCollision = GetComponentInChildren<ExecutionCollisioner>();
 
@@ -140,7 +142,10 @@ public class PlayerController : MonoBehaviour
         {
             Debug.LogWarning("No InputManagerScript on Scene");
         }
-                transform.position = new Vector3(10000,1000,1000);
+        transform.position = new Vector3(10000,1000,1000);
+
+        particleDie = Instantiate(GameAssets.i.particles[4], gameObject.transform);
+        particleDie.SetActive(false);
 
     }
 
@@ -416,28 +421,32 @@ public class PlayerController : MonoBehaviour
 
             currentState = (int)playerState.normal;
 
-            ps.spawnPlayer(this);
+            particleDie.SetActive(true);
             StartCoroutine(DoRegen(4f));
         }
-        
+
     }
 
     private IEnumerator DoRegen(float time)
     {
         canBeExecuted = false;
 
-        yield return new WaitForSeconds(time);
+        yield return new WaitForSeconds(time * 0.5f);
+
+        ps.spawnPlayer(this);
+
+        yield return new WaitForSeconds(time * 0.5f);
 
         canBeExecuted = true;
+        particleDie.SetActive(false);
     }
- private void OnLimit()
+    private void OnLimit()
     {
         if (canDoLimit)
         {
             if (limit >= MAXLIMIT)
             {
-                hasPlayedLimitSound = false;
-                myLimitBar.relleno.myImage.color = new Color32(95,122,254,255);
+                GameObject.FindWithTag("VirtualCamera").GetComponent<VirtualCamShake>().Shake(2f);
                 chargeLimit(-MAXLIMIT);
 
                 ExecutionController exController = GetComponent<ExecutionController>();
@@ -452,7 +461,7 @@ public class PlayerController : MonoBehaviour
                 }
             }
         }
-        
+
     }
     private void OnGas()
     {
