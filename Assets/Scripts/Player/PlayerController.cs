@@ -30,6 +30,8 @@ public class PlayerController : MonoBehaviour
     public bool isLimiting = false;
     public bool canDoLimit = false;
     public bool hasPlayedLimitSound = false;
+    public bool canBeExecuted = true;
+
     //Player Stats
     public float DashCD;
     public float ShootCD;
@@ -55,6 +57,7 @@ public class PlayerController : MonoBehaviour
     public float extraSpeed;
 
     public ExecutionCollisioner myExecutionCollision;
+    public PlayerSpawn ps;
 
     public float limit = 0;
     public float MAXLIMIT = 10;
@@ -392,10 +395,40 @@ public class PlayerController : MonoBehaviour
         --lives;
         if (lives <= 0)
         {
-            Debug.Log(this.name + " got executed.");
             Destroy(gameObject);
         }
+        else
+        {
+            myCar.gameObject.SetActive(false);
+            canSwing = true;
+            canDash = true;
+            canshield = true;
+            canMove = true;
+            canShoot = true;
+            isHit = false;
+            hasSpeeded = false;
+            hasUltraInstinted = false;
+            hasChangedSword = false;
+            isShielded = false;
+            canDoLimit = true;
+
+            carIsDrifting = false;
+
+            currentState = (int)playerState.normal;
+
+            ps.spawnPlayer(this);
+            StartCoroutine(DoRegen(4f));
+        }
         
+    }
+
+    private IEnumerator DoRegen(float time)
+    {
+        canBeExecuted = false;
+
+        yield return new WaitForSeconds(time);
+
+        canBeExecuted = true;
     }
  private void OnLimit()
     {

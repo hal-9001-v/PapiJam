@@ -1,11 +1,8 @@
 fileFormatVersion: 2
-guid: 295a43d97fda198458a99e43fcfb9154
+guid: f13908003da7d864ab68bf622e0ee585
 ModelImporter:
   serializedVersion: 19301
-  internalIDToNameTable:
-  - first:
-      74: -203655887218126122
-    second: Standing Melee Attack Downward
+  internalIDToNameTable: []
   externalObjects: {}
   materials:
     materialImportMode: 1
@@ -33,36 +30,7 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties: []
-    clipAnimations:
-    - serializedVersion: 16
-      name: Standing Melee Attack Downward
-      takeName: mixamo.com
-      internalID: 0
-      firstFrame: 15
-      lastFrame: 68
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 1
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
+    clipAnimations: []
     isReadable: 0
   meshes:
     lODScreenPercentages: []
@@ -100,7 +68,13 @@ ModelImporter:
     legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
     blendShapeNormalImportMode: 1
     normalSmoothingSource: 0
-  referencedClips: []
+  referencedClips:
+  - e1b891326a4cdb443b26ccf79cbeb8fa
+  - 7230fea69240a7547aa10897f1144b1a
+  - 61a987a62fff4a54e84b9ba1b63e46db
+  - eb48fe3a0ce6e9449b50acf69073db63
+  - cfc6b5bc02aeb2045943c267f5aac1e0
+  - fdbbc8e7af5fc3745a6a2857d57b394c
   importAnimation: 1
   humanDescription:
     serializedVersion: 3

@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PlayerSpawn : MonoBehaviour
 {
-
     public PlayerController myPlayer;
     GameObject particleSpawn;
     [Range(0.5f, 10)]
