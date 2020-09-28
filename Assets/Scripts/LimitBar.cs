@@ -69,7 +69,7 @@ public class LimitBar : MonoBehaviour
         limitMax = player.MAXLIMIT;
 
         myIconRenderer.sprite = myIcons[player.charSelected];
-        myNumberRenderer.sprite = myNumbers[player.PlayerID];
+        myNumberRenderer.sprite = myNumbers[player.PlayerID-1];
 
         setLimit(0);
     }

@@ -12,26 +12,29 @@ public class VisorPersonaje : MonoBehaviour
     public Sprite[] charactersPics;
 
     // Update is called once per frame
-    void Fixe()
+    public  void FixedUpdate()
     {
         if (myPlayer == null)
         {
             foreach (PlayerController pc in FindObjectsOfType<PlayerController>())
             {
-                if (pc.PlayerID == playerNumber)
-                {
-                    
+               
+
+                if(pc.PlayerID == playerNumber && pc!=null){
                     myPlayer = pc;
                     break;
+                } else if(myPlayer!=null) {
+                    Debug.Log(myPlayer.charSelected);
+                    mySpriteRenderer.sprite = charactersPics[myPlayer.charSelected];
                 }
             }
 
-        }
-        else
-        {   
-            Debug.Log(myPlayer.charSelected);
+        } 
+             else {
             mySpriteRenderer.sprite = charactersPics[myPlayer.charSelected];
         }
+        }
+      
     }
 
-}
+

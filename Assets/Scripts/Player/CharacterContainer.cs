@@ -11,7 +11,7 @@ public class CharacterContainer : MonoBehaviour
     public void selectSkin(int index) {
         if (index >= 0 || index < skins.Length) {
             finalSkin = skins[index];
-
+        
             for (int i = 0; i < skins.Length; i++) {
                 if (i == index) continue;
                 

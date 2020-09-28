@@ -97,6 +97,7 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
+        
         //Stat inicialization
         DashCD = 0.7f;
         ShootCD = 50f;
@@ -104,7 +105,6 @@ public class PlayerController : MonoBehaviour
         rotateSpeed = 8f;
         numberOfBullets = 3;
         dashCount = 1;
-
         //GO inicialization
         rb = GetComponent<Rigidbody>();
 
@@ -120,7 +120,6 @@ public class PlayerController : MonoBehaviour
         if (rb == null)
             rb = GetComponentInChildren<Rigidbody>(true);
 
-        if (sword == null)
             sword = GetComponentInChildren<SwordScript>();
 
         if (myCar == null)
@@ -133,7 +132,6 @@ public class PlayerController : MonoBehaviour
 
         myShield.gameObject.SetActive(false);
         myExecutionCollision.gameObject.SetActive(false);
-
         sword.setPlayer(this);
 
         myLimitBar = LimitBar.getFreeLimitBar();
@@ -146,6 +144,7 @@ public class PlayerController : MonoBehaviour
             if (myCharacterSelector == null) Debug.LogWarning("No Character Selector On Player");
         }
 
+
         transform.position = new Vector3(10000, 1000, 1000);
 
         particleDie = Instantiate(GameAssets.i.particles[4], gameObject.transform);
@@ -157,12 +156,12 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator SpawnWait()
     {
-        canMove = false;
-
-        yield return new WaitForSeconds(200);
-
-        canMove = true;
+        for(int i = 0; i < 200; i++){
+        yield return new WaitForSeconds(0.01f);
+        canMove=false;
+        }
         movementDirection = Vector3.zero;
+        canMove = true;
     }
     private void Start()
     {
@@ -190,10 +189,11 @@ public class PlayerController : MonoBehaviour
 
             //Mariano
             case 1:
+                     
 
+                sword = GetComponentInChildren<SwordScript>();
                 StartCoroutine(SpawnWait());
                 myCharacterContainer.selectSkin(charSelected);
-
                 canQuit = false;
 
                 PlayerSpawn ps = PlayerSpawn.getFreeSpawn();
@@ -329,11 +329,13 @@ public class PlayerController : MonoBehaviour
         SoundManager.PlaySound(SoundManager.Sound.FALDAEUROBEAT, 0.7f);
         cancion.Pause();
         myCar.show();
+        
 
         currentState = (int)playerState.car;
     }
     public void enterNormalState()
     {
+        
         exitState();
         myCar.gameObject.SetActive(false);
         myCharacterSelector.gameObject.SetActive(false);
@@ -444,7 +446,7 @@ public class PlayerController : MonoBehaviour
             currentState = (int)playerState.normal;
 
             particleDie.SetActive(true);
-            StartCoroutine(DoRegen(4f));
+            StartCoroutine(DoRegen(3.5f));
         }
 
     }
@@ -454,9 +456,9 @@ public class PlayerController : MonoBehaviour
         canBeExecuted = false;
 
         yield return new WaitForSeconds(time * 0.5f);
-
+        ps = PlayerSpawn.getFreeSpawn();
         ps.spawnPlayer(this);
-
+        
         yield return new WaitForSeconds(time * 0.5f);
 
         canBeExecuted = true;
@@ -468,7 +470,7 @@ public class PlayerController : MonoBehaviour
         {
             if (limit >= MAXLIMIT)
             {
-
+                
                 hasPlayedLimitSound = false;
                 myLimitBar.relleno.myImage.color = new Color32(95, 122, 254, 255);
 
@@ -485,6 +487,7 @@ public class PlayerController : MonoBehaviour
                 {
                     isLimiting = true;
                     exController.doExecution();
+                    SoundManager.PlaySound(SoundManager.Sound.Execution, 0.5f);
                 }
             }
         }
@@ -605,21 +608,21 @@ public class PlayerController : MonoBehaviour
     {
         if (!isShielded)
         {
-            /*switch(characterSelect){
-                case 1: 
+            switch(charSelected){
+                case 0: 
                     SoundManager.PlaySound(SoundManager.Sound.FurroHit, 0.3f);
                    break;
-                case 2:
+                case 1:
                 SoundManager.PlaySound(SoundManager.Sound.DarsayHit, 0.3f);
                    break;
-               case 3: 
-               SoundManager.PlaySound(SoundManager.Sound.ViejaHit, 0.3f);
+               case 2: 
+               SoundManager.PlaySound(SoundManager.Sound.ViejaHit, 1.5f);
                    break;
-               case 4:
+               case 3:
                SoundManager.PlaySound(SoundManager.Sound.SansHit, 0.3f);
                    break;
 
-            }*/
+            }
 
             isHit = true;
             canDash = false;
@@ -627,7 +630,6 @@ public class PlayerController : MonoBehaviour
             canShoot = false;
             canSwing = false;
 
-            StartCoroutine(HitStun(time));
             rb.AddForce(Vector3.Normalize(dir) * force);
             StartCoroutine(HitStun(time));
         }
@@ -875,9 +877,14 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
 
+     
+          
+        
         switch (currentState)
         {
             case (int)playerState.normal:
+                 if (sword == null)
+          sword = GetComponentInChildren<SwordScript>();
                 if (canMove)
                 {
                     rb.velocity = movementDirection * walkSpeed;
@@ -889,14 +896,14 @@ public class PlayerController : MonoBehaviour
 
             case (int)playerState.car:
 
-
-                rb.velocity = movementDirection * carSpeed;
+            
+                rb.velocity = movementDirection * walkSpeed;
                 rotateToDirection();
 
                 //Drift
                 if (carIsDrifting && movementDirection != Vector3.zero)
                 {
-                    rb.velocity = rb.velocity + transform.right * driftDirection * carSpeed * 2f;
+                    rb.velocity = rb.velocity + transform.right * driftDirection * walkSpeed * 2f;
                 }
 
                 break;

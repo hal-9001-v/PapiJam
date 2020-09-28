@@ -33,8 +33,11 @@ public class PlayerSpawn : MonoBehaviour
 
     IEnumerator SpawnParticle()
     {
-        yield return new WaitForSeconds(4);
+        yield return new WaitForSeconds(2);
+        myPlayer.sword.gameObject.SetActive(false);
+        yield return new WaitForSeconds(2f);
         particleSpawn.SetActive(false);
+        myPlayer = null;
     }
 
     private void OnDrawGizmos()

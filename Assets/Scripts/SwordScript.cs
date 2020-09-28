@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -22,7 +23,7 @@ public class SwordScript : MonoBehaviour
     public Transform constrainPosition;
     public Vector3 posOffset;
     public Vector3 rotOffset;
-
+    public bool firstTime = false;
     public void attack()
     {
         gameObject.SetActive(true);
@@ -31,11 +32,13 @@ public class SwordScript : MonoBehaviour
     }
 
     private void Awake()
-    {swordForce = 250;
-        gameObject.SetActive(false);
+    {
+        swordForce = 250;
+        
 
     }
 
+    
     IEnumerator Attack() { 
         transform.position = new Vector3(myPlayer.transform.position.x, myPlayer.transform.position.y, myPlayer.transform.position.z);
 
@@ -80,9 +83,10 @@ public class SwordScript : MonoBehaviour
         if ((col.gameObject.tag.Equals("Player")))
         {
             PlayerController hitPlayer = col.GetComponent<PlayerController>();
-
+            
             if (hitPlayer != null)
             {
+                if(hitPlayer.PlayerID != myPlayer.PlayerID){
                 dir = Vector3.Normalize(hitPlayer.transform.position - transform.position);
                 hitPlayer.Hit(swordForce, dir, hitStunTime);    
 
@@ -95,6 +99,7 @@ public class SwordScript : MonoBehaviour
                     StartCoroutine(DestroyParticles());
                     myPlayer.chargeLimit(limitCharge);
                 }
+                }
 
             }
 
@@ -102,12 +107,12 @@ public class SwordScript : MonoBehaviour
 
     }
 
+    
 
     IEnumerator DestroyParticles(){
         yield return new WaitForSeconds(1);
         Destroy(hitParticle);
     }
-    private void LateUpdate() {
-    }
+   
 
 }

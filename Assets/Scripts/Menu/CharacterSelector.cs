@@ -32,6 +32,7 @@ public class CharacterSelector : MonoBehaviour
         transform.position = aux;
 
         mySpriteRenderer.sprite = mySprites[myPlayerController.PlayerID-1];
+        myPlayerController.charSelected = holder.characterNumber;
     }
 
 
