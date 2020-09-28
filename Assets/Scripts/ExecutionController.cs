@@ -36,6 +36,11 @@ public class ExecutionController : MonoBehaviour
         StartCoroutine(PerformeExecution());
     }
 
+    private void OnLevelWasLoaded(int level)
+    {
+        if (level == 2) StopAllCoroutines();
+    }
+
     IEnumerator PerformeExecution()
     {
         switch(executionType)
