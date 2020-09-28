@@ -21,6 +21,10 @@ public class CharacterSelector : MonoBehaviour
         }
     }
 
+    private void FixedUpdate() {
+        if(myPlayerController == null)
+        Destroy(this.gameObject);
+    }
 
     public void setCharacter(CharacterHolder holder)
     {

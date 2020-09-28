@@ -43,6 +43,8 @@ public class MenuManager : MonoBehaviour
 
     private MenuButton currentButton;
     public int currentPlayer;
+    public bool isJoining;
+    public bool isQuitting;
     //public Image
     private void Awake()
     {        
@@ -181,8 +183,9 @@ public class MenuManager : MonoBehaviour
         //GO TO SELECTION LAYER
         else if (currentLayer == myNumberLayer)
         {
-
-
+        if ( !isJoining && !isQuitting){ 
+            myInputManager.setCanJoin(false);
+            myInputManager.playersCanQuit(false);
             hidePlayerNumberSelector();
 
             showCharacterSelection();
@@ -199,7 +202,7 @@ public class MenuManager : MonoBehaviour
 
 
             startSelectingCharacter();
-
+        }
 
 
         }
@@ -247,11 +250,14 @@ public class MenuManager : MonoBehaviour
         // GO TO NUMBER LAYER
         else if (currentLayer == mySelectionLayer)
         {
+            myInputManager.setCanJoin(true);
+            myInputManager.playersCanQuit(true);
             hideCharacterSelection();
             showPlayerNumberSelector();
 
             currentLayer = myNumberLayer;
             currentButton = currentLayer.startButton();
+
 
             foreach (CharacterSelector cs in FindObjectsOfType<CharacterSelector>())
             {
@@ -265,7 +271,7 @@ public class MenuManager : MonoBehaviour
     {
         audioPlay.clip = sonidos[0];
         audioPlay.Play();
-        
+
 
         if (currentLayer != mySelectionLayer)
         {
@@ -295,7 +301,7 @@ public class MenuManager : MonoBehaviour
                 cs.myPosition.y = 0;
             else
                 cs.myPosition.y = 1;
-
+            
             cs.setCharacter(mySelectionLayer.xArray[cs.myPosition.x].yArray[cs.myPosition.y].GetComponent<CharacterHolder>());
         }
 
@@ -470,9 +476,9 @@ public class MenuManager : MonoBehaviour
     public void OnJoin(){
 
         
-        
+        if(currentLayer !=mySelectionLayer){
+        isJoining=true;
         myInputManager.setCanJoin(false);
-        myInputManager.playersCanQuit(false);
         currentPlayer = myInputManager.playerJoined.PlayerID;
     
     
@@ -502,18 +508,36 @@ public class MenuManager : MonoBehaviour
           iTween.MoveTo(botonesMain[5], iTween.Hash("x", 15, "time", 1.5f, "easetype", "easeOutQuint"));
         audioPlay.clip = sonidos[0];
         audioPlay.Play();
-        StartCoroutine(EaseButton(botonesMain[5]));
+        StartCoroutine(JoinButton(botonesMain[5]));}
     }
 
-    public IEnumerator EaseButton(GameObject go){
+    public IEnumerator JoinButton(GameObject go){
+
+        
        yield return new WaitForSeconds(1.5f);
         iTween.MoveTo(go, iTween.Hash("x", 50, "time", 1.5f, "easetype", "easeOutQuint"));
         yield return new WaitForSeconds(1f);
         myInputManager.setCanJoin(true);
+        isJoining = false;
+        
+    
+    }
+
+    
+    public IEnumerator DisconnectButton(GameObject go){
+
+        
+       yield return new WaitForSeconds(1.5f);
+        iTween.MoveTo(go, iTween.Hash("x", 50, "time", 1.5f, "easetype", "easeOutQuint"));
+        yield return new WaitForSeconds(1f);
         myInputManager.playersCanQuit(true);
+        isQuitting = false;
+
     }
     public void OnDisconnect(){
-            myInputManager.setCanJoin(false);
+                
+            if(currentLayer !=mySelectionLayer){
+                isQuitting = true;
             myInputManager.playersCanQuit(false);
             currentPlayer = myInputManager.playerRemoved.PlayerID;
           switch (currentPlayer){
@@ -541,12 +565,13 @@ public class MenuManager : MonoBehaviour
         iTween.MoveTo(botonesMain[4], iTween.Hash("x", 15, "time", 1.5f, "easetype", "easeOutQuint"));
         audioPlay.clip = sonidos[2];
         audioPlay.Play();
-        StartCoroutine(EaseButton(botonesMain[4]));
+        StartCoroutine(DisconnectButton(botonesMain[4]));}
+        
     }
 
     public void OnBack()
     {
-
+        
         if (currentLayer != null)
         {
             audioPlay.clip = sonidos[0];

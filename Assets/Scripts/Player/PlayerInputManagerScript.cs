@@ -33,11 +33,16 @@ public class PlayerInputManagerScript : MonoBehaviour
         {
             pc.canQuit = b;
         }
+
+                if (b)
+            myInputManager.EnableJoining();
+        else
+            myInputManager.DisableJoining();
     }
 
     public void quitPlayer(PlayerController pc)
     {   
-        
+        if(pc.canQuit){
         playerRemoved = pc;
         playerNum--;
         myPlayerControllers.Remove(pc);
@@ -49,7 +54,7 @@ public class PlayerInputManagerScript : MonoBehaviour
             player.name = "Player" + i;
             i++;
         }
-
+        }
 
 
     }

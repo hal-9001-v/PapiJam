@@ -42,7 +42,7 @@ public class PlayerController : MonoBehaviour
     public int PlayerID;
     public int dashCount;
     public float shieldTime;
-
+    public bool hitAnim;
     //GOs
     public SwordScript sword;
     public OrbitalScript orbital;
@@ -638,6 +638,7 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator HitStun(float hitstun)
     {
+        hitAnim = true;
         yield return new WaitForSeconds(hitstun);
         rb.velocity = Vector3.zero;
         canDash = true;
@@ -645,14 +646,18 @@ public class PlayerController : MonoBehaviour
         canSwing = true;
         canShoot = true;
         isHit = false;
+        hitAnim = false;
     }
 
     private void OnCollisionEnter(Collision col)
     {
-        if ((col.gameObject.tag.Equals("Wall") || col.gameObject.tag.Equals("Player")) && !col.gameObject.tag.Equals("Escudin"))
+            
+        if ((col.gameObject.tag.Equals("Wall") || col.gameObject.tag.Equals("Player")) && !col.gameObject.tag.Equals("Escudin") && col.gameObject == this.gameObject)
         {
             if (isHit == true)
             {
+                hitAnim = false;
+                
                 rb.velocity = Vector3.zero;
                 canDash = true;
                 canMove = true;
@@ -761,6 +766,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter(Collider col)
     {
+                    
         takePowerUp(col);
     }
 
@@ -896,7 +902,7 @@ public class PlayerController : MonoBehaviour
 
             case (int)playerState.car:
 
-            
+
                 rb.velocity = movementDirection * walkSpeed;
                 rotateToDirection();
 
