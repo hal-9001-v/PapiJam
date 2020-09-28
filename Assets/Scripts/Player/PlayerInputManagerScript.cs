@@ -12,9 +12,7 @@ public class PlayerInputManagerScript : MonoBehaviour
     PlayerInputManager myInputManager;
     private Cinemachine.CinemachineTargetGroup cinemachineTargetGroup;
     private PlayerSpawn[] myPlayerSpawns;
-    GameObject go;
-    public        PlayerController playerJoined;
-    public PlayerController playerRemoved;
+
     private void Awake()
     {
         myInputManager = GetComponent<PlayerInputManager>();
@@ -36,12 +34,10 @@ public class PlayerInputManagerScript : MonoBehaviour
     }
 
     public void quitPlayer(PlayerController pc)
-    {   
-        
-        playerRemoved = pc;
+    {
         playerNum--;
         myPlayerControllers.Remove(pc);
-        
+
         int i = 1;
         foreach (PlayerController player in myPlayerControllers)
         {
@@ -68,7 +64,8 @@ public class PlayerInputManagerScript : MonoBehaviour
     {
         if (playerNum < 4)
         {
-           
+            GameObject go;
+            PlayerController playerJoined;
 
             //Jugador que se une es el jugador que encuentra nuevo
             go = GameObject.Find("Player(Clone)");
@@ -85,7 +82,7 @@ public class PlayerInputManagerScript : MonoBehaviour
 
                 myPlayerControllers.Add(playerJoined);
 
-<
+
                 playerJoined.PlayerID = playerNum;
                 playerJoined.name = "Player" + playerNum;
 

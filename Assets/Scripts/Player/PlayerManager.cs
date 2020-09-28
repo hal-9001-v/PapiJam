@@ -7,6 +7,7 @@ public class PlayerManager : MonoBehaviour
     //el pis contiene a los jugadores
     public PlayerInputManagerScript pis;
 
+    MenuPrefs mp ;
     //Un meshrenderer y un meshfilter por cada jugador.
     public MeshRenderer meshP1;
     public MeshRenderer meshP2;
@@ -29,6 +30,7 @@ public class PlayerManager : MonoBehaviour
     private void Awake() {
         //buscamos el pis
         pis = FindObjectOfType<PlayerInputManagerScript>();
+        mp = FindObjectOfType<MenuPrefs>();
     }
     void Start()
     {

@@ -22,7 +22,7 @@ public class LimitBar : MonoBehaviour
 
     private void Awake()
     {
-        
+
          if (relleno== null) relleno = GetComponentInChildren<RellenoLimite>();
         
         if (myImage == null)
@@ -105,7 +105,7 @@ public class LimitBar : MonoBehaviour
     {
 
         LimitBar selectedBar = null;
-    
+
         foreach (LimitBar bar in FindObjectsOfType<LimitBar>())
         {
             if (bar.myPlayer == null)
