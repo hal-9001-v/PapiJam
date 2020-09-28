@@ -622,7 +622,7 @@ MonoBehaviour:
   MAXLIMIT: 10
   monsterCharge: 3
   currentState: 0
-  lives: 1
+  lives: 3
   charSelected: 0
   selectorSP: []
   casillasPos: []
@@ -1335,8 +1335,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.6250501, y: 1, z: 4.4987135}
-  m_Center: {x: 1.2561834, y: 0, z: 2.9946918}
+  m_Size: {x: 1.6250501, y: 1, z: 1.3165126}
+  m_Center: {x: 1.2561834, y: 0, z: 1.4035914}
 --- !u!54 &2053129578236721401
 Rigidbody:
   m_ObjectHideFlags: 0

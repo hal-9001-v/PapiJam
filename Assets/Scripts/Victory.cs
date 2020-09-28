@@ -26,7 +26,7 @@ public class Victory : MonoBehaviour
 
         yield return new WaitForSeconds(time);
 
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(3);
     }
 
     // Update is called once per frame

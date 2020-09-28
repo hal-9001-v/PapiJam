@@ -19,7 +19,7 @@ public class PlayerAnimator : MonoBehaviour
 
         if (!rb)
             rb = GetComponentInChildren<Rigidbody>();
-
+        
     }
 
     // Update is called once per frame

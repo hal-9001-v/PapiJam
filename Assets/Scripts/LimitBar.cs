@@ -9,7 +9,7 @@ public class LimitBar : MonoBehaviour
 
     public Image myImage;
     public PlayerController myPlayer;
-
+    
     public Sprite[] myIcons;
     public Sprite[] myNumbers;
     public Image myHealthRenderer;
