@@ -19,15 +19,12 @@ public class CharacterSelector : MonoBehaviour
             if (mySpriteRenderer == null)
                 Debug.LogWarning("No Sprite Renderer on " + gameObject.name);
         }
-
-
     }
 
 
     public void setCharacter(CharacterHolder holder)
     {
-
-        myPlayerController.charSelected = holder.characterNumber;
+        transform.parent = holder.transform;
 
         Vector3 aux = holder.transform.position;
         aux.z -= 1;

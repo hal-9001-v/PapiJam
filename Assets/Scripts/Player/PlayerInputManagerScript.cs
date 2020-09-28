@@ -13,8 +13,6 @@ public class PlayerInputManagerScript : MonoBehaviour
     private Cinemachine.CinemachineTargetGroup cinemachineTargetGroup;
     private PlayerSpawn[] myPlayerSpawns;
 
-    public CameraSwitcher cSwitcher;
-
     private void Awake()
     {
         myInputManager = GetComponent<PlayerInputManager>();
@@ -48,8 +46,6 @@ public class PlayerInputManagerScript : MonoBehaviour
             i++;
         }
 
-
-        if (!cSwitcher) cSwitcher = GameObject.FindWithTag("CameraSwitcher").GetComponent<CameraSwitcher>();
 
 
     }
@@ -86,14 +82,14 @@ public class PlayerInputManagerScript : MonoBehaviour
 
                 myPlayerControllers.Add(playerJoined);
 
-            
+
                 playerJoined.PlayerID = playerNum;
                 playerJoined.name = "Player" + playerNum;
 
 
                 PlayerSpawn selectedPlayerSpawn = getFreeSpawn();
 
-                cSwitcher.addFollowPlayer(playerJoined.gameObject);
+
 
                 if (selectedPlayerSpawn == null)
                 {

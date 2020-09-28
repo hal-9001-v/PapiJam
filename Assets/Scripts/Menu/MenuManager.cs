@@ -176,6 +176,8 @@ public class MenuManager : MonoBehaviour
         //GO TO SELECTION LAYER
         else if (currentLayer == myNumberLayer)
         {
+
+
             hidePlayerNumberSelector();
 
             showCharacterSelection();
@@ -189,6 +191,10 @@ public class MenuManager : MonoBehaviour
                 cs.GetComponent<SpriteRenderer>().enabled = true;
 
             }
+
+
+            startSelectingCharacter();
+
 
 
         }
@@ -381,6 +387,28 @@ public class MenuManager : MonoBehaviour
 
     }
 
+    public void retakeCharacterSelectors() {
+        foreach (CharacterSelector cs in FindObjectsOfType<CharacterSelector>()) {
+            cs.transform.parent = cs.myPlayerController.transform;
+        
+        }
+    }
+
+    public void startSelectingCharacter()
+    {
+
+        foreach (CharacterSelector cs in FindObjectsOfType<CharacterSelector>())
+        {
+            cs.myPosition.x = 0;
+            cs.myPosition.y = 0;
+
+            cs.setCharacter(mySelectionLayer.xArray[0].yArray[0].GetComponent<CharacterHolder>());
+
+            cs.gameObject.SetActive(true);
+        }
+
+    }
+
     public void OnSelect(CharacterSelector cs)
     {
         audioPlay.clip = sonidos[0];
@@ -400,19 +428,24 @@ public class MenuManager : MonoBehaviour
         {
             Debug.Log("Start Playing");
 
+            retakeCharacterSelectors();
+
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+
 
         }
 
 
     }
 
-    public void OnJoin(){
+    public void OnJoin()
+    {
         audioPlay.clip = sonidos[0];
         audioPlay.Play();
     }
 
-    public void OnDisconnect(){
+    public void OnDisconnect()
+    {
         audioPlay.clip = sonidos[2];
         audioPlay.Play();
     }

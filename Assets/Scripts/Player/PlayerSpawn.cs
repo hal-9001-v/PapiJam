@@ -5,16 +5,23 @@ using UnityEngine;
 public class PlayerSpawn : MonoBehaviour
 {
     public PlayerController myPlayer;
+    public CameraSwitcher cSwitcher;
+
     GameObject particleSpawn;
     [Range(0.5f, 10)]
     public float spawnHeight;
 
-    private void Awake() {
+    private void Awake()
+    {
         particleSpawn = Instantiate(GameAssets.i.particles[1], gameObject.transform);
         particleSpawn.SetActive(false);
+
+        if (!cSwitcher) cSwitcher = GameObject.FindWithTag("CameraSwitcher").GetComponent<CameraSwitcher>();
     }
     public void spawnPlayer(PlayerController player)
     {
+        if (!myPlayer) cSwitcher.addFollowPlayer(player.gameObject);
+
         SoundManager.PlaySound(SoundManager.Sound.Reaparecer, 0.4f);
         myPlayer = player;
         Vector3 spawnPosition = new Vector3(transform.position.x, transform.position.y + spawnHeight, transform.position.z);
@@ -24,7 +31,8 @@ public class PlayerSpawn : MonoBehaviour
         StartCoroutine(SpawnParticle());
     }
 
-    IEnumerator SpawnParticle(){
+    IEnumerator SpawnParticle()
+    {
         yield return new WaitForSeconds(4);
         particleSpawn.SetActive(false);
     }
@@ -47,5 +55,9 @@ public class PlayerSpawn : MonoBehaviour
 
         return null;
     }
+
+
+
+
 
 }
