@@ -11,6 +11,8 @@ public class PlayerController : MonoBehaviour
     public Rigidbody rb;
     public Vector3 movementDirection;
 
+
+    public AudioSource cancion;
     public int numberOfBullets;
 
     //Control Booleans
@@ -27,6 +29,7 @@ public class PlayerController : MonoBehaviour
     public bool isSword = false;
     public bool isLimiting = false;
     public bool canDoLimit = false;
+    public bool hasPlayedLimitSound = false;
     public bool canBeExecuted = true;
 
     //Player Stats
@@ -40,7 +43,6 @@ public class PlayerController : MonoBehaviour
     public int dashCount;
     public float shieldTime;
 
-
     //GOs
     public SwordScript sword;
     public OrbitalScript orbital;
@@ -53,7 +55,6 @@ public class PlayerController : MonoBehaviour
     private bool carIsDrifting;
 
     public float extraSpeed;
-    private float extraSpeedCounter = 0;
 
     public ExecutionCollisioner myExecutionCollision;
     public PlayerSpawn ps;
@@ -70,12 +71,24 @@ public class PlayerController : MonoBehaviour
     private const int MAXLIVES = 3;
     public int lives = MAXLIVES;
 
+    public int charSelected;
+    public Sprite[] selectorSP;
+    public Vector3[] casillasPos;
+
+    public CharacterSelector myCharacterSelector;
+    PlayerInputManagerScript myInputManagerScript;
+    MenuManager myMenuManager;
+
+    public bool canQuit;
+
     GameObject particleDie;
+
 
     enum playerState
     {
         normal = 0,
         car = 1,
+        menu = 2,
 
     }
 
@@ -84,16 +97,18 @@ public class PlayerController : MonoBehaviour
         //Stat inicialization
         DashCD = 0.7f;
         ShootCD = 50f;
-
+        carTime = 15.5f;
         rotateSpeed = 8f;
         numberOfBullets = 3;
         dashCount = 1;
-
+        
         //GO inicialization
         rb = GetComponent<Rigidbody>();
 
         if (orbital == null)
-            orbital = GetComponentInChildren<OrbitalScript>();
+            orbital = GetComponentInChildren<OrbitalScript>(true);
+        if (rb == null)
+            rb = GetComponentInChildren<Rigidbody>(true);
 
         if (sword == null)
             sword = GetComponentInChildren<SwordScript>();
@@ -102,6 +117,7 @@ public class PlayerController : MonoBehaviour
             myCar = GetComponentInChildren<CarPowerUp>();
         if (myShield == null)
             myShield = GetComponentInChildren<ShieldScript>();
+
         if (myExecutionCollision == null)
             myExecutionCollision = GetComponentInChildren<ExecutionCollisioner>();
 
@@ -109,22 +125,30 @@ public class PlayerController : MonoBehaviour
         myExecutionCollision.gameObject.SetActive(false);
 
         sword.setPlayer(this);
-        
+
         myLimitBar = LimitBar.getFreeLimitBar();
 
-        if (myLimitBar != null)
+        myMenuManager = FindObjectOfType<MenuManager>();
+
+        if (myCharacterSelector == null)
         {
-            myLimitBar.assingLimitBar(this);
-            myLimitBar.show();
+            myCharacterSelector = GetComponentInChildren<CharacterSelector>();
+            if (myCharacterSelector == null) Debug.LogWarning("No Character Selector On Player");
         }
-        else
+
+        myInputManagerScript = FindObjectOfType<PlayerInputManagerScript>();
+
+        if (myInputManagerScript == null)
         {
-            Debug.LogWarning("No free Limit Bar in Scene");
+            Debug.LogWarning("No InputManagerScript on Scene");
         }
+        transform.position = new Vector3(10000,1000,1000);
 
         particleDie = Instantiate(GameAssets.i.particles[4], gameObject.transform);
         particleDie.SetActive(false);
+
     }
+
 
     IEnumerator SpawnWait(){
         canMove = false;
@@ -138,13 +162,101 @@ public class PlayerController : MonoBehaviour
     }
     private void Start()
     {
-        enterNormalState();
         StartCoroutine(SpawnWait());
+
+        enterMenuState();
+        hidePlayer();
+
+        canQuit = true;
+
+    }
+
+    private void OnLevelWasLoaded(int level)
+    {
+
+        switch (level)
+        {
+            //Menu
+            case 0:
+
+                destroyPlayer();
+                
+                break;
+                //Mariano
+            case 1:
+                
+                canQuit = false;
+
+                PlayerSpawn ps = PlayerSpawn.getFreeSpawn();
+
+                if (ps != null)
+                {
+                    ps.spawnPlayer(this);
+                }
+                else
+                {
+                    Debug.LogWarning("No Spawn in scene");
+                }
+
+
+                myLimitBar = LimitBar.getFreeLimitBar();
+
+                if (myLimitBar != null)
+                {
+                    myLimitBar.assingLimitBar(this);
+                    myLimitBar.show();
+                }
+                else
+                {
+                    Debug.LogWarning("No free Limit Bar in Scene");
+                }
+
+                GameObject cancionFind;
+                cancionFind = GameObject.Find("AudioSource");
+                cancion = cancionFind.GetComponent<AudioSource>();
+                cancion.Pause();
+                
+
+                enterNormalState();
+                break;
+        }
+    }
+
+    public void hidePlayer()
+    {
+        foreach (MeshRenderer mr in GetComponentsInChildren<MeshRenderer>())
+        {
+            mr.enabled = false;
+
+        }
+        foreach (Collider c in GetComponentsInChildren<Collider>())
+        {
+            c.enabled = false;
+        }
+
+    }
+
+    public void show()
+    {
+        foreach (MeshRenderer mr in GetComponentsInChildren<MeshRenderer>())
+        {
+            mr.enabled = true;
+
+        }
+        foreach (Collider c in GetComponentsInChildren<Collider>())
+        {
+            c.enabled = true;
+        }
+
     }
 
     public void chargeLimit(float n)
     {
         limit += n;
+        
+        if(limit >= MAXLIMIT && !hasPlayedLimitSound){ SoundManager.PlaySound(SoundManager.Sound.LimiteAlcanzado,0.3f);
+        myLimitBar.relleno.myImage.color = new Color32(255,255,0,255);
+        hasPlayedLimitSound = true;}
 
         if (limit > MAXLIMIT)
         {
@@ -178,6 +290,7 @@ public class PlayerController : MonoBehaviour
     public void enterCarState()
     {
         exitState();
+        myShield.gameObject.SetActive(false);
         myCar.gameObject.SetActive(true);
         canSwing = false;
         canDash = false;
@@ -192,7 +305,8 @@ public class PlayerController : MonoBehaviour
         canDoLimit = false;
 
         carIsDrifting = false;
-
+        SoundManager.PlaySound(SoundManager.Sound.FALDAEUROBEAT, 0.7f);
+        cancion.Pause();
         myCar.show();
 
         currentState = (int)playerState.car;
@@ -201,6 +315,10 @@ public class PlayerController : MonoBehaviour
     {
         exitState();
         myCar.gameObject.SetActive(false);
+        myCharacterSelector.gameObject.SetActive(false);
+
+        cancion.Play();
+
         canSwing = true;
         canDash = true;
         canshield = true;
@@ -214,8 +332,34 @@ public class PlayerController : MonoBehaviour
         canDoLimit = true;
 
         carIsDrifting = false;
+        
 
         currentState = (int)playerState.normal;
+
+        show();
+    }
+
+    public void enterMenuState()
+    {
+
+        exitState();
+        myCar.gameObject.SetActive(false);
+        myCharacterSelector.gameObject.SetActive(true);
+        canSwing = false;
+        canDash = false;
+        canMove = false;
+        canShoot = false;
+        isHit = false;
+        hasSpeeded = false;
+        hasUltraInstinted = false;
+        hasChangedSword = false;
+        isShielded = false;
+        canDoLimit = false;
+
+        carIsDrifting = false;
+        
+
+        currentState = (int)playerState.menu;
     }
 
     public void changeStateTimer(int nextState, float time)
@@ -280,7 +424,7 @@ public class PlayerController : MonoBehaviour
             particleDie.SetActive(true);
             StartCoroutine(DoRegen(4f));
         }
-        
+
     }
 
     private IEnumerator DoRegen(float time)
@@ -296,7 +440,7 @@ public class PlayerController : MonoBehaviour
         canBeExecuted = true;
         particleDie.SetActive(false);
     }
-private void OnLimit()
+    private void OnLimit()
     {
         if (canDoLimit)
         {
@@ -304,7 +448,7 @@ private void OnLimit()
             {
                 GameObject.FindWithTag("VirtualCamera").GetComponent<VirtualCamShake>().Shake(2f);
                 chargeLimit(-MAXLIMIT);
-                
+
                 ExecutionController exController = GetComponent<ExecutionController>();
                 if (!exController)
                 {
@@ -317,7 +461,7 @@ private void OnLimit()
                 }
             }
         }
-        
+
     }
     private void OnGas()
     {
@@ -330,7 +474,7 @@ private void OnLimit()
     }
     private void OnMovement(InputValue value)
     {
-        
+
         Vector2 movementInput = value.Get<Vector2>().normalized;
 
         switch (currentState)
@@ -434,7 +578,22 @@ private void OnLimit()
     {
         if (!isShielded)
         {
-            
+             /*switch(characterSelect){
+                 case 1: 
+                     SoundManager.PlaySound(SoundManager.Sound.FurroHit, 0.3f);
+                    break;
+                 case 2:
+                 SoundManager.PlaySound(SoundManager.Sound.DarsayHit, 0.3f);
+                    break;
+                case 3: 
+                SoundManager.PlaySound(SoundManager.Sound.ViejaHit, 0.3f);
+                    break;
+                case 4:
+                SoundManager.PlaySound(SoundManager.Sound.SansHit, 0.3f);
+                    break;
+
+             }*/
+
             isHit = true;
             canDash = false;
             canMove = false;
@@ -699,7 +858,7 @@ private void OnLimit()
 
             case (int)playerState.car:
 
-                
+
                 rb.velocity = movementDirection * carSpeed;
                 rotateToDirection();
 
@@ -720,4 +879,97 @@ private void OnLimit()
 
 
     }
+
+
+    private void OnUp()
+    {
+        if (myMenuManager != null)
+        {
+            myMenuManager.OnUp(myCharacterSelector);
+        }
+
+    }
+
+    private void OnDown()
+    {
+        if (myMenuManager != null)
+        {
+            myMenuManager.OnDown(myCharacterSelector);
+        }
+
+
+    }
+
+    private void OnLeft()
+    {
+        if (myMenuManager != null)
+        {
+            myMenuManager.OnLeft(myCharacterSelector);
+        }
+
+
+
+    }
+
+    private void OnRight()
+    {
+
+        if (myMenuManager != null)
+        {
+            myMenuManager.OnRight(myCharacterSelector);
+        }
+
+    }
+
+    private void OnSelect()
+    {
+        if (myMenuManager != null)
+        {
+            myMenuManager.OnSelect(myCharacterSelector);
+        }
+
+
+    }
+
+    private void OnBack()
+    {
+        if (myMenuManager != null)
+        {
+            myMenuManager.OnBack();
+        }
+    }
+
+    void destroyPlayer()
+    {
+        foreach (BulletScript bullet in orbital.myBullets)
+        {
+            Destroy(bullet.gameObject);
+        }
+
+        foreach (BulletScript bullet in orbital.bfgArray)
+        {
+            if (bullet != null)
+                Destroy(bullet.gameObject);
+        }
+
+
+        if (myInputManagerScript != null)
+            myInputManagerScript.quitPlayer(this);
+
+        Destroy(this.gameObject);
+
+    }
+
+    private void OnQuit()
+    {
+        if (canQuit)
+        {
+            destroyPlayer();
+        }
+
+
+
+    }
+
+
 }
