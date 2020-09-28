@@ -70,6 +70,8 @@ public class PlayerController : MonoBehaviour
     private const int MAXLIVES = 3;
     public int lives = MAXLIVES;
 
+    GameObject particleDie;
+
     enum playerState
     {
         normal = 0,
@@ -119,6 +121,9 @@ public class PlayerController : MonoBehaviour
         {
             Debug.LogWarning("No free Limit Bar in Scene");
         }
+
+        particleDie = Instantiate(GameAssets.i.particles[4], gameObject.transform);
+        particleDie.SetActive(false);
     }
 
     IEnumerator SpawnWait(){
@@ -272,7 +277,7 @@ public class PlayerController : MonoBehaviour
 
             currentState = (int)playerState.normal;
 
-            ps.spawnPlayer(this);
+            particleDie.SetActive(true);
             StartCoroutine(DoRegen(4f));
         }
         
@@ -282,16 +287,22 @@ public class PlayerController : MonoBehaviour
     {
         canBeExecuted = false;
 
-        yield return new WaitForSeconds(time);
+        yield return new WaitForSeconds(time * 0.5f);
+
+        ps.spawnPlayer(this);
+
+        yield return new WaitForSeconds(time * 0.5f);
 
         canBeExecuted = true;
+        particleDie.SetActive(false);
     }
- private void OnLimit()
+private void OnLimit()
     {
         if (canDoLimit)
         {
             if (limit >= MAXLIMIT)
             {
+                GameObject.FindWithTag("VirtualCamera").GetComponent<VirtualCamShake>().Shake(2f);
                 chargeLimit(-MAXLIMIT);
                 
                 ExecutionController exController = GetComponent<ExecutionController>();
