@@ -12,6 +12,8 @@ public class PlayerInputManagerScript : MonoBehaviour
     private Cinemachine.CinemachineTargetGroup cinemachineTargetGroup;
     private PlayerSpawn[] myPlayerSpawns;
 
+    public CameraSwitcher cSwitcher;
+
     private void Awake()
     {
         myInputManager = GetComponent<PlayerInputManager>();
@@ -23,6 +25,7 @@ public class PlayerInputManagerScript : MonoBehaviour
     {
         //Son 8 por que cada jugador tiene dos players, el orbital y el jugador.
         pArray = new PlayerController[4];
+        if (!cSwitcher) cSwitcher = GameObject.FindWithTag("CameraSwitcher").GetComponent<CameraSwitcher>();
 
     }
 
@@ -52,8 +55,10 @@ public class PlayerInputManagerScript : MonoBehaviour
                 pArray[playerNum].PlayerID = playerNum;
                 pArray[playerNum].name = "Jugador" + playerNum;
 //                if(pArray[playerNum]!=null) cinemachineTargetGroup.AddMember(pArray[playerNum].transform,1,0);
-
+    
                 PlayerSpawn selectedPlayerSpawn = getFreeSpawn();
+
+                cSwitcher.addFollowPlayer(pArray[playerNum].gameObject);
 
                 if (selectedPlayerSpawn == null)
                 {
