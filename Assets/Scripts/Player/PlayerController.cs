@@ -420,8 +420,10 @@ public class PlayerController : MonoBehaviour
 
     }
     public void getExecuted()
-    {
+    {   
+
         --lives;
+        myLimitBar.myHealthRenderer.sprite = GameAssets.i.healthArray[lives];
         if (lives <= 0)
         {
             Destroy(gameObject);
@@ -604,9 +606,9 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void Hit(float force, Vector3 dir, float time)
+    public void Hit(float force, Vector3 dir, float time, float time2)
     {
-        if (!isShielded)
+        if (!isShielded && !isHit)
         {
             switch(charSelected){
                 case 0: 
@@ -631,12 +633,12 @@ public class PlayerController : MonoBehaviour
             canSwing = false;
 
             rb.AddForce(Vector3.Normalize(dir) * force);
-            StartCoroutine(HitStun(time));
+            StartCoroutine(HitStun(time, time2));
         }
 
     }
 
-    IEnumerator HitStun(float hitstun)
+    IEnumerator HitStun(float hitstun,float hitstun2)
     {
         hitAnim = true;
         yield return new WaitForSeconds(hitstun);
@@ -645,8 +647,10 @@ public class PlayerController : MonoBehaviour
         canMove = true;
         canSwing = true;
         canShoot = true;
+        yield return new WaitForSeconds(1.2f-hitstun);
+        if(hitAnim) hitAnim = false;
+        yield return new WaitForSeconds(hitstun2);
         isHit = false;
-        hitAnim = false;
     }
 
     private void OnCollisionEnter(Collision col)
@@ -663,7 +667,6 @@ public class PlayerController : MonoBehaviour
                 canMove = true;
                 canSwing = true;
                 canShoot = true;
-                isHit = false;
             }
         }
     }
@@ -783,10 +786,13 @@ public class PlayerController : MonoBehaviour
     public void SpeedBoost()
     {
         if (!hasSpeeded)
-        {
+        {   
             walkSpeed = walkSpeed * 2;
             hasSpeeded = true;
         }
+                
+                
+        if(walkSpeed > 18) walkSpeed = 18;
     }
 
     public void changeSword()
@@ -903,7 +909,7 @@ public class PlayerController : MonoBehaviour
             case (int)playerState.car:
 
 
-                rb.velocity = movementDirection * walkSpeed;
+                rb.velocity = movementDirection * walkSpeed * 3;
                 rotateToDirection();
 
                 //Drift

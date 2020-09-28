@@ -33,7 +33,8 @@ public class SwordScript : MonoBehaviour
 
     private void Awake()
     {
-        swordForce = 250;
+        hitStunTime = 0.6f;
+        swordForce = 600;
         
 
     }
@@ -84,22 +85,31 @@ public class SwordScript : MonoBehaviour
         {
             PlayerController hitPlayer = col.GetComponent<PlayerController>();
             
-            if (hitPlayer != null)
+            if (hitPlayer != null && myPlayer!=null)
             {
+                
                 if(hitPlayer.PlayerID != myPlayer.PlayerID){
-                dir = Vector3.Normalize(hitPlayer.transform.position - transform.position);
-                hitPlayer.Hit(swordForce, dir, hitStunTime);    
+                Debug.Log(hitPlayer.name + " hit with sword!");
+                
+               if(!hitPlayer.isHit){ 
 
-                if (myPlayer != null)
-                {
-                    if(cloudSword.gameObject.activeSelf) SoundManager.PlaySound(SoundManager.Sound.EspadaHit, 0.5f);
-                    if(normalSword.gameObject.activeSelf) SoundManager.PlaySound(SoundManager.Sound.GolpePuerro, 0.3f);
-                    hitParticle = Instantiate(GameAssets.i.particles[3], col.gameObject.transform);
-                    hitParticle.transform.parent = null;
-                    StartCoroutine(DestroyParticles());
-                    myPlayer.chargeLimit(limitCharge);
+                dir = Vector3.Normalize(hitPlayer.transform.position - transform.position);
+                hitPlayer.Hit(swordForce, dir, hitStunTime,0.9f);
+
+                if(cloudSword.gameObject.activeSelf) SoundManager.PlaySound(SoundManager.Sound.EspadaHit, 0.5f);
+                if(normalSword.gameObject.activeSelf) SoundManager.PlaySound(SoundManager.Sound.GolpePuerro, 0.3f);
+                    
+                hitParticle = Instantiate(GameAssets.i.particles[3], col.gameObject.transform);
+                hitParticle.transform.parent = null;
+      
+                StartCoroutine(DestroyParticles());
+                myPlayer.chargeLimit(limitCharge);
+               }
+               
+                    
+                      
                 }
-                }
+                
 
             }
 

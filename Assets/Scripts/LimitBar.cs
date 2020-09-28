@@ -12,6 +12,7 @@ public class LimitBar : MonoBehaviour
 
     public Sprite[] myIcons;
     public Sprite[] myNumbers;
+    public Image myHealthRenderer;
 
     public Image myIconRenderer;
     public Image myNumberRenderer;
@@ -24,7 +25,7 @@ public class LimitBar : MonoBehaviour
     {
         
          if (relleno== null) relleno = GetComponentInChildren<RellenoLimite>();
-        
+        if (myHealthRenderer== null) myHealthRenderer = GetComponentInChildren<Image>();
         if (myImage == null)
         {
             myImage = GetComponentInChildren<Image>();

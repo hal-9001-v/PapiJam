@@ -29,9 +29,11 @@ public class CarPowerUp : MonoBehaviour
         if (other.gameObject != myPlayer.gameObject) {
 
             if (other.tag == "Player") {
-                other.GetComponent<PlayerController>().Hit(hitForce, other.transform.position - transform.position, 1);
 
-                myPlayer.chargeLimit(2);
+                if(!other.GetComponent<PlayerController>().isHit) {
+                    myPlayer.chargeLimit(2);
+                    other.GetComponent<PlayerController>().Hit(hitForce, other.transform.position - transform.position, 1,1);
+                    }
             }
         
         }

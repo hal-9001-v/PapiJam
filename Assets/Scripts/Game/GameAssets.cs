@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 public class GameAssets : MonoBehaviour
 {
 
@@ -26,7 +27,7 @@ public class GameAssets : MonoBehaviour
     public Material[] mOArray;
     public Mesh[] meshOArray;
     public GameObject[] particles;
-    
+    public Sprite[] healthArray;
     
     //public Sprite[] hpArray;
 
