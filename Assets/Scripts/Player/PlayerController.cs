@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(Collider))]
 [RequireComponent(typeof(Rigidbody))]
@@ -85,7 +85,8 @@ public class PlayerController : MonoBehaviour
 
     GameObject particleDie;
 
-
+    public PlayerAnimator myPlayerAnimator;
+    
 
     enum playerState
     {
@@ -97,7 +98,7 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
-        
+
         //Stat inicialization
         DashCD = 0.7f;
         ShootCD = 50f;
@@ -120,7 +121,7 @@ public class PlayerController : MonoBehaviour
         if (rb == null)
             rb = GetComponentInChildren<Rigidbody>(true);
 
-            sword = GetComponentInChildren<SwordScript>();
+        sword = GetComponentInChildren<SwordScript>();
 
         if (myCar == null)
             myCar = GetComponentInChildren<CarPowerUp>();
@@ -156,9 +157,10 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator SpawnWait()
     {
-        for(int i = 0; i < 200; i++){
-        yield return new WaitForSeconds(0.01f);
-        canMove=false;
+        for (int i = 0; i < 200; i++)
+        {
+            yield return new WaitForSeconds(0.01f);
+            canMove = false;
         }
         movementDirection = Vector3.zero;
         canMove = true;
@@ -189,7 +191,7 @@ public class PlayerController : MonoBehaviour
 
             //Mariano
             case 1:
-                     
+
 
                 sword = GetComponentInChildren<SwordScript>();
                 StartCoroutine(SpawnWait());
@@ -229,13 +231,20 @@ public class PlayerController : MonoBehaviour
                     cancion.Pause();
 
                 }
-                else {
+                else
+                {
                     Debug.LogWarning("No AudioSource in Scene");
                 }
 
 
 
                 enterNormalState();
+                break;
+
+            case 2:
+                enterInactiveState();
+                
+
                 break;
         }
     }
@@ -330,13 +339,13 @@ public class PlayerController : MonoBehaviour
         SoundManager.PlaySound(SoundManager.Sound.FALDAEUROBEAT, 0.7f);
         cancion.Pause();
         myCar.show();
-        
+
 
         currentState = (int)playerState.car;
     }
     public void enterNormalState()
     {
-        
+
         exitState();
         myCar.gameObject.SetActive(false);
         myCharacterSelector.gameObject.SetActive(false);
@@ -357,7 +366,7 @@ public class PlayerController : MonoBehaviour
 
         carIsDrifting = false;
 
-        
+
 
         currentState = (int)playerState.normal;
 
@@ -387,6 +396,29 @@ public class PlayerController : MonoBehaviour
         currentState = (int)playerState.menu;
     }
 
+    public void enterInactiveState() {
+
+        exitState();
+        myCar.gameObject.SetActive(false);
+        myCharacterSelector.gameObject.SetActive(false);
+        orbital.gameObject.SetActive(false);
+        canSwing = false;
+        canDash = false;
+        canMove = false;
+        canShoot = false;
+        isHit = false;
+        hasSpeeded = false;
+        hasUltraInstinted = false;
+        hasChangedSword = false;
+        isShielded = false;
+        canDoLimit = false;
+
+        rb.velocity = Vector3.zero;
+
+        carIsDrifting = false;
+
+
+    }
     public void changeStateTimer(int nextState, float time)
     {
 
@@ -427,7 +459,24 @@ public class PlayerController : MonoBehaviour
         myLimitBar.myHealthRenderer.sprite = GameAssets.i.healthArray[lives];
         if (lives <= 0)
         {
+            foreach (BulletScript bullet in orbital.myBullets)
+            {
+                Destroy(bullet);
+
+            }
+
+            Destroy(myLimitBar.gameObject);
+
             Destroy(gameObject);
+
+
+            if(FindObjectsOfType<PlayerController>().Length == 2) {
+                SceneManager.LoadScene(2);
+
+                Debug.Log("END!");
+            }
+
+
         }
         else
         {
@@ -461,7 +510,7 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(time * 0.5f);
         ps = PlayerSpawn.getFreeSpawn();
         ps.spawnPlayer(this);
-        
+
         yield return new WaitForSeconds(time * 0.5f);
 
         canBeExecuted = true;
@@ -473,7 +522,7 @@ public class PlayerController : MonoBehaviour
         {
             if (limit >= MAXLIMIT)
             {
-                
+
                 hasPlayedLimitSound = false;
                 myLimitBar.relleno.myImage.color = new Color32(95, 122, 254, 255);
 
@@ -611,19 +660,20 @@ public class PlayerController : MonoBehaviour
     {
         if (!isShielded && !isHit)
         {
-            switch(charSelected){
-                case 0: 
+            switch (charSelected)
+            {
+                case 0:
                     SoundManager.PlaySound(SoundManager.Sound.FurroHit, 0.3f);
-                   break;
+                    break;
                 case 1:
-                SoundManager.PlaySound(SoundManager.Sound.DarsayHit, 0.3f);
-                   break;
-               case 2: 
-               SoundManager.PlaySound(SoundManager.Sound.ViejaHit, 1.5f);
-                   break;
-               case 3:
-               SoundManager.PlaySound(SoundManager.Sound.SansHit, 0.3f);
-                   break;
+                    SoundManager.PlaySound(SoundManager.Sound.DarsayHit, 0.3f);
+                    break;
+                case 2:
+                    SoundManager.PlaySound(SoundManager.Sound.ViejaHit, 1.5f);
+                    break;
+                case 3:
+                    SoundManager.PlaySound(SoundManager.Sound.SansHit, 0.3f);
+                    break;
 
             }
 
@@ -888,14 +938,14 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
 
-     
-          
-        
+
+
+
         switch (currentState)
         {
             case (int)playerState.normal:
-                 if (sword == null)
-          sword = GetComponentInChildren<SwordScript>();
+                if (sword == null)
+                    sword = GetComponentInChildren<SwordScript>();
                 if (canMove)
                 {
                     rb.velocity = movementDirection * walkSpeed;
@@ -909,6 +959,7 @@ public class PlayerController : MonoBehaviour
 
 
                 rb.velocity = movementDirection * carSpeed ;
+
                 rotateToDirection();
 
                 //Drift
@@ -933,22 +984,22 @@ public class PlayerController : MonoBehaviour
 
     }
 
-   
 
 
-     
-    
+
+
+
 
 
     private void OnDown()
     {
         if (myMenuManager != null)
         {
-            
+
             myMenuManager.OnDown(myCharacterSelector);
         }
 
-        
+
 
     }
 

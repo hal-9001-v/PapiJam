@@ -19,6 +19,7 @@ public class PlayerAnimator : MonoBehaviour
 
         if (!rb)
             rb = GetComponentInChildren<Rigidbody>();
+
     }
 
     // Update is called once per frame
@@ -30,5 +31,17 @@ public class PlayerAnimator : MonoBehaviour
         if(playerControl.isLimiting) animator.SetFloat("MovementValue", 0f);
         animator.SetBool("IsHit", playerControl.hitAnim);
 
+    }
+
+    public void setVictory() {
+        animator.SetBool("IsWinning", true);
+    }
+
+    private void OnLevelWasLoaded(int level)
+    {
+        //Victory
+        if (level == 2) {
+            setVictory();
+        }
     }
 }
