@@ -43,11 +43,16 @@ public class ItemSpawn : MonoBehaviour
         animationTimer = 0;
         movement = Mathf.Abs(movement);
         myItem.itemSetActive(true);
-
         Vector3 spawnPosition = new Vector3(transform.position.x, transform.position.y + spawnHeight, transform.position.z);
-
         myItem.transform.position = spawnPosition;
+        StartCoroutine(spawnDelay());
 
+    }
+
+    public IEnumerator spawnDelay(){
+        myItem.itemSetActive(false);
+        yield return new WaitForSeconds(5f);
+        myItem.itemSetActive(true);
     }
 
 

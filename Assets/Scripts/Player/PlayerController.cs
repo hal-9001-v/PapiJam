@@ -31,7 +31,7 @@ public class PlayerController : MonoBehaviour
     public bool canDoLimit = false;
     public bool hasPlayedLimitSound = false;
     public bool canBeExecuted = true;
-
+    public bool isWinning = false;
     //Player Stats
     public float DashCD;
     public float ShootCD;
@@ -98,7 +98,7 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
-
+        isWinning = false;
         //Stat inicialization
         DashCD = 0.7f;
         ShootCD = 50f;
@@ -106,6 +106,10 @@ public class PlayerController : MonoBehaviour
         rotateSpeed = 8f;
         numberOfBullets = 3;
         dashCount = 1;
+        walkSpeed = 8;
+         hasSpeeded = false;
+        hasUltraInstinted = false;
+        hasChangedSword = false;
         //GO inicialization
         rb = GetComponent<Rigidbody>();
 
@@ -323,7 +327,7 @@ public class PlayerController : MonoBehaviour
     {
         exitState();
         orbital.gameObject.SetActive(false);
-        carSpeed = walkSpeed*3;
+        carSpeed = 50;
         myShield.gameObject.SetActive(false);
         myCar.gameObject.SetActive(true);
         canSwing = false;
@@ -332,9 +336,7 @@ public class PlayerController : MonoBehaviour
         canshield = false;
         canShoot = false;
         isHit = false;
-        hasSpeeded = false;
-        hasUltraInstinted = false;
-        hasChangedSword = false;
+       
         isShielded = true;
         canDoLimit = false;
 
@@ -361,9 +363,6 @@ public class PlayerController : MonoBehaviour
         canMove = true;
         canShoot = true;
         isHit = false;
-        hasSpeeded = false;
-        hasUltraInstinted = false;
-        hasChangedSword = false;
         isShielded = false;
         canDoLimit = true;
 
@@ -478,6 +477,8 @@ public class PlayerController : MonoBehaviour
                 if (FindObjectsOfType<PlayerController>().Length == 2)
                 {
                     particleDie.SetActive(true);
+                    canMove = false;
+                    isWinning = true;
                     cta.transitionToColor(5f,0f, new Color(0,0,0,0));
                    
                 }
@@ -499,6 +500,8 @@ public class PlayerController : MonoBehaviour
                 isShielded = false;
                 canDoLimit = true;
                 carIsDrifting = false;
+                hitAnim = true;
+                
                 dashCount = 1;
                 currentState = (int)playerState.normal;
 
@@ -523,7 +526,7 @@ public class PlayerController : MonoBehaviour
         ps.spawnPlayer(this);
 
         yield return new WaitForSeconds(time * 0.5f);
-
+        hitAnim = false;
         canBeExecuted = true;
         particleDie.SetActive(false);
     }
@@ -729,7 +732,7 @@ public class PlayerController : MonoBehaviour
     private void OnCollisionEnter(Collision col)
     {
             
-        if ((col.gameObject.tag.Equals("Wall") || col.gameObject.tag.Equals("Player")) && !col.gameObject.tag.Equals("Escudin") && col.gameObject == this.gameObject)
+        if ((col.gameObject.tag.Equals("Wall") || col.gameObject.tag.Equals("Player")) && !col.gameObject.tag.Equals("Escudin") && col.gameObject == this.gameObject && !this.isLimiting)
         {
             if (isHit == true)
             {
@@ -860,10 +863,9 @@ public class PlayerController : MonoBehaviour
         {   
             walkSpeed = walkSpeed * 2;
             hasSpeeded = true;
-        }
-                
+        }                
 
-                if(walkSpeed > 15) walkSpeed = 15;
+                if(walkSpeed > 12) walkSpeed = 12;
     }
 
     public void changeSword()
@@ -908,7 +910,7 @@ public class PlayerController : MonoBehaviour
         for (int i = 0; i < 5; i++)
         {
             yield return new WaitForSeconds(0f);
-            rb.transform.position += rb.velocity / 5;
+            rb.AddForce(movementDirection*3500);
             yield return new WaitForSeconds(0.01f);
 
         }
@@ -923,14 +925,14 @@ public class PlayerController : MonoBehaviour
             if (dashCount == 1)
             {
 
-                yield return new WaitForSeconds(DashCD);
+                yield return new WaitForSeconds(0.5f);
 
-                if (hasUltraInstinted && dashCount == 1)
+                if (hasUltraInstinted && dashCount == 1){
 
                     canDash = true;
 
-                dashCount++;
-
+                    dashCount++;
+                }
             }
 
             else if (dashCount == 2)

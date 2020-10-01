@@ -27,8 +27,10 @@ public class SwordScript : MonoBehaviour
     public void attack()
     {
         gameObject.SetActive(true);
+        swordCollider.enabled = false;
         if(swordCollider==null) swordCollider = GetComponent<BoxCollider>();
         StartCoroutine(Attack());
+        StartCoroutine(ColliderEnable());
     }
 
     private void Awake()
@@ -39,7 +41,11 @@ public class SwordScript : MonoBehaviour
 
     }
 
-    
+        IEnumerator ColliderEnable() {
+            yield return new WaitForSeconds(0.2f);
+            swordCollider.enabled= true;
+        } 
+
     IEnumerator Attack() { 
         transform.position = new Vector3(myPlayer.transform.position.x, myPlayer.transform.position.y, myPlayer.transform.position.z);
 

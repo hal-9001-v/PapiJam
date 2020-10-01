@@ -15,7 +15,7 @@ public class PlayerAnimator : MonoBehaviour
             animator = GetComponentInChildren<Animator>();
 
         if (!playerControl)
-            playerControl = GetComponentInChildren<PlayerController>();
+            playerControl = GetComponentInParent<PlayerController>();
 
         if (!rb)
             rb = GetComponentInChildren<Rigidbody>();
@@ -28,9 +28,10 @@ public class PlayerAnimator : MonoBehaviour
         animator.SetFloat("MovementValue", Vector3.SqrMagnitude(rb.velocity));
         animator.SetBool("IsAtacking", playerControl.isSword);
         animator.SetBool("IsLimiting", playerControl.isLimiting);
-        if(playerControl.isLimiting) animator.SetFloat("MovementValue", 0f);
         animator.SetBool("IsHit", playerControl.hitAnim);
-
+        animator.SetBool("isWinning", playerControl.isWinning);
+        if(playerControl.isLimiting) animator.SetFloat("MovementValue", 0f);
+  
     }
 
     public void setVictory() {
@@ -42,6 +43,7 @@ public class PlayerAnimator : MonoBehaviour
         //Victory
         if (level == 2) {
             setVictory();
+            playerControl.isWinning = true;
             playerControl.canMove = false;
         }
     }

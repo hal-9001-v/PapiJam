@@ -58,7 +58,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8818ecccc11155f4298e725611d7c88e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeRoRespawn: 2
+  timeRoRespawn: 10
   readyToRespawn: 0
   myItemSpawn: {fileID: 0}
 --- !u!1001 &2967494275130341367

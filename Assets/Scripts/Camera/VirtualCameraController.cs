@@ -6,8 +6,8 @@ using UnityEngine.Events;
 
 public class VirtualCameraController : MonoBehaviour
 {
-    public float mainDistance = 400f;
-    public float mainAngle = 30f;
+    public float mainDistance;
+    public float mainAngle;
     private CinemachineFramingTransposer transposer;
     private bool isMoving = false;
     private Vector3 auxPos;
@@ -46,6 +46,8 @@ public class VirtualCameraController : MonoBehaviour
             }
         }
     }
+
+   
 
     IEnumerator DoSetPos(Vector3 end, float timeToGet, float delay)
     {

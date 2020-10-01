@@ -27,6 +27,7 @@ public class ExecutionController : MonoBehaviour
     {
         //Dejamos estático al personaje y establecemos colision con limites solamente.
         playerControl.gameObject.layer = 9;
+        playerControl.myShield.gameObject.SetActive(false);
         playerControl.myExecutionCollision.gameObject.SetActive(true);
         playerControl.canDash = false;
         playerControl.canMove = false;
@@ -77,6 +78,7 @@ public class ExecutionController : MonoBehaviour
         playerControl.canMove = true;
         playerControl.canShoot = true;
         playerControl.canSwing = true;
+        playerControl.myShield.gameObject.SetActive(true);
         if (!wasShielded) playerControl.isShielded = false;
         wasShielded = false;
 

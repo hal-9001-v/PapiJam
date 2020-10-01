@@ -107,7 +107,6 @@ public class BulletScript : MonoBehaviour
                  if(!pl.isHit && !pl.isShielded) {
                 Vector3 dir = rb.velocity;
                 hitParticle = Instantiate(GameAssets.i.particles[2], col.gameObject.transform);
-                hitParticle.transform.parent = null;
                 StartCoroutine(DestroyParticles());
                 col.gameObject.GetComponent<PlayerController>().Hit(bulletForce, dir, hitStunTime, 1.5f);
                 readyToShoot = true;
@@ -122,10 +121,22 @@ public class BulletScript : MonoBehaviour
 
 
         }
-        else if (col.gameObject.tag.Equals("Wall"))
+        else if (col.gameObject.tag.Equals("Wall") )
         {
             readyToShoot = true;
             gameObject.SetActive(false);
+        } else if(col.gameObject.tag.Equals("Escudin")) {
+             GameObject go;
+            PlayerController pl;
+
+            go = col.gameObject;
+            pl = go.GetComponentInParent<PlayerController>();
+
+            if (pl.PlayerID != myPlayer.PlayerID) {
+                readyToShoot = true;
+            gameObject.SetActive(false);
+            }
+
         }
 
     }

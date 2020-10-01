@@ -52,6 +52,7 @@ public class PlayerSpawn : MonoBehaviour
         {
             if (ps.myPlayer == null)
             {
+                
                 return ps;
             }
         }
