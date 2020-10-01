@@ -39,7 +39,7 @@ public static class SoundManager {
         }
 
         oneShotAudioSource.PlayOneShot(GetAudioClip(sound), vol);
-
+        
     }
 
     private static AudioClip GetAudioClip(Sound sound) {

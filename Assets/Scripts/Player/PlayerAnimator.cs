@@ -29,7 +29,7 @@ public class PlayerAnimator : MonoBehaviour
         animator.SetBool("IsAtacking", playerControl.isSword);
         animator.SetBool("IsLimiting", playerControl.isLimiting);
         animator.SetBool("IsHit", playerControl.hitAnim);
-        animator.SetBool("isWinning", playerControl.isWinning);
+        animator.SetBool("IsWinning", playerControl.isWinning);
         if(playerControl.isLimiting) animator.SetFloat("MovementValue", 0f);
   
     }

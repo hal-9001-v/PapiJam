@@ -73,6 +73,22 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""45e58dc5-67a1-49b1-a57f-f1fe2d1f59ca"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press""
+                },
+                {
+                    ""name"": ""Exit"",
+                    ""type"": ""Button"",
+                    ""id"": ""9c96d796-f20c-4b3e-a348-08a2b4144800"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press""
                 }
             ],
             ""bindings"": [
@@ -227,6 +243,28 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Shoot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5599eaa4-1805-4f7b-8153-de2c7711bfac"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Join"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2b66b017-521d-4e15-9a90-875c6bf2ff13"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Join"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -403,6 +441,83 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Gas"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""95fc8db1-2cb4-4aca-b051-410841c3e075"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Shoot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""fd835b25-7834-4d95-9a14-d72120b37d34"",
+                    ""path"": ""<Gamepad>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Join"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3463351a-2755-4ef0-a303-94b918fb7dfc"",
+                    ""path"": ""<Gamepad>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Join"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""45b8289f-c32e-467a-85f6-c5418123ea1e"",
+                    ""path"": ""<Gamepad>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7974aff1-bf20-4268-b0d3-4bd66daf720a"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a3367b34-fdec-4db1-bfa2-c2d11d04d5af"",
+                    ""path"": ""<Keyboard>/backspace"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Exit"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d5aa87c1-e5b9-4822-982a-54d6ec10ce50"",
+                    ""path"": ""<Gamepad>/select"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Exit"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -739,6 +854,22 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Exit"",
+                    ""type"": ""Button"",
+                    ""id"": ""e96f5478-95ed-411a-8180-2b290a9c4fba"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press""
+                },
+                {
+                    ""name"": ""Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""4ab24e4e-d404-42fb-9545-3eaaf458ac07"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press""
                 },
                 {
                     ""name"": ""Shoot"",
@@ -1461,6 +1592,61 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
                     ""action"": ""Quit"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a111ddb8-09e8-49f2-a2b7-25994fae452e"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Shoot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9d889576-e5fd-4236-8434-f3fc9fe0908e"",
+                    ""path"": ""<Gamepad>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""bcb1b03c-e13d-4dfd-8b87-0191d18f8a7e"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b570a116-1dbb-4a3d-8033-d90d24723428"",
+                    ""path"": ""<Keyboard>/backspace"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Exit"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""dbe442c6-dbf5-48a7-a333-e6c206464e72"",
+                    ""path"": ""<Gamepad>/select"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Exit"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -1476,6 +1662,8 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
         m_Player_Gas = m_Player.FindAction("Gas", throwIfNotFound: true);
         m_Player_Shoot = m_Player.FindAction("Shoot", throwIfNotFound: true);
         m_Player_Limit = m_Player.FindAction("Limit", throwIfNotFound: true);
+        m_Player_Pause = m_Player.FindAction("Pause", throwIfNotFound: true);
+        m_Player_Exit = m_Player.FindAction("Exit", throwIfNotFound: true);
         // Menu
         m_Menu = asset.FindActionMap("Menu", throwIfNotFound: true);
         m_Menu_Up = m_Menu.FindAction("Up", throwIfNotFound: true);
@@ -1487,6 +1675,8 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
         // All
         m_All = asset.FindActionMap("All", throwIfNotFound: true);
         m_All_Limit = m_All.FindAction("Limit", throwIfNotFound: true);
+        m_All_Exit = m_All.FindAction("Exit", throwIfNotFound: true);
+        m_All_Pause = m_All.FindAction("Pause", throwIfNotFound: true);
         m_All_Shoot = m_All.FindAction("Shoot", throwIfNotFound: true);
         m_All_Gas = m_All.FindAction("Gas", throwIfNotFound: true);
         m_All_Dash = m_All.FindAction("Dash", throwIfNotFound: true);
@@ -1556,6 +1746,8 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
     private readonly InputAction m_Player_Gas;
     private readonly InputAction m_Player_Shoot;
     private readonly InputAction m_Player_Limit;
+    private readonly InputAction m_Player_Pause;
+    private readonly InputAction m_Player_Exit;
     public struct PlayerActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -1567,6 +1759,8 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
         public InputAction @Gas => m_Wrapper.m_Player_Gas;
         public InputAction @Shoot => m_Wrapper.m_Player_Shoot;
         public InputAction @Limit => m_Wrapper.m_Player_Limit;
+        public InputAction @Pause => m_Wrapper.m_Player_Pause;
+        public InputAction @Exit => m_Wrapper.m_Player_Exit;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1597,6 +1791,12 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
                 @Limit.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLimit;
                 @Limit.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLimit;
                 @Limit.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLimit;
+                @Pause.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPause;
+                @Pause.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPause;
+                @Pause.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPause;
+                @Exit.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnExit;
+                @Exit.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnExit;
+                @Exit.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnExit;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -1622,6 +1822,12 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
                 @Limit.started += instance.OnLimit;
                 @Limit.performed += instance.OnLimit;
                 @Limit.canceled += instance.OnLimit;
+                @Pause.started += instance.OnPause;
+                @Pause.performed += instance.OnPause;
+                @Pause.canceled += instance.OnPause;
+                @Exit.started += instance.OnExit;
+                @Exit.performed += instance.OnExit;
+                @Exit.canceled += instance.OnExit;
             }
         }
     }
@@ -1704,6 +1910,8 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
     private readonly InputActionMap m_All;
     private IAllActions m_AllActionsCallbackInterface;
     private readonly InputAction m_All_Limit;
+    private readonly InputAction m_All_Exit;
+    private readonly InputAction m_All_Pause;
     private readonly InputAction m_All_Shoot;
     private readonly InputAction m_All_Gas;
     private readonly InputAction m_All_Dash;
@@ -1722,6 +1930,8 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
         private @PlayerInputActions m_Wrapper;
         public AllActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @Limit => m_Wrapper.m_All_Limit;
+        public InputAction @Exit => m_Wrapper.m_All_Exit;
+        public InputAction @Pause => m_Wrapper.m_All_Pause;
         public InputAction @Shoot => m_Wrapper.m_All_Shoot;
         public InputAction @Gas => m_Wrapper.m_All_Gas;
         public InputAction @Dash => m_Wrapper.m_All_Dash;
@@ -1747,6 +1957,12 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
                 @Limit.started -= m_Wrapper.m_AllActionsCallbackInterface.OnLimit;
                 @Limit.performed -= m_Wrapper.m_AllActionsCallbackInterface.OnLimit;
                 @Limit.canceled -= m_Wrapper.m_AllActionsCallbackInterface.OnLimit;
+                @Exit.started -= m_Wrapper.m_AllActionsCallbackInterface.OnExit;
+                @Exit.performed -= m_Wrapper.m_AllActionsCallbackInterface.OnExit;
+                @Exit.canceled -= m_Wrapper.m_AllActionsCallbackInterface.OnExit;
+                @Pause.started -= m_Wrapper.m_AllActionsCallbackInterface.OnPause;
+                @Pause.performed -= m_Wrapper.m_AllActionsCallbackInterface.OnPause;
+                @Pause.canceled -= m_Wrapper.m_AllActionsCallbackInterface.OnPause;
                 @Shoot.started -= m_Wrapper.m_AllActionsCallbackInterface.OnShoot;
                 @Shoot.performed -= m_Wrapper.m_AllActionsCallbackInterface.OnShoot;
                 @Shoot.canceled -= m_Wrapper.m_AllActionsCallbackInterface.OnShoot;
@@ -1793,6 +2009,12 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
                 @Limit.started += instance.OnLimit;
                 @Limit.performed += instance.OnLimit;
                 @Limit.canceled += instance.OnLimit;
+                @Exit.started += instance.OnExit;
+                @Exit.performed += instance.OnExit;
+                @Exit.canceled += instance.OnExit;
+                @Pause.started += instance.OnPause;
+                @Pause.performed += instance.OnPause;
+                @Pause.canceled += instance.OnPause;
                 @Shoot.started += instance.OnShoot;
                 @Shoot.performed += instance.OnShoot;
                 @Shoot.canceled += instance.OnShoot;
@@ -1845,6 +2067,8 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
         void OnGas(InputAction.CallbackContext context);
         void OnShoot(InputAction.CallbackContext context);
         void OnLimit(InputAction.CallbackContext context);
+        void OnPause(InputAction.CallbackContext context);
+        void OnExit(InputAction.CallbackContext context);
     }
     public interface IMenuActions
     {
@@ -1858,6 +2082,8 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
     public interface IAllActions
     {
         void OnLimit(InputAction.CallbackContext context);
+        void OnExit(InputAction.CallbackContext context);
+        void OnPause(InputAction.CallbackContext context);
         void OnShoot(InputAction.CallbackContext context);
         void OnGas(InputAction.CallbackContext context);
         void OnDash(InputAction.CallbackContext context);

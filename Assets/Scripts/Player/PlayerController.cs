@@ -87,7 +87,8 @@ public class PlayerController : MonoBehaviour
 
     public PlayerAnimator myPlayerAnimator;
     
-
+    public bool paused;
+    public PauseScript myPScript;
     enum playerState
     {
         normal = 0,
@@ -98,6 +99,7 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
+        paused = false;
         isWinning = false;
         //Stat inicialization
         DashCD = 0.7f;
@@ -183,7 +185,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnLevelWasLoaded(int level)
     {
-
+        
         switch (level)
         {
             //Menu
@@ -197,8 +199,8 @@ public class PlayerController : MonoBehaviour
             case 1:
 
                 cta = FindObjectOfType<CameraTransitioner>();
-
-
+                myPScript = FindObjectOfType<PauseScript>();
+                if(myPScript != null) myPScript.gameObject.SetActive(false);
                 sword = GetComponentInChildren<SwordScript>();
                 StartCoroutine(SpawnWait());
                 myCharacterContainer.selectSkin(charSelected);
@@ -1064,6 +1066,28 @@ public class PlayerController : MonoBehaviour
         {
             myMenuManager.OnBack();
         }
+    }
+
+    private void OnPause(){
+        if(!paused && (currentState == (int)playerState.normal ||currentState == (int)playerState.car ) ){ 
+            paused = true;
+            Time.timeScale = 0;
+            myPScript.gameObject.SetActive(true);
+            AudioListener.pause = true;
+            //AudioListener.volume = 0.2f;
+        }
+        else {
+            Time.timeScale = 1; 
+            paused = false;
+            myPScript.gameObject.SetActive(false);
+            AudioListener.pause = false;
+            //AudioListener.volume = 1;
+        }
+    }
+
+    private void OnExit()
+    {
+        if(paused)   Application.Quit();
     }
 
     void destroyPlayer()
