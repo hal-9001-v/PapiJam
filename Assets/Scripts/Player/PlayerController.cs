@@ -78,7 +78,7 @@ public class PlayerController : MonoBehaviour
     public CharacterSelector myCharacterSelector;
     PlayerInputManagerScript myInputManagerScript;
     public MenuManager myMenuManager;
-
+    public CameraTransitioner cta;
     public bool canQuit;
 
     public CharacterContainer myCharacterContainer;
@@ -191,6 +191,8 @@ public class PlayerController : MonoBehaviour
 
             //Mariano
             case 1:
+
+                cta = FindObjectOfType<CameraTransitioner>();
 
 
                 sword = GetComponentInChildren<SwordScript>();
@@ -320,6 +322,7 @@ public class PlayerController : MonoBehaviour
     public void enterCarState()
     {
         exitState();
+        orbital.gameObject.SetActive(false);
         carSpeed = walkSpeed*3;
         myShield.gameObject.SetActive(false);
         myCar.gameObject.SetActive(true);
@@ -349,7 +352,7 @@ public class PlayerController : MonoBehaviour
         exitState();
         myCar.gameObject.SetActive(false);
         myCharacterSelector.gameObject.SetActive(false);
-
+        orbital.gameObject.SetActive(true);
         cancion.Play();
         rb.velocity = Vector3.zero;
         canSwing = true;
@@ -468,14 +471,15 @@ public class PlayerController : MonoBehaviour
 
                 Destroy(myLimitBar.gameObject);
                 StartCoroutine(DoParticles(4f));
+                particleDie.transform.parent = null;
                 Destroy(gameObject);
 
-
+                    
                 if (FindObjectsOfType<PlayerController>().Length == 2)
                 {
-                    SceneManager.LoadScene(2);
-
-                    Debug.Log("END!");
+                    particleDie.SetActive(true);
+                    cta.transitionToColor(5f,0f, new Color(0,0,0,0));
+                   
                 }
 
 
@@ -494,15 +498,20 @@ public class PlayerController : MonoBehaviour
                 hasChangedSword = false;
                 isShielded = false;
                 canDoLimit = true;
-
                 carIsDrifting = false;
-
+                dashCount = 1;
                 currentState = (int)playerState.normal;
 
                 particleDie.SetActive(true);
                 StartCoroutine(DoRegen(3.5f));
             }
         }
+    }
+
+    public void NextScene(){
+         SceneManager.LoadScene(2);
+                    //EndShit
+                    Debug.Log("END!");
     }
 
     private IEnumerator DoRegen(float time)

@@ -42,6 +42,7 @@ public class PlayerAnimator : MonoBehaviour
         //Victory
         if (level == 2) {
             setVictory();
+            playerControl.canMove = false;
         }
     }
 }
