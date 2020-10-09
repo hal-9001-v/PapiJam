@@ -9,7 +9,7 @@ public class OrbitalScript : MonoBehaviour
     public int timer = TOP;
     public float pos;
     bool restart;
-
+    public GameObject orbitalMesh;
     PlayerController player;
     public float bulletSpeed = 5f;
 

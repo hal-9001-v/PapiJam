@@ -41,6 +41,7 @@ public class BulletScript : MonoBehaviour
     }
 
     private void Start() {
+        
          if(myOrbital.BFGmode && !myOrbital.gatlingMode ) {
             bfgBullet.SetActive(true);
             normalBullet.SetActive(false);

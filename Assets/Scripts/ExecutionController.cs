@@ -78,7 +78,6 @@ public class ExecutionController : MonoBehaviour
         playerControl.canMove = true;
         playerControl.canShoot = true;
         playerControl.canSwing = true;
-        playerControl.myShield.gameObject.SetActive(true);
         if (!wasShielded) playerControl.isShielded = false;
         wasShielded = false;
 

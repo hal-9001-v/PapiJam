@@ -456,6 +456,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timer: 50
   pos: 0
+  orbitalMesh: {fileID: 2977272438615841883}
   bulletSpeed: 5
   lasWalkVelocity: {x: 0, y: 0, z: 0}
   myBullets: []
@@ -620,7 +621,7 @@ MonoBehaviour:
   myExecutionCollision: {fileID: 0}
   ps: {fileID: 0}
   limit: 0
-  MAXLIMIT: 10
+  MAXLIMIT: 5
   monsterCharge: 3
   currentState: 0
   lives: 3
@@ -633,6 +634,7 @@ MonoBehaviour:
   canQuit: 0
   myCharacterContainer: {fileID: 8728489963603643540}
   myPlayerAnimator: {fileID: 0}
+  myPScript: {fileID: 0}
 --- !u!114 &454220025032678349
 MonoBehaviour:
   m_ObjectHideFlags: 0

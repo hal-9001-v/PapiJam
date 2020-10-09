@@ -4767,6 +4767,7 @@ GameObject:
   - component: {fileID: 8014854284929252425}
   - component: {fileID: 7965828706924763603}
   - component: {fileID: 7996575912242265695}
+  - component: {fileID: -4620844050090387723}
   m_Layer: 0
   m_Name: Die
   m_TagString: Untagged
@@ -4887,6 +4888,18 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &-4620844050090387723
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8028096067496524983}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a64ecb41a4dc0e4391daf14029e1100, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8028985353747479355
 GameObject:
   m_ObjectHideFlags: 0

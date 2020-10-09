@@ -28,6 +28,7 @@ public class GameAssets : MonoBehaviour
     public Mesh[] meshOArray;
     public GameObject[] particles;
     public Sprite[] healthArray;
+    public GameObject pauseImage;
     
     //public Sprite[] hpArray;
 

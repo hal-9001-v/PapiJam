@@ -47,7 +47,6 @@ public class PlayerController : MonoBehaviour
     public SwordScript sword;
     public OrbitalScript orbital;
     public CarPowerUp myCar;
-
     public ShieldScript myShield;
     public LimitBar myLimitBar;
 
@@ -87,7 +86,6 @@ public class PlayerController : MonoBehaviour
 
     public PlayerAnimator myPlayerAnimator;
     
-    public bool paused;
     public PauseScript myPScript;
     enum playerState
     {
@@ -99,7 +97,6 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
-        paused = false;
         isWinning = false;
         //Stat inicialization
         DashCD = 0.7f;
@@ -163,11 +160,13 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator SpawnWait()
     {
-        for (int i = 0; i < 200; i++)
+        
+        for (int i = 0; i < 100; i++)
         {
             yield return new WaitForSeconds(0.01f);
             canMove = false;
         }
+        
         movementDirection = Vector3.zero;
         canMove = true;
     }
@@ -200,9 +199,9 @@ public class PlayerController : MonoBehaviour
 
                 cta = FindObjectOfType<CameraTransitioner>();
                 myPScript = FindObjectOfType<PauseScript>();
-                if(myPScript != null) myPScript.gameObject.SetActive(false);
                 sword = GetComponentInChildren<SwordScript>();
                 StartCoroutine(SpawnWait());
+                StartCoroutine(PauseSetActiveWait());
                 myCharacterContainer.selectSkin(charSelected);
                 canQuit = false;
 
@@ -255,6 +254,11 @@ public class PlayerController : MonoBehaviour
 
                 break;
         }
+    }
+
+    IEnumerator PauseSetActiveWait(){
+        yield return new WaitForEndOfFrame();
+                    if(myPScript != null) myPScript.gameObject.SetActive(false);
     }
 
     public void hidePlayer()
@@ -328,8 +332,8 @@ public class PlayerController : MonoBehaviour
     public void enterCarState()
     {
         exitState();
-        orbital.gameObject.SetActive(false);
         carSpeed = 50;
+        orbital.orbitalMesh.SetActive(false);
         myShield.gameObject.SetActive(false);
         myCar.gameObject.SetActive(true);
         canSwing = false;
@@ -355,8 +359,10 @@ public class PlayerController : MonoBehaviour
 
         exitState();
         myCar.gameObject.SetActive(false);
+        
         myCharacterSelector.gameObject.SetActive(false);
         orbital.gameObject.SetActive(true);
+        orbital.orbitalMesh.SetActive(true);
         cancion.Play();
         rb.velocity = Vector3.zero;
         canSwing = true;
@@ -473,6 +479,7 @@ public class PlayerController : MonoBehaviour
                 Destroy(myLimitBar.gameObject);
                 StartCoroutine(DoParticles(4f));
                 particleDie.transform.parent = null;
+                
                 Destroy(gameObject);
 
                     
@@ -892,8 +899,8 @@ public class PlayerController : MonoBehaviour
         if (isShielded)
         {
             isShielded = false;
-            myShield.gameObject.SetActive(false);
         }
+                    myShield.gameObject.SetActive(false);
     }
 
     public void Shield()
@@ -909,6 +916,7 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator SlowDashing()
     {
+        isShielded = true;
         for (int i = 0; i < 5; i++)
         {
             yield return new WaitForSeconds(0f);
@@ -916,7 +924,7 @@ public class PlayerController : MonoBehaviour
             yield return new WaitForSeconds(0.01f);
 
         }
-
+        isShielded = false;
     }
 
     IEnumerator DashCDIng()
@@ -963,7 +971,7 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-
+       //limit++;
 
 
 
@@ -1069,16 +1077,17 @@ public class PlayerController : MonoBehaviour
     }
 
     private void OnPause(){
-        if(!paused && (currentState == (int)playerState.normal ||currentState == (int)playerState.car ) ){ 
-            paused = true;
+        
+        if(!myPScript.pause && (currentState == (int)playerState.normal ||currentState == (int)playerState.car ) ){ 
+            myPScript.pause = true;
             Time.timeScale = 0;
             myPScript.gameObject.SetActive(true);
             AudioListener.pause = true;
             //AudioListener.volume = 0.2f;
         }
-        else {
+        else if(currentState == (int)playerState.normal ||currentState == (int)playerState.car) {
             Time.timeScale = 1; 
-            paused = false;
+            myPScript.pause = false;
             myPScript.gameObject.SetActive(false);
             AudioListener.pause = false;
             //AudioListener.volume = 1;
@@ -1087,7 +1096,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnExit()
     {
-        if(paused)   Application.Quit();
+        if(myPScript.pause)   Application.Quit();
     }
 
     void destroyPlayer()

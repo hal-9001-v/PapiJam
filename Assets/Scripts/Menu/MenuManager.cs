@@ -48,7 +48,7 @@ public class MenuManager : MonoBehaviour
     //public Image
     private void Awake()
     {        
-        
+                Cursor.visible = false;
         Disconnected = GetComponentsInChildren<DisconnectedScript>();
         audioPlay.volume = 0.05f;
         currentLayer = myIntroLayer;
