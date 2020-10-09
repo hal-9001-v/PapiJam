@@ -1096,7 +1096,11 @@ public class PlayerController : MonoBehaviour
 
     private void OnExit()
     {
-        if(myPScript.pause)   Application.Quit();
+        if(myPScript.pause)  { 
+            Scene scene = SceneManager.GetActiveScene();
+            SceneManager.LoadScene(scene.buildIndex-1);
+            //Application.Quit();
+        }
     }
 
     void destroyPlayer()
